@@ -1,0 +1,11 @@
+.vs/
+obj/
+bin/
+packages/
+App_Data/
+Migrations/
+node_modules/
+dist/
+build/
+.npmrc
+*.log
