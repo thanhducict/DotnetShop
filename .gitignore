@@ -6,6 +6,8 @@ App_Data/
 Migrations/
 node_modules/
 dist/
-build/
 .npmrc
 *.log
+artifacts/
+
+DotnetShop.Admin.UI/modules

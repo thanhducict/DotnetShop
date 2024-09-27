@@ -1,0 +1,7 @@
+<Project>
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <NuspecBasePath>$(ProjectDir)..\</NuspecBasePath>
+    <NuspecProperties>Configuration=$(Configuration);Version=$(Version)</NuspecProperties>
+  </PropertyGroup>
+</Project>

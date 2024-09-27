@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+    <metadata>
+        <id>DotnetShop.Admin.Ordering</id>
+        <version>$Version$</version>
+        <description>Admin UI of Ordering for Dotnet Shop.</description>
+        <authors>Thanh Duc Nguyen</authors>
+        <contentFiles>
+            <files include="any\any\modules\DotnetShop.Admin.Ordering\dotnetshop.admin.ordering.js" buildAction="None" copyToOutput="true" />
+            <files include="any\any\modules\DotnetShop.Admin.Ordering\dotnetshop.admin.ordering.css" buildAction="None" copyToOutput="true" />
+        </contentFiles>
+        <dependencies>
+            <dependency id="DotnetShop.Admin.Core" version="[1.0.0, 2.0.0)" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="DotnetShop.Admin.Ordering\ClientApp\dist\dotnetshop.admin.ordering.js" target="contentFiles\any\any\modules\DotnetShop.Admin.Ordering" />
+        <file src="DotnetShop.Admin.Ordering\ClientApp\dist\dotnetshop.admin.ordering.css" target="contentFiles\any\any\modules\DotnetShop.Admin.Ordering" />
+        <file src="DotnetShop.Admin.Ordering\bin\$Configuration$\net8.0\DotnetShop.Admin.Ordering.dll" target="lib\net8.0" />
+        <file src="DotnetShop.Admin.Ordering\bin\$Configuration$\net8.0\DotnetShop.Admin.Ordering.pdb" target="lib\net8.0" />
+        <file src="Build\CopyResourceFiles.targets" target="build\net8.0\DotnetShop.Admin.Ordering.targets" />
+    </files>
+</package>
