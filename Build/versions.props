@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
-    <AdminCoreVersion>1.0.0</AdminCoreVersion>
-    <AdminOrderingVersion>1.0.0</AdminOrderingVersion>
+    <AdminCoreVersion>1.0.1</AdminCoreVersion>
+    <AdminOrderingVersion>1.0.1</AdminOrderingVersion>
   </PropertyGroup>
 </Project>

@@ -1,31 +1,53 @@
 using DotnetShop.Admin.Core.Initialization;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
+var environment = builder.Environment;
+var services = builder.Services;
 
-builder.Services.AddMvc();
-builder.Services.AddRazorPages();
+services.AddMvc();
+services.AddRazorPages();
 
-var allModules = AppDomain.CurrentDomain.GetAssemblies()
+var allModuleTypes = AppDomain.CurrentDomain.GetAssemblies()
                .SelectMany(s => s.GetTypes()).Where(p => typeof(IInitialization).IsAssignableFrom(p) && p.IsClass);
-foreach (var item in allModules)
+
+var allModules = new List<IInitialization>();
+
+foreach (var item in allModuleTypes)
 {
     var module = Activator.CreateInstance(item) as IInitialization;
-    if (module != null)
+    if(module != null)
     {
-        module.ConfigureContainer(builder);
+        allModules.Add(module);
     }
+}
+
+foreach (var module in allModules)
+{
+    module.ConfigureContainer(builder);
 }
 
 var app = builder.Build();
 
 app.UseStaticFiles();
+if (environment.IsDevelopment())
+{
+    app.UseStaticFiles(new StaticFileOptions
+    {
+        FileProvider = new PhysicalFileProvider(
+            Path.Combine(environment.ContentRootPath, @"../DotnetShop.Admin.Ordering/ClientApp/dist")),
+        RequestPath = "/admin-ordering-assets"
+    });
+}
 
-app.MapRazorPages();
-app.MapControllerRoute(
-    name: "MyArea",
-    pattern: "{area:exists}/{controller=Catalog}/{action=Index}/{id?}");
+foreach (var module in allModules)
+{
+    module.ConfigureUseStaticFilesMiddleware(app);
+}
+
 app.MapControllerRoute(
     name: "Default Area",
     pattern: "{area=Admin}/{controller=Catalog}/{action=Index}/{id?}");
+app.MapRazorPages();
 
 app.Run();

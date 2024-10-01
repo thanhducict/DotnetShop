@@ -1,8 +1,6 @@
 using DotnetShop.Admin.Core.Initialization;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc.ApplicationParts;
-using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
+using Microsoft.AspNetCore.Razor.TagHelpers;
+using Microsoft.Extensions.FileProviders;
 
 namespace DotnetShop.Admin.Ordering
 {
@@ -10,10 +8,21 @@ namespace DotnetShop.Admin.Ordering
     {
         public void ConfigureContainer(WebApplicationBuilder builder)
         {
-            var assembly = Assembly.GetExecutingAssembly();
-            var part = new AssemblyPart(assembly);
-            builder.Services.AddControllersWithViews()
-                .ConfigureApplicationPartManager(apm => apm.ApplicationParts.Add(part));
+            builder.Services.AddTransient<ITagHelperComponent, OrderingTagHelperComponent>();
+        }
+
+        public void ConfigureUseStaticFilesMiddleware(WebApplication app)
+        {
+            var path = Path.Combine(app.Environment.ContentRootPath, @"modules/DotnetShop.Admin.Ordering");
+
+            if(Directory.Exists(path))
+            {
+                app.UseStaticFiles(new StaticFileOptions
+                {
+                    FileProvider = new PhysicalFileProvider(path),
+                    RequestPath = "/admin-ordering-assets"
+                });
+            }
         }
     }
 }
