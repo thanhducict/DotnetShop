@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+    <metadata>
+        <id>DotnetShop.Admin.Core</id>
+        <version>$AdminCoreVersion$</version>
+        <description>Admin Core for Dotnet Shop.</description>
+        <authors>Thanh Duc Nguyen</authors>
+    </metadata>
+    <files>
+        <file src="src\DotnetShop.Admin.Core\bin\$Configuration$\net8.0\DotnetShop.Admin.Core.dll" target="lib\net8.0" />
+        <file src="src\DotnetShop.Admin.Core\bin\$Configuration$\net8.0\DotnetShop.Admin.Core.pdb" target="lib\net8.0" />
+    </files>
+</package>

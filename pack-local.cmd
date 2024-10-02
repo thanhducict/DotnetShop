@@ -1,14 +1,16 @@
-rem This file is for local development only.
+echo off
 
-set buildNumber=30
+rem This script is for local development only.
+
+set buildNumber=38
 set configuration=Debug
 
-dotnet build -c %configuration% DotnetShop.Admin.Core\ShopDotnetShop.Admin.Core.csproj
-dotnet build -c %configuration% DotnetShop.Admin.Ordering\DotnetShop.Admin.Ordering.csproj
+dotnet build -c %configuration% src\DotnetShop.Admin.Core\DotnetShop.Admin.Core.csproj
+dotnet build -c %configuration% src\DotnetShop.Admin.Ordering\DotnetShop.Admin.Ordering.csproj
 
-if not exist DotnetShop.Admin.Ordering\ClientApp\node_modules\ (
-  call npm install --prefix DotnetShop.Admin.Ordering\ClientApp
+if not exist src\DotnetShop.Admin.Ordering\ClientApp\node_modules\ (
+  call npm install --prefix src\DotnetShop.Admin.Ordering\ClientApp
 )
-call npm run build:debug --prefix DotnetShop.Admin.Ordering\ClientApp
+call npm run build:debug --prefix src\DotnetShop.Admin.Ordering\ClientApp
 
-pwsh .\Build\pack.ps1
+pwsh .\build\pack.ps1

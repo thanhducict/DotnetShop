@@ -5,28 +5,31 @@ VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{7E52746C-4A8B-4C00-9657-F01EC255849A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetShop.Catalog.API", "DotnetShop.Catalog.API\DotnetShop.Catalog.API.csproj", "{02C1873D-A621-443B-B60F-76AE8C4611BD}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{DDF6F78A-9A32-4CCD-B0A5-7B445F128CCA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Admin", "Admin", "{ED0E2CB8-F491-4D4A-A178-AEDCE5244327}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Storefront", "Storefront", "{E1E82AA1-8C41-48F8-A4CC-A3B9EE648626}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetShop.Admin.UI", "DotnetShop.Admin.UI\DotnetShop.Admin.UI.csproj", "{1DAC91FF-DE40-4DE5-B662-427A7F39FEB6}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateways", "ApiGateways", "{4F2B1989-C3FA-45E3-8878-10412C0AB9DD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetShop.Admin.Core", "DotnetShop.Admin.Core\DotnetShop.Admin.Core.csproj", "{ED92BAEE-67FC-4BB9-9E4D-4D4EBF353D86}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetShop.Admin.Ordering", "DotnetShop.Admin.Ordering\DotnetShop.Admin.Ordering.csproj", "{22B95247-31B6-4836-B76A-95764C7486C7}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{2A57BF23-DE70-46C0-B19B-0434ADC1D0C8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{9BA9805C-3A68-4C50-A964-4F7B6AC54676}"
 	ProjectSection(SolutionItems) = preProject
-		Build\CopyResourceFiles.targets = Build\CopyResourceFiles.targets
-		Build\nuspec.props = Build\nuspec.props
-		pack-local.cmd = pack-local.cmd
-		Build\pack.ps1 = Build\pack.ps1
-		Build\versions.props = Build\versions.props
+		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{5DE7657B-D33E-49AE-A736-F1E84F21F255}"
+	ProjectSection(SolutionItems) = preProject
+		build\CopyResourceFiles.targets = build\CopyResourceFiles.targets
+		build\nuspec.props = build\nuspec.props
+		pack-local.cmd = pack-local.cmd
+		build\pack.ps1 = build\pack.ps1
+		build\versions.props = build\versions.props
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetShop.Admin.Core", "src\DotnetShop.Admin.Core\DotnetShop.Admin.Core.csproj", "{D0BBD019-E716-4F52-B065-085F1543F51C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetShop.Admin.Ordering", "src\DotnetShop.Admin.Ordering\DotnetShop.Admin.Ordering.csproj", "{A8AAC1AF-1119-4282-801F-A4547D285173}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,33 +37,23 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{02C1873D-A621-443B-B60F-76AE8C4611BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{02C1873D-A621-443B-B60F-76AE8C4611BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{02C1873D-A621-443B-B60F-76AE8C4611BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{02C1873D-A621-443B-B60F-76AE8C4611BD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1DAC91FF-DE40-4DE5-B662-427A7F39FEB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1DAC91FF-DE40-4DE5-B662-427A7F39FEB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1DAC91FF-DE40-4DE5-B662-427A7F39FEB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1DAC91FF-DE40-4DE5-B662-427A7F39FEB6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ED92BAEE-67FC-4BB9-9E4D-4D4EBF353D86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ED92BAEE-67FC-4BB9-9E4D-4D4EBF353D86}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ED92BAEE-67FC-4BB9-9E4D-4D4EBF353D86}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ED92BAEE-67FC-4BB9-9E4D-4D4EBF353D86}.Release|Any CPU.Build.0 = Release|Any CPU
-		{22B95247-31B6-4836-B76A-95764C7486C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{22B95247-31B6-4836-B76A-95764C7486C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{22B95247-31B6-4836-B76A-95764C7486C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{22B95247-31B6-4836-B76A-95764C7486C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0BBD019-E716-4F52-B065-085F1543F51C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0BBD019-E716-4F52-B065-085F1543F51C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0BBD019-E716-4F52-B065-085F1543F51C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0BBD019-E716-4F52-B065-085F1543F51C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8AAC1AF-1119-4282-801F-A4547D285173}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8AAC1AF-1119-4282-801F-A4547D285173}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8AAC1AF-1119-4282-801F-A4547D285173}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8AAC1AF-1119-4282-801F-A4547D285173}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{02C1873D-A621-443B-B60F-76AE8C4611BD} = {7E52746C-4A8B-4C00-9657-F01EC255849A}
 		{ED0E2CB8-F491-4D4A-A178-AEDCE5244327} = {DDF6F78A-9A32-4CCD-B0A5-7B445F128CCA}
 		{E1E82AA1-8C41-48F8-A4CC-A3B9EE648626} = {DDF6F78A-9A32-4CCD-B0A5-7B445F128CCA}
-		{1DAC91FF-DE40-4DE5-B662-427A7F39FEB6} = {ED0E2CB8-F491-4D4A-A178-AEDCE5244327}
-		{ED92BAEE-67FC-4BB9-9E4D-4D4EBF353D86} = {ED0E2CB8-F491-4D4A-A178-AEDCE5244327}
-		{22B95247-31B6-4836-B76A-95764C7486C7} = {ED0E2CB8-F491-4D4A-A178-AEDCE5244327}
+		{D0BBD019-E716-4F52-B065-085F1543F51C} = {ED0E2CB8-F491-4D4A-A178-AEDCE5244327}
+		{A8AAC1AF-1119-4282-801F-A4547D285173} = {ED0E2CB8-F491-4D4A-A178-AEDCE5244327}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7E819618-5CC8-465C-93D1-7692B08CFA4B}
