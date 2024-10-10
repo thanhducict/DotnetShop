@@ -1,0 +1,34 @@
+name: CICD for Nuget Packages
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  build_and_pack:
+    name: Build & pack
+    runs-on: windows-latest
+    env:
+      buildNumber: ${{ github.RUN_NUMBER }}
+      isProduction: ${{ github.ref == 'refs/heads/main' }}  
+      configuration: Release
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup .NET Core @ Latest
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8
+          source-url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - name: Restore 
+        run: dotnet restore DotnetShop.sln --configfile NuGet.config
+      - name: Build 
+        run: dotnet build --no-restore DotnetShop.sln --configuration $env:configuration
+      - name: Pack
+        shell: pwsh
+        run: |
+          ./build/pack.ps1 
+      - name: Publish packages
+        run:
+          dotnet nuget push .\artifacts\*.nupkg --skip-duplicate -k ${{ secrets.GITHUB_TOKEN }}

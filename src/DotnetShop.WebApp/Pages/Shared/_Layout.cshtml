@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dotnet Shop</title>
+    <link rel="stylesheet" href="~/bootstrap.min.css" />
+</head>
+<body>
+    @await Component.InvokeAsync("MainNavigation")
+    <div class="container">
+        @RenderBody()
+    </div>
+    <script src="~/bootstrap.min.js"></script>
+</body>
+</html>

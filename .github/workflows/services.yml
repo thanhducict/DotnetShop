@@ -1,8 +1,7 @@
-name: CICD for Backend
+name: CICD for Services
 
 on:
-  pull_request:
-    branches: [master]
+  workflow_dispatch:
 
 env:
   AZURE_WEBAPP_NAME: dotnetshop-api

@@ -12,3 +12,4 @@ artifacts/
 *.user
 
 DotnetShop.Admin.UI/modules
+PublishProfiles/

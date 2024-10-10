@@ -1,7 +1,6 @@
 name: CICD for Frontend
 on:
-  pull_request:
-    branches: [master]
+  workflow_dispatch:
 
 env:
   APP_LOCATION: "/frontend/build"
