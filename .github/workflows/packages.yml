@@ -1,8 +1,13 @@
 name: CICD for Nuget Packages
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
-  
+
+permissions: write-all
+
 jobs:
   build_and_pack:
     name: Build & pack
@@ -13,7 +18,7 @@ jobs:
       configuration: Release
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup .NET Core @ Latest
         uses: actions/setup-dotnet@v3
         with:
@@ -21,14 +26,27 @@ jobs:
           source-url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
         env:
           NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
       - name: Restore 
-        run: dotnet restore DotnetShop.sln --configfile NuGet.config
-      - name: Build 
-        run: dotnet build --no-restore DotnetShop.sln --configuration $env:configuration
+        run: |
+          dotnet restore src\DotnetShop.Admin.Core\DotnetShop.Admin.Core.csproj --configfile NuGet.config
+          dotnet restore src\DotnetShop.Admin.Ordering\DotnetShop.Admin.Ordering.csproj --configfile NuGet.config
+      - name: Build
+        run: |
+          dotnet build --no-restore src\DotnetShop.Admin.Core\DotnetShop.Admin.Core.csproj --configuration $env:configuration
+          dotnet build --no-restore src\DotnetShop.Admin.Ordering\DotnetShop.Admin.Ordering.csproj --configuration $env:configuration
+      - name: Build client
+        run: |
+          npm install
+          npm run build:release
+        working-directory: src\DotnetShop.Admin.Ordering\ClientApp
       - name: Pack
         shell: pwsh
         run: |
-          ./build/pack.ps1 
+          ./build/pack.ps1
       - name: Publish packages
         run:
           dotnet nuget push .\artifacts\*.nupkg --skip-duplicate -k ${{ secrets.GITHUB_TOKEN }}
