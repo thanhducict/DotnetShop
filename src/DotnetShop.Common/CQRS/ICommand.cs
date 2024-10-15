@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace DotnetShop.Common
+namespace DotnetShop.Common.CQRS
 {
     public interface ICommand : ICommand<Unit>
     {

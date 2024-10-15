@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DotnetShop.Admin.Core\DotnetShop.Admin.Core.csproj" />
+    <PackageReference Include="DotnetShop.Admin.Core" Version="1.0.1" />
   </ItemGroup>
 
 </Project>

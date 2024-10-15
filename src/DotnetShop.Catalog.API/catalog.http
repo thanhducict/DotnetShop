@@ -1,0 +1,19 @@
+@hostname=localhost
+@port=5050
+@host={{hostname}}:{{port}}
+
+GET https://{{host}}/products
+###
+
+POST https://{{host}}/products
+Content-Type: application/json
+
+{
+    "name": "T-Shirt",
+    "categories": ["shirt", "men"],
+    "description": "This is a shirt for men.",
+    "imageFile" : "image URL",
+    "price": 10
+}
+###
+
