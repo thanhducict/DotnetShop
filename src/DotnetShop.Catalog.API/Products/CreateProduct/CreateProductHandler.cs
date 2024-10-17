@@ -1,13 +1,10 @@
-using DotnetShop.Catalog.Models;
-using DotnetShop.Common.CQRS;
-
 namespace DotnetShop.Catalog.API.Products.CreateProduct
 {
     public record CreateProductCommand(string Name, List<string> Categories, string Description, string ImageFile, decimal Price) : ICommand<CreateProductResult>;
 
     public class CreateProductResult(Guid id);
 
-    internal class CreateProductCommandHandler : ICommandHandler<CreateProductCommand, CreateProductResult>
+    internal class CreateProductCommandHandler(IDocumentSession session) : ICommandHandler<CreateProductCommand, CreateProductResult>
     {
         public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
         {
@@ -20,7 +17,10 @@ namespace DotnetShop.Catalog.API.Products.CreateProduct
                 Price = command.Price
             };
 
-            return new CreateProductResult(Guid.NewGuid());
+            session.Store(product);
+            await session.SaveChangesAsync(cancellationToken);
+
+            return new CreateProductResult(product.Id);
         }
     }
 }

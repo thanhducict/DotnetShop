@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DotnetShop.Admin.Ordering" Version="1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DotnetShop.Admin.Core\DotnetShop.Admin.Core.csproj" />
   </ItemGroup>
 
