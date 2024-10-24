@@ -9,6 +9,7 @@ dist/
 .npmrc
 *.log
 artifacts/
+published/
 *.user
 
 src/DotnetShop.Admin.UI/modules/
