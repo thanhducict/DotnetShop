@@ -3,11 +3,13 @@ namespace DotnetShop.Catalog.API.Products.GetProducts
     public record GetProductsQuery(int? PageNumber = 1, int? PageSize = 10) : IQuery<GetProductsResult>;
     public record GetProductsResult(IEnumerable<Product> Products);
 
-    internal class GetProductsQueryHandler() : IQueryHandler<GetProductsQuery, GetProductsResult>
+    internal class GetProductsQueryHandler(IDocumentSession session, ILogger<GetProductsQueryHandler> logger)
+        : IQueryHandler<GetProductsQuery, GetProductsResult>
     {
         public async Task<GetProductsResult> Handle(GetProductsQuery query, CancellationToken cancellationToken)
         {
-            var products = new List<Product>();
+            logger.LogInformation("GetProductsQueryHandler.Handle called with {@Query}", query);
+            var products = await session.Query<Product>().ToListAsync(cancellationToken);
 
             return new GetProductsResult(products);
         }

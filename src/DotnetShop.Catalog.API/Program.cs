@@ -1,5 +1,9 @@
 using DotnetShop.Catalog.API.Products.CreateProduct;
+using DotnetShop.Catalog.API.Products.DeleteProduct;
+using DotnetShop.Catalog.API.Products.GetProductById;
 using DotnetShop.Catalog.API.Products.GetProducts;
+using DotnetShop.Catalog.API.Products.GetProductsByCategory;
+using DotnetShop.Catalog.API.Products.UpdateProduct;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,5 +22,9 @@ var app = builder.Build();
 
 app.AddGetProductsEndpoint();
 app.AddCreateProductEndpoint();
+app.AddGetProductByIdEndpoint();
+app.AddGetProductsByCategoryEndpoint();
+app.AddUpdateProductEndpoint();
+app.AddDeleteProductEndpoint();
 
 app.Run();

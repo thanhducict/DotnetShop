@@ -1,5 +1,3 @@
-using DotnetShop.Catalog.Models;
-
 namespace DotnetShop.Catalog.API.Products.GetProducts
 {
     public record GetProductsRequest(int? PageNumber = 1, int? PageSize = 10);
@@ -17,7 +15,7 @@ namespace DotnetShop.Catalog.API.Products.GetProducts
 
                     var result = await sender.Send(query);
 
-                    var response = new GetProductsResponse(new List<Product>());
+                    var response = new GetProductsResponse(result.Products);
 
                     return Results.Ok(response);
                 })
