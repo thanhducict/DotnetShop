@@ -1,0 +1,6 @@
+﻿namespace DotnetShop.ShoppingCart.API.Carts.CheckoutCart
+{
+    public class CheckoutCartRequest
+    {
+    }
+}

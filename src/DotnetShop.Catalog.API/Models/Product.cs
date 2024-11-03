@@ -1,4 +1,4 @@
-namespace DotnetShop.Catalog.Models
+namespace DotnetShop.Catalog.API.Models
 {
     public class Product
     {

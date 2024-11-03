@@ -1,3 +1,5 @@
+using DotnetShop.Catalog.API.Models;
+
 namespace DotnetShop.Catalog.API.Products.GetProducts
 {
     public record GetProductsRequest(int? PageNumber = 1, int? PageSize = 10);
