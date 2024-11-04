@@ -1,4 +1,4 @@
-using DotnetShop.Catalog.API.Models;
+using DotnetShop.Catalog.API.Infrastructure;
 
 namespace DotnetShop.Catalog.API.Products.GetProducts
 {

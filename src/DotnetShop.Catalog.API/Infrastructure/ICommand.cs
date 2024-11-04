@@ -1,6 +1,4 @@
-using MediatR;
-
-namespace DotnetShop.Common.CQRS
+namespace DotnetShop.Catalog.API.Infrastructure
 {
     public interface ICommand : ICommand<Unit>
     {

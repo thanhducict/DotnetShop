@@ -1,8 +1,6 @@
-using DotnetShop.Common.CQRS;
-
 namespace DotnetShop.ShoppingCart.API.Carts.StoreCart
 {
-    public class StoreCartCommand : ICommand<StoreCartResult>
+    public class StoreCartCommand : IRequest<StoreCartResult>
     {
     }
 
@@ -10,7 +8,7 @@ namespace DotnetShop.ShoppingCart.API.Carts.StoreCart
     {
     }
 
-    public class StoreCartHandler : ICommandHandler<StoreCartCommand, StoreCartResult>
+    public class StoreCartHandler : IRequestHandler<StoreCartCommand, StoreCartResult>
     {
         public Task<StoreCartResult> Handle(StoreCartCommand request, CancellationToken cancellationToken)
         {

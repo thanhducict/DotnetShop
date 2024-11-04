@@ -7,8 +7,9 @@ GET https://{{host}}/products
 
 POST https://{{host}}/products
 Content-Type: application/json
+
 {
-    "name": "T-Shirt",
+    "name": "T-Shirt 3",
     "categories": ["shirt", "men"],
     "description": "This is a shirt for men.",
     "imageFile" : "image URL",
@@ -24,6 +25,7 @@ GET https://{{host}}/products/category/shirt
 
 PUT https://{{host}}/products
 Content-Type: application/json
+
 {
     "id": "0192e886-4d6d-41d8-9d3c-19e07791e8c2",
     "name": "Shoes",
@@ -36,6 +38,7 @@ Content-Type: application/json
 
 DELETE https://{{host}}/products/
 Content-Type: application/json
+
 {
     "id": "0192dda5-2f93-40e8-9ad8-98c63232777f"
 }
