@@ -31,8 +31,9 @@ namespace DotnetShop.Catalog.API.Products.UpdateProduct
 
             if (product is null)
             {
-                throw new ProductNotFoundException();
+                throw new ProductNotFoundException(command.Id);
             }
+
             product.Name = command.Name;
             product.Categories = command.Categories;
             product.Description = command.Description;
