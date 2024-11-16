@@ -1,6 +1,7 @@
 namespace DotnetShop.Catalog.API.Products.UpdateProduct
 {
-    public record UpdateProductRequest(Guid Id, string Name, List<string> Categories, string Description, string ImageFile, decimal Price);
+    public record UpdateProductRequest(Guid Id, string Name, List<string> Categories, string ShortDescription,
+        string LongDescription, string ImageUrl, string ImageThumbnailUrl, decimal Price);
 
     public record UpdateProductResponse(bool IsSuccess);
 
@@ -15,8 +16,10 @@ namespace DotnetShop.Catalog.API.Products.UpdateProduct
                         request.Id,
                         request.Name,
                         request.Categories,
-                        request.Description,
-                        request.ImageFile,
+                        request.ShortDescription,
+                        request.LongDescription,
+                        request.ImageUrl,
+                        request.ImageThumbnailUrl,
                         request.Price
                     );
 

@@ -11,8 +11,10 @@ Content-Type: application/json
 {
     "name": "T-Shirt 3",
     "categories": ["shirt", "men"],
-    "description": "This is a shirt for men.",
-    "imageFile" : "image URL",
+    "shortDescription": "This is a shirt for men.",
+    "longDescription": "This is a shirt for men. This shirt is in very good quality.",
+    "imageUrl" : "image URL",
+    "imageThumbnailUrl" : "image Thumbnail URL",
     "price": 10
 }
 ###
@@ -30,8 +32,10 @@ Content-Type: application/json
     "id": "0192e886-4d6d-41d8-9d3c-19e07791e8c2",
     "name": "Shoes",
     "categories": ["shoes", "men"],
-    "description": "This is a pair of shoes for men.",
+    "shortDescription": "This is a pair of shoes for men.",
+    "longDescription": "This is a pair of shoes for men. This shirt is in very good quality.",
     "imageFile" : "image URL",
+    "imageThumbnailUrl" : "image Thumbnail URL",
     "price": 5
 }
 ###

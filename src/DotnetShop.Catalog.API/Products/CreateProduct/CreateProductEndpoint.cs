@@ -1,6 +1,7 @@
 namespace DotnetShop.Catalog.API.Products.CreateProduct
 {
-    public record CreateProductRequest(string Name, List<string> Categories, string Description, string ImageFile, decimal Price);
+    public record CreateProductRequest(string Name, List<string> Categories, string ShortDescription,
+        string LongDescription, string ImageUrl, string ImageThumbnailUrl, decimal Price);
 
     public record CreateProductResponse(Guid Id);
 
@@ -14,8 +15,10 @@ namespace DotnetShop.Catalog.API.Products.CreateProduct
                     var command = new CreateProductCommand(
                         request.Name,
                         request.Categories,
-                        request.Description,
-                        request.ImageFile,
+                        request.ShortDescription,
+                        request.LongDescription,
+                        request.ImageUrl,
+                        request.ImageThumbnailUrl,
                         request.Price
                     );
 

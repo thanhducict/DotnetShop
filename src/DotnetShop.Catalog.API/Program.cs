@@ -1,3 +1,4 @@
+using DotnetShop.Catalog.API.Data;
 using DotnetShop.Catalog.API.Products.CreateProduct;
 using DotnetShop.Catalog.API.Products.DeleteProduct;
 using DotnetShop.Catalog.API.Products.GetProductById;
@@ -22,7 +23,7 @@ builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 builder.Services.AddMarten(options =>
 {
     options.Connection(builder.Configuration.GetConnectionString("CatalogDB")!);
-}).UseLightweightSessions();
+}).UseLightweightSessions().InitializeWith<CatalogInitialData>();
 
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
