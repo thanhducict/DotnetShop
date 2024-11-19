@@ -5,6 +5,10 @@
 GET https://{{host}}/products
 ###
 
+GET https://{{host}}/products?pageNumber=2&pageSize=10
+###
+
+
 POST https://{{host}}/products
 Content-Type: application/json
 

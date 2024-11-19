@@ -27,6 +27,8 @@ builder.Services.AddMarten(options =>
 
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
+builder.Services.AddHealthChecks();
+
 // Configure the HTTP request pipeline.
 var app = builder.Build();
 
@@ -38,5 +40,7 @@ app.AddUpdateProductEndpoint();
 app.AddDeleteProductEndpoint();
 
 app.UseExceptionHandler(options => { });
+
+app.UseHealthChecks("/health");
 
 app.Run();
