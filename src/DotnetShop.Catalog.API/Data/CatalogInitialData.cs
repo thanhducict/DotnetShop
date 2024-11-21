@@ -8,13 +8,13 @@ namespace DotnetShop.Catalog.API.Data
         {
             using var session = store.LightweightSession();
 
-            if (await session.Query<Product>().AnyAsync(token: cancellation))
+            if (await session.Query<Product>().AnyAsync())
             {
                 return;
             }
 
             session.Store(GetSampleProducts());
-            await session.SaveChangesAsync(cancellation);
+            await session.SaveChangesAsync();
         }
 
         private IEnumerable<Product> GetSampleProducts()
