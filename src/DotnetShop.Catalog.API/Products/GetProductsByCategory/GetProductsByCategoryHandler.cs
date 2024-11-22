@@ -12,10 +12,20 @@ namespace DotnetShop.Catalog.API.Products.GetProductsByCategory
         public async Task<GetProductsByCategoryResult> Handle(GetProductsByCategoryQuery query, CancellationToken cancellationToken)
         {
             logger.LogInformation("GetProductsByCategoryQueryHandler.Handle called with {@Query}", query);
-            var products = await session.Query<Product>().Where(p => p.Categories.Contains(query.Category))
+            var products = await session.Query<Product>()
                 .ToListAsync(token: cancellationToken);
+            var filteredProducts = new List<Product>();
 
-            return new GetProductsByCategoryResult(products);
+            foreach (var product in products)
+            {
+                var categories = product.Categories.Select(c => c.ToLower());
+                if (categories.Contains(query.Category.ToLower()))
+                {
+                    filteredProducts.Add(product);
+                }
+            }
+
+            return new GetProductsByCategoryResult(filteredProducts);
         }
     }
 }

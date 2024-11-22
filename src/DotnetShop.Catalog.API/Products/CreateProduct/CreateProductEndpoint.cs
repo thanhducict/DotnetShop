@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Mvc;
+
 namespace DotnetShop.Catalog.API.Products.CreateProduct
 {
     public record CreateProductRequest(string Name, List<string> Categories, string ShortDescription,
@@ -10,7 +12,7 @@ namespace DotnetShop.Catalog.API.Products.CreateProduct
         public static void AddCreateProductEndpoint(this WebApplication app)
         {
             app.MapPost("products",
-                async (CreateProductRequest request, ISender sender) =>
+                async ([FromBody] CreateProductRequest request, ISender sender) =>
                 {
                     var command = new CreateProductCommand(
                         request.Name,
