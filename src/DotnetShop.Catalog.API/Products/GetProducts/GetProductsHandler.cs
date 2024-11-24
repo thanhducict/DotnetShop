@@ -1,4 +1,3 @@
-using DotnetShop.Catalog.API.Infrastructure;
 using Marten.Pagination;
 
 namespace DotnetShop.Catalog.API.Products.GetProducts

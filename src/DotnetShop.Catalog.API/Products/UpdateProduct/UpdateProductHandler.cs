@@ -1,5 +1,3 @@
-using DotnetShop.Catalog.API.Infrastructure;
-
 namespace DotnetShop.Catalog.API.Products.UpdateProduct
 {
     public record UpdateProductCommand(Guid Id, string Name, List<string> Categories, string ShortDescription,

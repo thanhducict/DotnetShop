@@ -1,5 +1,3 @@
-using DotnetShop.Catalog.API.Infrastructure;
-
 namespace DotnetShop.Catalog.API.Products.CreateProduct
 {
     public record CreateProductCommand(string Name, List<string> Categories, string ShortDescription,

@@ -1,5 +1,3 @@
-using DotnetShop.Catalog.API.Infrastructure;
-
 namespace DotnetShop.Catalog.API.Products.DeleteProduct
 {
     public record DeleteProductCommand(Guid Id) : ICommand<DeleteProductResult>;

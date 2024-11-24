@@ -1,6 +1,6 @@
 using Marten.Schema;
 
-namespace DotnetShop.Catalog.API.Data
+namespace DotnetShop.Catalog.API
 {
     public class CatalogInitialData : IInitialData
     {

@@ -1,13 +1,13 @@
 #### Catalog microservice: 
 * ASP.NET Core Minimal APIs
 * Vertical Slice Architecture
-* CQRS implementation (separate Query and Command with IQuery and ICommand both inherit from MediatR IRequest) using MediatR library
+* CQRS implementation using MediatR library
 * Use Marten library for .NET Transactional Document DB on PostgreSQL
 
 #### Cart microservice: 
 * ASP.NET Core REST APIs
 * Vertical Slice Architecture
-* CQRS implementation (use MediatR IRequest for both Query and Command) using MediatR library
+* CQRS implementation using MediatR library
 * Using Redis as a Distributed Cache
 * Implements Proxy, Decorator and Cache-aside patterns
 * Use Marten library for .NET Transactional Document DB on PostgreSQL
@@ -24,3 +24,5 @@
 * Logging
 * Global Exception Handling
 * Health Checks
+* FluentValidation
+

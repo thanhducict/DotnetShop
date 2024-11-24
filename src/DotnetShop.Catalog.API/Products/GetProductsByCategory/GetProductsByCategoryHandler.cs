@@ -1,5 +1,3 @@
-using DotnetShop.Catalog.API.Infrastructure;
-
 namespace DotnetShop.Catalog.API.Products.GetProductsByCategory
 {
     public record GetProductsByCategoryQuery(string Category) : IQuery<GetProductsByCategoryResult>;

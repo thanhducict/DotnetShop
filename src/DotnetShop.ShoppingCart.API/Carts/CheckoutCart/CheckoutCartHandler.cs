@@ -1,6 +1,6 @@
 namespace DotnetShop.ShoppingCart.API.Carts.CheckoutCart
 {
-    public class CheckoutCartCommand : IRequest<CheckoutCartResult>
+    public class CheckoutCartCommand : ICommand<CheckoutCartResult>
     {
 
     }

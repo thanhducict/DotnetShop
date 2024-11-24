@@ -1,13 +1,13 @@
 namespace DotnetShop.ShoppingCart.API.Carts.DeleteCart
 {
-    public class DeleteCartCommand : IRequest<DeleteCartResult>
+    public class DeleteCartCommand(string username) : ICommand<DeleteCartResult>
     {
-
+        public string Username { get; } = username;
     }
 
-    public class DeleteCartResult
+    public class DeleteCartResult(bool isSuccess)
     {
-
+        public bool IsSuccess { get; } = isSuccess;
     }
 
     public class DeleteCartHandler : IRequestHandler<DeleteCartCommand, DeleteCartResult>

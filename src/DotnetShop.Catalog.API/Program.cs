@@ -1,13 +1,13 @@
-using DotnetShop.Catalog.API.Data;
+using DotnetShop.Catalog.API;
 using DotnetShop.Catalog.API.Products.CreateProduct;
 using DotnetShop.Catalog.API.Products.DeleteProduct;
 using DotnetShop.Catalog.API.Products.GetProductById;
 using DotnetShop.Catalog.API.Products.GetProducts;
 using DotnetShop.Catalog.API.Products.GetProductsByCategory;
 using DotnetShop.Catalog.API.Products.UpdateProduct;
-using DotnetShop.Catalog.API.Validations;
 using DotnetShop.Common.Behaviors;
 using DotnetShop.Common.Exceptions.Handlers;
+using DotnetShop.Common.Validations;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,6 +1,8 @@
-using DotnetShop.Catalog.API.Infrastructure;
+using DotnetShop.Common.CQRS;
+using FluentValidation;
+using MediatR;
 
-namespace DotnetShop.Catalog.API.Validations
+namespace DotnetShop.Common.Validations
 {
     public class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators)
         : IPipelineBehavior<TRequest, TResponse> where TRequest : ICommand<TResponse>

@@ -1,4 +1,6 @@
-namespace DotnetShop.Catalog.API.Infrastructure
+using MediatR;
+
+namespace DotnetShop.Common.CQRS
 {
     public interface IQueryHandler<in TQuery, TResponse> : IRequestHandler<TQuery, TResponse>
         where TQuery : IQuery<TResponse>
