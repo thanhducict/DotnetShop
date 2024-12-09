@@ -1,12 +1,14 @@
 @hostname=localhost
 
 # Local
-@port=5051
+#@port=5051
 
 # Docker
-# @port=6061
-
+@port=6061
 @host={{hostname}}:{{port}}
+
+GET https://{{host}}/health
+###
 
 GET https://{{host}}/carts
 ###
@@ -35,27 +37,6 @@ Content-Type: application/json
             }
         ]
     }
-}
-###
-
-GET https://{{host}}/products/0192e886-4d6d-41d8-9d3c-19e07791e8c2
-###
-
-GET https://{{host}}/products/category/shirt
-###
-
-PUT https://{{host}}/products
-Content-Type: application/json
-
-{
-    "id": "0192e886-4d6d-41d8-9d3c-19e07791e8c2",
-    "name": "Shoes",
-    "categories": ["shoes", "men"],
-    "shortDescription": "This is a pair of shoes for men.",
-    "longDescription": "This is a pair of shoes for men. This shirt is in very good quality.",
-    "imageFile" : "image URL",
-    "imageThumbnailUrl" : "image Thumbnail URL",
-    "price": 5
 }
 ###
 

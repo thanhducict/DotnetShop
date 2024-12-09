@@ -1,7 +1,10 @@
 using DotnetShop.Common.Behaviors;
 using DotnetShop.Common.Exceptions.Handlers;
 using DotnetShop.ShoppingCart.API.Repositories;
+using HealthChecks.UI.Client;
 using Marten;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Caching.Distributed;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,12 +22,32 @@ builder.Services.AddMarten(options =>
     options.Schema.For<Cart>().Identity(x => x.Username);
 }).UseLightweightSessions();
 
-builder.Services.AddScoped<ICartRepository, CartRepository>();
+builder.Services.AddScoped<CartRepository>();
+
+builder.Services.AddScoped<ICartRepository>(provider =>
+{
+    var cartRepository = provider.GetRequiredService<CartRepository>();
+    var distributedCache = provider.GetRequiredService<IDistributedCache>();
+
+    return new CachedCartRepository(cartRepository, distributedCache);
+});
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration.GetConnectionString("Redis");
+});
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+builder.Services.AddHealthChecks()
+    .AddNpgSql(builder.Configuration.GetConnectionString("CartDB")!)
+    .AddRedis(builder.Configuration.GetConnectionString("Redis")!);
 
 var app = builder.Build();
 
 app.MapControllers();
 app.UseExceptionHandler(options => { });
+app.UseHealthChecks("/health",
+    new HealthCheckOptions
+    {
+        ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+    });
 
 app.Run();

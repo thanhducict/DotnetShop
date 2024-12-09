@@ -7,11 +7,20 @@ services:
   cartdb:
     image: postgres
 
+  distributedcache:
+    image: redis
+
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi
     build:
       context: .
       dockerfile: src\DotnetShop.Catalog.API\Dockerfile
+
+  shoppingcart.api:
+    image: ${DOCKER_REGISTRY-}shoppingcart
+    build:
+      context: .
+      dockerfile: src\DotnetShop.ShoppingCart.API\Dockerfile
 
 volumes:
   postgres_catalog:

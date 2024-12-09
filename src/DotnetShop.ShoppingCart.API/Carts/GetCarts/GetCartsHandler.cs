@@ -4,6 +4,8 @@ namespace DotnetShop.ShoppingCart.API.Carts.GetCarts
 {
     public class GetCartsQuery(int PageNumber = 1, int PageSize = 10) : IQuery<GetCartsResult>
     {
+        public int PageNumber { get; set; } = PageNumber;
+        public int PageSize { get; set; } = PageSize;
     }
 
     public class GetCartsResult(IEnumerable<Cart> carts)
@@ -17,7 +19,7 @@ namespace DotnetShop.ShoppingCart.API.Carts.GetCarts
         public async Task<GetCartsResult> Handle(GetCartsQuery query, CancellationToken cancellationToken)
         {
             logger.LogInformation("GetCartsQueryHandler.Handle called with {@Query}", query);
-            var carts = await cartRepository.GetCarts(cancellationToken);
+            var carts = await cartRepository.GetCarts(query.PageNumber, query.PageSize, cancellationToken);
 
             return new GetCartsResult(carts);
         }

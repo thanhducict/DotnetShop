@@ -1,7 +1,4 @@
 namespace DotnetShop.ShoppingCart.API.Carts.GetCartByUsername
 {
-    public class GetCartByUsernameResponse(Cart cart)
-    {
-        public Cart Cart { get; } = cart;
-    }
+    public record GetCartByUsernameResponse(Cart Cart);
 }

@@ -1,6 +1,4 @@
-﻿namespace DotnetShop.ShoppingCart.API.Carts.CheckoutCart
+namespace DotnetShop.ShoppingCart.API.Carts.CheckoutCart
 {
-    public class CheckoutCartRequest
-    {
-    }
+    public record CheckoutCartRequest;
 }

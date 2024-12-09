@@ -8,6 +8,9 @@
 
 @host={{hostname}}:{{port}}
 
+GET https://{{host}}/health
+###
+
 GET https://{{host}}/products
 ###
 

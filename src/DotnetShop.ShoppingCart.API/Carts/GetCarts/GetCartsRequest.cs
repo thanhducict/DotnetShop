@@ -1,8 +1,4 @@
 namespace DotnetShop.ShoppingCart.API.Carts.GetCarts
 {
-    public class GetCartsRequest()
-    {
-        public int PageNumber { get; } = 1;
-        public int PageSize { get; } = 10;
-    }
+    public record GetCartsRequest(int PageNumber = 1, int PageSize = 10);
 }
