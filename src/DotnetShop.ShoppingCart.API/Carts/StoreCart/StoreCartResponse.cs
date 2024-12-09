@@ -1,7 +1,7 @@
 namespace DotnetShop.ShoppingCart.API.Carts.StoreCart
 {
-    public class StoreCartResponse(bool isSuccess)
+    public class StoreCartResponse(string username)
     {
-        public bool IsSuccess { get; } = isSuccess;
+        public string Username { get; } = username;
     }
 }

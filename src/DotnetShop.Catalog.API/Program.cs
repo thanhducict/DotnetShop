@@ -7,7 +7,6 @@ using DotnetShop.Catalog.API.Products.GetProductsByCategory;
 using DotnetShop.Catalog.API.Products.UpdateProduct;
 using DotnetShop.Common.Behaviors;
 using DotnetShop.Common.Exceptions.Handlers;
-using DotnetShop.Common.Validations;
 
 var builder = WebApplication.CreateBuilder(args);
 

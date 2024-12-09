@@ -6,14 +6,14 @@ using DotnetShop.ShoppingCart.API.Carts.StoreCart;
 namespace DotnetShop.ShoppingCart.API.Carts
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("{controller}")]
     public class CartsController(IMediator mediator) : ControllerBase
     {
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<GetCartsResponse>> GetCarts()
+        public async Task<ActionResult<GetCartsResponse>> GetCarts([FromQuery] GetCartsRequest request)
         {
-            var result = await mediator.Send(new GetCartsQuery());
+            var result = await mediator.Send(new GetCartsQuery(request.PageNumber, request.PageSize));
 
             return new GetCartsResponse(result.Carts);
         }
@@ -24,6 +24,7 @@ namespace DotnetShop.ShoppingCart.API.Carts
         public async Task<ActionResult<GetCartByUsernameResponse>> GetCartByUsername([FromRoute] string username)
         {
             var result = await mediator.Send(new GetCartByUsernameQuery(username));
+
             return new GetCartByUsernameResponse(result.Cart);
         }
 
@@ -33,16 +34,17 @@ namespace DotnetShop.ShoppingCart.API.Carts
         public async Task<ActionResult<StoreCartResponse>> StoreCart([FromBody] StoreCartRequest request)
         {
             var result = await mediator.Send(new StoreCartCommand(request.Cart));
-            return new StoreCartResponse(result.IsSuccess);
+
+            return new StoreCartResponse(result.Username);
         }
 
         [HttpDelete]
-        [Route("{username}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<DeleteCartResponse>> DeleteCart([FromRoute] string username)
+        public async Task<ActionResult<DeleteCartResponse>> DeleteCart([FromBody] DeleteCartRequest request)
         {
-            var result = await mediator.Send(new DeleteCartCommand(username));
+            var result = await mediator.Send(new DeleteCartCommand(request.Username));
+
             return new DeleteCartResponse(result.IsSuccess);
         }
     }

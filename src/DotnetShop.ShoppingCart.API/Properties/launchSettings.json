@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "DotnetShop.Cart.API": {
+    "DotnetShop.ShoppingCart.API": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

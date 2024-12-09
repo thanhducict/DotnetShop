@@ -1,20 +1,25 @@
+using DotnetShop.ShoppingCart.API.Repositories;
+
 namespace DotnetShop.ShoppingCart.API.Carts.GetCarts
 {
-    public class GetCartsQuery : ICommand<GetCartsResult>
+    public class GetCartsQuery(int PageNumber = 1, int PageSize = 10) : IQuery<GetCartsResult>
     {
     }
 
     public class GetCartsResult(IEnumerable<Cart> carts)
     {
-        public IEnumerable<Cart> Carts { get; set; } = carts;
+        public IEnumerable<Cart> Carts { get; } = carts;
     }
 
-    public class GetCartsQueryHandler : IRequestHandler<GetCartsQuery, GetCartsResult>
+    internal class GetCartsQueryHandler(ICartRepository cartRepository, ILogger<GetCartsQueryHandler> logger)
+        : IQueryHandler<GetCartsQuery, GetCartsResult>
     {
-        public async Task<GetCartsResult> Handle(GetCartsQuery request, CancellationToken cancellationToken)
+        public async Task<GetCartsResult> Handle(GetCartsQuery query, CancellationToken cancellationToken)
         {
-            await Task.Run(() => { }, cancellationToken);
-            return new GetCartsResult(new List<Cart>());
+            logger.LogInformation("GetCartsQueryHandler.Handle called with {@Query}", query);
+            var carts = await cartRepository.GetCarts(cancellationToken);
+
+            return new GetCartsResult(carts);
         }
     }
 }

@@ -2,7 +2,7 @@ using DotnetShop.Common.CQRS;
 using FluentValidation;
 using MediatR;
 
-namespace DotnetShop.Common.Validations
+namespace DotnetShop.Common.Behaviors
 {
     public class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators)
         : IPipelineBehavior<TRequest, TResponse> where TRequest : ICommand<TResponse>
