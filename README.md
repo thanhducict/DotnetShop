@@ -1,3 +1,8 @@
+# Dotnet Shop
+This is a pet project to learn technologies. The microservices architecture is used so a lot of technologies can be experimented.
+
+## Project anatomy
+
 #### Catalog service: 
 * ASP.NET Core Minimal APIs
 * Vertical Slice Architecture
@@ -38,3 +43,6 @@
 * Global Exception Handling
 * Health Checks
 * FluentValidation
+
+## License
+This repository is licensed under the MIT license.
