@@ -30,6 +30,7 @@ services:
       - '6379:6379'
 
   catalog.api:
+    container_name: catalog.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:8081;http://+:8080
@@ -45,10 +46,11 @@ services:
       - ~/.aspnet/https:/https:ro
 
   shoppingcart.api:
+    container_name: shoppingcart.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:8081;http://+:8080
-      - ConnectionStrings__CartDB=Server=cartdb;Port=5433;Database=CartDb;User Id=admin;Password=secret;Include Error Detail=true
+      - ConnectionStrings__CartDB=Server=cartdb;Port=5432;Database=CartDb;User Id=admin;Password=secret;Include Error Detail=true
       - ConnectionStrings__Redis=distributedcache:6379
       - ASPNETCORE_Kestrel__Certificates__Default__Password=mycertificate
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
