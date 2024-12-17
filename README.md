@@ -23,7 +23,7 @@ This is a pet project to learn technologies. The microservices architecture is u
 * ASP.NET Grpc Server application
 * Build a Highly Performant inter-service gRPC Communication with Shopping Cart microservice
 * Exposing Grpc Services with creating Protobuf messages
-* Entity Framework Core ORM — SQLite Data Provider and Migrations to simplify data access and ensure high performance
+* SQLite Data Provider for data access and ensure high performance
 * SQLite database connection and containerization
 
 ### Ordering service
