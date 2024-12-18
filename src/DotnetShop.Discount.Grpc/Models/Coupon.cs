@@ -1,4 +1,4 @@
-namespace Discount.Grpc.Models
+namespace DotnetShop.Discount.Grpc.Models
 {
     public class Coupon
     {
