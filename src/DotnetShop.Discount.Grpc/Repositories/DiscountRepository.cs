@@ -15,7 +15,11 @@ namespace DotnetShop.Discount.Grpc.Repositories
 
         public Task<CouponModel> GetDiscountById(int id)
         {
+            _sqliteConnection.Open();
+
             throw new NotImplementedException();
+
+            _sqliteConnection.CloseAsync();
         }
 
         public Task<CouponModel> CreateDiscount(CouponModel model)

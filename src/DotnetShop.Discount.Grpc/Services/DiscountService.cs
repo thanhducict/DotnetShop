@@ -4,9 +4,9 @@ namespace DotnetShop.Discount.Grpc.Services
 {
     public class DiscountService : DiscountProtoService.DiscountProtoServiceBase
     {
-        public override Task<CouponModel> GetDiscount(GetDiscountRequest request, ServerCallContext context)
+        public override async Task<CouponModel> GetDiscount(GetDiscountRequest request, ServerCallContext context)
         {
-            return base.GetDiscount(request, context);
+            return new CouponModel();
         }
 
         public override Task<CouponModel> CreateDiscount(CreateDiscountRequest request, ServerCallContext context)

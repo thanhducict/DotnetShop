@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "Discount.Grpc": {
+    "https": {
       "commandName": "Project",
       "launchBrowser": false,
       "environmentVariables": {

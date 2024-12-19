@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "DotnetShop.Catalog.Api": {
+    "https": {
       "commandName": "Project",
       "launchBrowser": false,
       "environmentVariables": {

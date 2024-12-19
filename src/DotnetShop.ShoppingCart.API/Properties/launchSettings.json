@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "DotnetShop.ShoppingCart.API": {
+    "https": {
       "commandName": "Project",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
