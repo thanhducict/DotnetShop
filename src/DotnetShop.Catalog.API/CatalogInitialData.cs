@@ -120,7 +120,7 @@ namespace DotnetShop.Catalog.API
                     Id = new Guid("03eb5b7c-3e42-4361-8210-3cb6ce0cf88f"),
                     Name = ".NET Black White Mug",
                     Price = 10.95M,
-                    ShortDescription = "A classic design cup.",
+                    ShortDescription = "A classic designed cup.",
                     LongDescription =
                         "The .NET Black & White Mug is a sleek and stylish way to enjoy your favorite drinks while representing the world of .NET development. Featuring a bold black exterior with a contrasting white .NET logo, this 11oz ceramic mug offers a modern, minimalist design that stands out on any desk. The smooth finish and comfortable handle make it perfect for sipping coffee, tea, or any hot beverage during those long coding sessions. Whether you're a .NET enthusiast or simply love clean, sophisticated designs, this mug adds a touch of tech-inspired elegance to your daily routine. A great gift for developers, it's both functional and a subtle nod to the .NET ecosystem.",
                     Categories = ["Cup"],

@@ -5,14 +5,22 @@ option csharp_namespace = "DotnetShop.Discount.Grpc";
 package discount;
 
 service DiscountProtoService {
+  rpc GetAllDiscounts (GetAllDiscountsRequest) returns (GetAllDiscountsResponse);
   rpc GetDiscount (GetDiscountRequest) returns (CouponModel);
   rpc CreateDiscount (CreateDiscountRequest) returns (CouponModel);
   rpc UpdateDiscount (UpdateDiscountRequest) returns (CouponModel);
   rpc DeleteDiscount (DeleteDiscountRequest) returns (DeleteDiscountResponse);
 }
 
+message GetAllDiscountsRequest {
+}
+
+message GetAllDiscountsResponse {
+  repeated CouponModel coupon = 1;
+}
+
 message GetDiscountRequest {
-  string productName = 1;
+  int32 id = 1;
 }
 
 message CreateDiscountRequest {
@@ -24,12 +32,12 @@ message UpdateDiscountRequest {
 }
 
 message DeleteDiscountRequest {
-  string productName = 1;
+  int32 id = 1;
 }
 
 message CouponModel {
   int32 id = 1;
-  string productName = 2;
+  string productId = 2;
   string description = 3;
   int32 amount = 4;
 }
