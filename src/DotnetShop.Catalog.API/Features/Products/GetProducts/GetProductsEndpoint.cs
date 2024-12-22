@@ -1,4 +1,4 @@
-namespace DotnetShop.Catalog.API.Products.GetProducts
+namespace DotnetShop.Catalog.API.Features.Products.GetProducts
 {
     public record GetProductsRequest(int PageNumber = 1, int PageSize = 10);
 

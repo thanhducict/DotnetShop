@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace DotnetShop.Catalog.API.Products.CreateProduct
+namespace DotnetShop.Catalog.API.Features.Products.CreateProduct
 {
-    public record CreateProductRequest(string Name, List<string> Categories, string ShortDescription,
-        string LongDescription, string ImageUrl, string ImageThumbnailUrl, decimal Price);
+    public record CreateProductRequest(Guid ProductGuid, string ProductName, string ShortDescription, string LongDescription,
+        List<string> ImageUrls, string ImageThumbnailUrl, decimal Price, int CategoryId);
 
-    public record CreateProductResponse(Guid Id);
+    public record CreateProductResponse(int ProductId);
 
     public static class CreateProductEndpoint
     {
@@ -15,20 +15,21 @@ namespace DotnetShop.Catalog.API.Products.CreateProduct
                 async ([FromBody] CreateProductRequest request, ISender sender) =>
                 {
                     var command = new CreateProductCommand(
-                        request.Name,
-                        request.Categories,
+                        request.ProductGuid,
+                        request.ProductName,
                         request.ShortDescription,
                         request.LongDescription,
-                        request.ImageUrl,
+                        request.ImageUrls,
                         request.ImageThumbnailUrl,
-                        request.Price
+                        request.Price,
+                        request.CategoryId
                     );
 
                     var result = await sender.Send(command);
 
-                    var response = new CreateProductResponse(result.Id);
+                    var response = new CreateProductResponse(result.ProductId);
 
-                    return Results.Created($"/products/{response.Id}", response);
+                    return Results.Created($"/products/{response.ProductId}", response);
 
                 })
                 .WithName("CreateProduct")

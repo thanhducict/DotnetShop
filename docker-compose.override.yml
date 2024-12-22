@@ -2,14 +2,11 @@ services:
   catalogdb:
     container_name: catalogdb
     environment:
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=secret
-      - POSTGRES_DB=CatalogDb
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Secret12
     restart: always
     ports:
-      - "5432:5432"
-    volumes:
-      - "postgres_catalog:/var/lib/postgresql/data/"
+      - "1433:1433"
 
   cartdb:
     container_name: cartdb
@@ -34,7 +31,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:8081;http://+:8080
-      - ConnectionStrings__CatalogDB=Server=catalogdb;Port=5432;Database=CatalogDb;User Id=admin;Password=secret;Include Error Detail=true
+      - ConnectionStrings__CatalogDB=Server=catalogdb;Database=CatalogDb;User Id=sa;Password=Secret12;TrustServerCertificate=True
       - ASPNETCORE_Kestrel__Certificates__Default__Password=mycertificate
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
     depends_on:
