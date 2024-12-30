@@ -1,4 +1,4 @@
-namespace DotnetShop.Catalog.API.Products.GetProductById
+namespace DotnetShop.Catalog.API.Features.Products.GetProductById
 {
     public record GetProductByIdQuery(Guid Id) : IQuery<GetProductByIdResult>;
 

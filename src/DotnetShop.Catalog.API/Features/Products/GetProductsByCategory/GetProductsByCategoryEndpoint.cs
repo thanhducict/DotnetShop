@@ -1,4 +1,4 @@
-namespace DotnetShop.Catalog.API.Products.GetProductsByCategory
+namespace DotnetShop.Catalog.API.Features.Products.GetProductsByCategory
 {
     public record GetProductsByCategoryResponse(IEnumerable<Product> Products);
 

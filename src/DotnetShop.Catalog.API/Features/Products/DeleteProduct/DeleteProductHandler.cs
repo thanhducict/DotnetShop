@@ -1,4 +1,4 @@
-namespace DotnetShop.Catalog.API.Products.DeleteProduct
+namespace DotnetShop.Catalog.API.Features.Products.DeleteProduct
 {
     public record DeleteProductCommand(Guid Id) : ICommand<DeleteProductResult>;
 

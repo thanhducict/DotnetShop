@@ -1,10 +1,13 @@
 using DotnetShop.Catalog.API;
-using DotnetShop.Catalog.API.Products.CreateProduct;
-using DotnetShop.Catalog.API.Products.DeleteProduct;
-using DotnetShop.Catalog.API.Products.GetProductById;
-using DotnetShop.Catalog.API.Products.GetProducts;
-using DotnetShop.Catalog.API.Products.GetProductsByCategory;
-using DotnetShop.Catalog.API.Products.UpdateProduct;
+using DotnetShop.Catalog.API.Features.Categories.CreateCategory;
+using DotnetShop.Catalog.API.Features.Categories.GetCategories;
+//using DotnetShop.Catalog.API.Features.Products.CreateProduct;
+//using DotnetShop.Catalog.API.Features.Products.DeleteProduct;
+//using DotnetShop.Catalog.API.Features.Products.GetProductById;
+//using DotnetShop.Catalog.API.Features.Products.GetProducts;
+//using DotnetShop.Catalog.API.Features.Products.GetProductsByCategory;
+//using DotnetShop.Catalog.API.Features.Products.UpdateProduct;
+using DotnetShop.Catalog.API.Repositories;
 using DotnetShop.Common.Behaviors;
 using DotnetShop.Common.Exceptions.Handlers;
 using HealthChecks.UI.Client;
@@ -21,24 +24,24 @@ builder.Services.AddMediatR(config =>
 });
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
-builder.Services.AddMarten(options =>
-{
-    options.Connection(builder.Configuration.GetConnectionString("CatalogDB")!);
-}).UseLightweightSessions().InitializeWith<CatalogInitialData>();
+builder.Services.AddSingleton<ICategoryRepository, CategoryRepository>();
 
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
-builder.Services.AddHealthChecks().AddNpgSql(builder.Configuration.GetConnectionString("CatalogDB")!);
+builder.Services.AddHealthChecks();
 
 // Configure the HTTP request pipeline.
 var app = builder.Build();
 
-app.AddGetProductsEndpoint();
-app.AddCreateProductEndpoint();
-app.AddGetProductByIdEndpoint();
-app.AddGetProductsByCategoryEndpoint();
-app.AddUpdateProductEndpoint();
-app.AddDeleteProductEndpoint();
+app.AddGetCategoriesEndpoint();
+app.AddCreateCategoryEndpoint();
+
+//app.AddGetProductsEndpoint();
+//app.AddCreateProductEndpoint();
+//app.AddGetProductByIdEndpoint();
+//app.AddGetProductsByCategoryEndpoint();
+//app.AddUpdateProductEndpoint();
+//app.AddDeleteProductEndpoint();
 
 app.UseExceptionHandler(options => { });
 

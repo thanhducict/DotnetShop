@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace DotnetShop.Catalog.API.Products.CreateProduct
+namespace DotnetShop.Catalog.API.Features.Products.CreateProduct
 {
     public record CreateProductRequest(string Name, List<string> Categories, string ShortDescription,
         string LongDescription, string ImageUrl, string ImageThumbnailUrl, decimal Price);

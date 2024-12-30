@@ -1,14 +1,17 @@
 @hostname=localhost
 
 # Local
-# @port=5050
+@port=5050
 
 # Docker
-@port=6060
+# @port=6060
 
 @host={{hostname}}:{{port}}
 
 GET https://{{host}}/health
+###
+
+GET https://{{host}}/categories
 ###
 
 GET https://{{host}}/products

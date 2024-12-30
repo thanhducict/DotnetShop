@@ -1,4 +1,4 @@
-namespace DotnetShop.Catalog.API.Products.CreateProduct
+namespace DotnetShop.Catalog.API.Features.Products.CreateProduct
 {
     public record CreateProductCommand(string Name, List<string> Categories, string ShortDescription,
         string LongDescription, string ImageUrl, string ImageThumbnailUrl, decimal Price) : ICommand<CreateProductResult>;

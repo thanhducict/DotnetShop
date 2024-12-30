@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace DotnetShop.Catalog.API.Products.DeleteProduct
+namespace DotnetShop.Catalog.API.Features.Products.DeleteProduct
 {
     public record DeleteProductRequest(Guid Id);
 

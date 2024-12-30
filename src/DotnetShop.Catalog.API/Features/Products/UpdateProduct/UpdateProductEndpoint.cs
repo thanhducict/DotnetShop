@@ -1,4 +1,4 @@
-namespace DotnetShop.Catalog.API.Products.UpdateProduct
+namespace DotnetShop.Catalog.API.Features.Products.UpdateProduct
 {
     public record UpdateProductRequest(Guid Id, string Name, List<string> Categories, string ShortDescription,
         string LongDescription, string ImageUrl, string ImageThumbnailUrl, decimal Price);
