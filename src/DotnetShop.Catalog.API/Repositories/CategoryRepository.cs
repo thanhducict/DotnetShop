@@ -17,7 +17,7 @@ namespace DotnetShop.Catalog.API.Repositories
             _logger = logger;
         }
 
-        public async Task<IEnumerable<Category>> GetCategories()
+        public async Task<IEnumerable<Category>> GetCategories(CancellationToken cancellationToken)
         {
             string sql = "SELECT * FROM Category";
             SqlDataReader dr;
@@ -28,12 +28,13 @@ namespace DotnetShop.Catalog.API.Repositories
                 using SqlConnection connection = new SqlConnection(_connectionString);
                 connection.Open();
                 using SqlCommand cmd = new SqlCommand(sql, connection);
-                dr = await cmd.ExecuteReaderAsync(CommandBehavior.CloseConnection);
+                dr = await cmd.ExecuteReaderAsync(CommandBehavior.CloseConnection, cancellationToken);
                 while (dr.Read())
                 {
                     categories.Add(new Category
                     {
-                        CategoryId = dr.GetFieldValue<Guid>("CategoryId"),
+                        CategoryId = dr.GetFieldValue<int>("CategoryId"),
+                        CategoryGuid = dr.GetFieldValue<Guid>("CategoryGuid"),
                         CategoryName = dr.GetFieldValue<string>("CategoryName"),
                     });
                 }
@@ -66,28 +67,32 @@ namespace DotnetShop.Catalog.API.Repositories
             return categories;
         }
 
-        public async Task<bool> CreateCategory(Category category)
+        public async Task<Guid?> CreateCategory(Category category, CancellationToken cancellationToken)
         {
-            string sql = "INSERT INTO Category VALUES (@CategoryId, @CategoryName)";
+            string sql = "INSERT INTO Category VALUES (@CategoryGuid, @CategoryName)";
 
             try
             {
-                using SqlConnection cnn = new SqlConnection(_connectionString);
-                cnn.Open();
+                using SqlConnection connection = new SqlConnection(_connectionString);
+                connection.Open();
 
-                using SqlCommand cmd = new SqlCommand(sql, cnn);
-                cmd.Parameters.Add(new SqlParameter("@CategoryId", category.CategoryId));
+                using SqlCommand cmd = new SqlCommand(sql, connection);
+                cmd.Parameters.Add(new SqlParameter("@CategoryGuid", category.CategoryGuid));
                 cmd.Parameters.Add(new SqlParameter("@CategoryName", category.CategoryName));
 
-                cmd.CommandType = CommandType.StoredProcedure;
-                await cmd.ExecuteNonQueryAsync();
+                cmd.CommandType = CommandType.Text;
+                await cmd.ExecuteNonQueryAsync(cancellationToken);
+
+                connection.Close();
+                connection.Dispose();
             }
-            catch
+            catch (Exception ex)
             {
-                return false;
+                _logger.LogInformation("Exception: {exception}", ex.Message);
+                return null;
             }
 
-            return true;
+            return category.CategoryGuid;
         }
     }
 }

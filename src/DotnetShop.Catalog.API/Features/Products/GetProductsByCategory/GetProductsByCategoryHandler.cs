@@ -1,29 +1,20 @@
+using DotnetShop.Catalog.API.Repositories;
+
 namespace DotnetShop.Catalog.API.Features.Products.GetProductsByCategory
 {
-    public record GetProductsByCategoryQuery(string Category) : IQuery<GetProductsByCategoryResult>;
+    public record GetProductsByCategoryQuery(string CategoryName) : IQuery<GetProductsByCategoryResult>;
 
     public record GetProductsByCategoryResult(IEnumerable<Product> Products);
 
-    internal class GetProductsByCategoryQueryHandler(IDocumentSession session, ILogger<GetProductsByCategoryQueryHandler> logger)
+    internal class GetProductsByCategoryQueryHandler(IProductRepository productRepository, ILogger<GetProductsByCategoryQueryHandler> logger)
         : IQueryHandler<GetProductsByCategoryQuery, GetProductsByCategoryResult>
     {
         public async Task<GetProductsByCategoryResult> Handle(GetProductsByCategoryQuery query, CancellationToken cancellationToken)
         {
             logger.LogInformation("GetProductsByCategoryQueryHandler.Handle called with {@Query}", query);
-            var products = await session.Query<Product>()
-                .ToListAsync(token: cancellationToken);
-            var filteredProducts = new List<Product>();
+            var products = await productRepository.GetProductsByCategory(query.CategoryName, cancellationToken);
 
-            foreach (var product in products)
-            {
-                var categories = product.Categories.Select(c => c.ToLower());
-                if (categories.Contains(query.Category.ToLower()))
-                {
-                    filteredProducts.Add(product);
-                }
-            }
-
-            return new GetProductsByCategoryResult(filteredProducts);
+            return new GetProductsByCategoryResult(products);
         }
     }
 }

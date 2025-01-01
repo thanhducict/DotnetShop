@@ -1,7 +1,9 @@
+using DotnetShop.Catalog.API.Repositories;
+
 namespace DotnetShop.Catalog.API.Features.Products.UpdateProduct
 {
-    public record UpdateProductCommand(Guid Id, string Name, List<string> Categories, string ShortDescription,
-        string LongDescription, string ImageUrl, string ImageThumbnailUrl, decimal Price) : ICommand<UpdateProductResult>;
+    public record UpdateProductCommand(int ProductId, Guid ProductGuid, string ProductName, string ShortDescription, string LongDescription,
+        List<string> ImageUrls, string ImageThumbnailUrl, decimal Price, int CategoryId) : ICommand<UpdateProductResult>;
 
     public record UpdateProductResult(bool IsSuccess);
 
@@ -9,10 +11,9 @@ namespace DotnetShop.Catalog.API.Features.Products.UpdateProduct
     {
         public UpdateProductCommandValidator()
         {
-            RuleFor(command => command.Id).NotEmpty().WithMessage("Product ID is required");
+            RuleFor(command => command.ProductId).NotEmpty().WithMessage("Product ID is required");
 
-            RuleFor(command => command.Name)
-                .NotEmpty().WithMessage("Name is required")
+            RuleFor(command => command.ProductName)
                 .Length(2, 150).WithMessage("Name must be between 2 and 150 characters");
 
             RuleFor(command => command.Price)
@@ -20,31 +21,29 @@ namespace DotnetShop.Catalog.API.Features.Products.UpdateProduct
         }
     }
 
-    internal class UpdateProductCommandHandler(IDocumentSession session, ILogger<UpdateProductCommandHandler> logger)
+    internal class UpdateProductCommandHandler(IProductRepository productRepository, ILogger<UpdateProductCommandHandler> logger)
         : ICommandHandler<UpdateProductCommand, UpdateProductResult>
     {
         public async Task<UpdateProductResult> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
         {
             logger.LogInformation("UpdateProductCommandHandler.Handle called with {@Query}", command);
-            var product = await session.LoadAsync<Product>(command.Id, cancellationToken);
 
-            if (product is null)
+            var product = new Product
             {
-                throw new ProductNotFoundException(command.Id);
-            }
+                ProductId = command.ProductId,
+                ProductGuid = command.ProductGuid,
+                ProductName = command.ProductName,
+                ShortDescription = command.ShortDescription,
+                LongDescription = command.LongDescription,
+                ImageUrls = command.ImageUrls,
+                ImageThumbnailUrl = command.ImageThumbnailUrl,
+                Price = command.Price,
+                CategoryId = command.CategoryId
+            };
 
-            product.Name = command.Name;
-            product.Categories = command.Categories;
-            product.ShortDescription = command.ShortDescription;
-            product.LongDescription = command.LongDescription;
-            product.ImageUrl = command.ImageUrl;
-            product.ImageThumbnailUrl = command.ImageThumbnailUrl;
-            product.Price = command.Price;
+            var result = await productRepository.UpdateProduct(product, cancellationToken);
 
-            session.Update(product);
-            await session.SaveChangesAsync(cancellationToken);
-
-            return new UpdateProductResult(true);
+            return new UpdateProductResult(result);
         }
     }
 }

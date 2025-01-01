@@ -1,6 +1,8 @@
+using DotnetShop.Catalog.API.Repositories;
+
 namespace DotnetShop.Catalog.API.Features.Products.DeleteProduct
 {
-    public record DeleteProductCommand(Guid Id) : ICommand<DeleteProductResult>;
+    public record DeleteProductCommand(int ProductId) : ICommand<DeleteProductResult>;
 
     public record DeleteProductResult(bool IsSuccess);
 
@@ -8,27 +10,20 @@ namespace DotnetShop.Catalog.API.Features.Products.DeleteProduct
     {
         public DeleteProductCommandValidator()
         {
-            RuleFor(x => x.Id).NotEmpty().WithMessage("Product ID is required");
+            RuleFor(x => x.ProductId).NotEmpty().WithMessage("Product ID is required");
         }
     }
 
-    internal class DeleteProductCommandHandler(IDocumentSession session, ILogger<DeleteProductCommandHandler> logger)
+    internal class DeleteProductCommandHandler(IProductRepository productRepository, ILogger<DeleteProductCommandHandler> logger)
         : ICommandHandler<DeleteProductCommand, DeleteProductResult>
     {
         public async Task<DeleteProductResult> Handle(DeleteProductCommand command, CancellationToken cancellationToken)
         {
             logger.LogInformation("DeleteProductCommandHandler.Handle called with {@Query}", command);
-            var product = await session.LoadAsync<Product>(command.Id, cancellationToken);
 
-            if (product is null)
-            {
-                throw new ProductNotFoundException(command.Id);
-            }
+            var result = await productRepository.DeleteProduct(command.ProductId, cancellationToken);
 
-            session.Delete(product);
-            await session.SaveChangesAsync(cancellationToken);
-
-            return new DeleteProductResult(true);
+            return new DeleteProductResult(result);
         }
     }
 }

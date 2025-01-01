@@ -2,7 +2,8 @@ namespace DotnetShop.Catalog.API.Models
 {
     public class Category
     {
-        public Guid CategoryId { get; set; }
+        public int CategoryId { get; set; }
+        public Guid CategoryGuid { get; set; }
         public string CategoryName { get; set; } = string.Empty;
     }
 }

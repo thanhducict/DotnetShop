@@ -2,9 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DotnetShop.Catalog.API.Features.Categories.CreateCategory
 {
-    public record CreateCategoryRequest(Guid CategoryId, string CategoryName);
+    public record CreateCategoryRequest(string CategoryName);
 
-    public record CreateCategoryResponse(bool IsSuccess);
+    public record CreateCategoryResponse(Guid? CategoryId);
 
     public static class CreateCategoryEndpoint
     {
@@ -14,15 +14,14 @@ namespace DotnetShop.Catalog.API.Features.Categories.CreateCategory
                 async ([FromBody] CreateCategoryRequest request, ISender sender) =>
                 {
                     var command = new CreateCategoryCommand(
-                        request.CategoryId,
                         request.CategoryName
                     );
 
                     var result = await sender.Send(command);
 
-                    var response = new CreateCategoryResponse(result.IsSuccess);
+                    var response = new CreateCategoryResponse(result.CategoryId);
 
-                    return Results.Created($"/categories/{response.IsSuccess}", response);
+                    return Results.Created($"/categories/{response.CategoryId}", response);
 
                 })
                 .WithName("CreateCategory")

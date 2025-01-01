@@ -11,7 +11,7 @@ namespace DotnetShop.Catalog.API.Features.Categories.GetCategories
         public async Task<GetCategoriesResult> Handle(GetCategoriesQuery query, CancellationToken cancellationToken)
         {
             logger.LogInformation("GetCategoriesQueryHandler.Handle called with {@Query}", query);
-            var categories = await categoryRepository.GetCategories();
+            var categories = await categoryRepository.GetCategories(cancellationToken);
 
             return new GetCategoriesResult(categories);
         }

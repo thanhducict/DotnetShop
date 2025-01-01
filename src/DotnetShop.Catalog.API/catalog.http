@@ -11,9 +11,17 @@
 GET https://{{host}}/health
 ###
 
+### Category ###
 GET https://{{host}}/categories
 ###
 
+POST https://{{host}}/categories
+Content-Type: application/json
+{
+    "categoryName": "Notebook"
+}
+
+### Product ###
 GET https://{{host}}/products
 ###
 
@@ -22,36 +30,42 @@ GET https://{{host}}/products?pageNumber=2&pageSize=10
 
 POST https://{{host}}/products
 Content-Type: application/json
-
 {
-    "name": "T-Shirt 3",
-    "categories": ["shirt", "men"],
+    "productGuid": "659e3447-382c-49ed-a740-be12df8615ed",
+    "productName": "T-Shirt 3",
     "shortDescription": "This is a shirt for men.",
     "longDescription": "This is a shirt for men. This shirt is in very good quality.",
-    "imageUrl" : "image URL",
-    "imageThumbnailUrl" : "image Thumbnail URL",
-    "price": 10
+    "imageUrls" : [
+        "URL 1",
+        "URL 2"
+    ],
+    "imageThumbnailUrl" : "image thumbnail URL",
+    "price": 10,
+    "categoryId": 1
 }
 ###
 
-GET https://{{host}}/products/0192e886-4d6d-41d8-9d3c-19e07791e8c2
+GET https://{{host}}/products/13
 ###
 
-GET https://{{host}}/products/category/shirt
+GET https://{{host}}/products/category/cup
 ###
 
 PUT https://{{host}}/products
 Content-Type: application/json
-
 {
-    "id": "0192e886-4d6d-41d8-9d3c-19e07791e8c2",
-    "name": "Shoes",
-    "categories": ["shoes", "men"],
-    "shortDescription": "This is a pair of shoes for men.",
-    "longDescription": "This is a pair of shoes for men. This shirt is in very good quality.",
-    "imageFile" : "image URL",
-    "imageThumbnailUrl" : "image Thumbnail URL",
-    "price": 5
+    "productId": 13,
+    "productGuid": "659e3447-382c-49ed-a740-be12df8615ed",
+    "productName": "UPDATED T-Shirt 3",
+    "shortDescription": "UPDATED This is a shirt for men.",
+    "longDescription": "UPDATED This is a shirt for men. This shirt is in very good quality.",
+    "imageUrls" : [
+        "UPDATED URL 1",
+        "UPDATED URL 2"
+    ],
+    "imageThumbnailUrl" : "UPDATED image thumbnail URL",
+    "price": 20,
+    "categoryId": 1
 }
 ###
 
@@ -59,5 +73,5 @@ DELETE https://{{host}}/products/
 Content-Type: application/json
 
 {
-    "id": "0192dda5-2f93-40e8-9ad8-98c63232777f"
+    "productId": 13
 }
