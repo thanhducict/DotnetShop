@@ -1,9 +1,8 @@
-
 using Microsoft.Data.SqlClient;
 
-namespace DotnetShop.Catalog.API.Repositories
+namespace DotnetShop.Catalog.API
 {
-    public static class DataReaderHelpers
+    public static class Helpers
     {
         public static T GetFieldValue<T>(this SqlDataReader dr, string name)
         {

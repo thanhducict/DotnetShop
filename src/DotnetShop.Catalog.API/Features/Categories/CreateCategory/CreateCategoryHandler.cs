@@ -4,14 +4,14 @@ namespace DotnetShop.Catalog.API.Features.Categories.CreateCategory
 {
     public record CreateCategoryCommand(Guid CategoryId, string CategoryName) : ICommand<CreateCategoryResult>;
 
-    public record CreateCategoryResult(Guid CategoryId);
+    public record CreateCategoryResult(bool IsSuccess);
 
     public class CreateCategoryCommandValidator : AbstractValidator<CreateCategoryCommand>
     {
         public CreateCategoryCommandValidator()
         {
-            RuleFor(x => x.CategoryId).NotEmpty().WithMessage("Name is required");
-            RuleFor(x => x.CategoryName).NotEmpty().WithMessage("Categories is required");
+            RuleFor(x => x.CategoryId).NotEmpty().WithMessage("GUID is required");
+            RuleFor(x => x.CategoryName).NotEmpty().WithMessage("CategoryName is required");
         }
     }
 
@@ -27,10 +27,9 @@ namespace DotnetShop.Catalog.API.Features.Categories.CreateCategory
                 CategoryName = command.CategoryName
             };
 
-            //session.Store(Category);
-            //await session.SaveChangesAsync(cancellationToken);
+            var result = await categoryRepository.CreateCategory(category);
 
-            return new CreateCategoryResult(category.CategoryId);
+            return new CreateCategoryResult(result);
         }
     }
 }

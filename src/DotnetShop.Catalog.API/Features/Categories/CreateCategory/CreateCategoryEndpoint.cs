@@ -4,7 +4,7 @@ namespace DotnetShop.Catalog.API.Features.Categories.CreateCategory
 {
     public record CreateCategoryRequest(Guid CategoryId, string CategoryName);
 
-    public record CreateCategoryResponse(Guid CategoryId);
+    public record CreateCategoryResponse(bool IsSuccess);
 
     public static class CreateCategoryEndpoint
     {
@@ -20,9 +20,9 @@ namespace DotnetShop.Catalog.API.Features.Categories.CreateCategory
 
                     var result = await sender.Send(command);
 
-                    var response = new CreateCategoryResponse(result.CategoryId);
+                    var response = new CreateCategoryResponse(result.IsSuccess);
 
-                    return Results.Created($"/categories/{response.CategoryId}", response);
+                    return Results.Created($"/categories/{response.IsSuccess}", response);
 
                 })
                 .WithName("CreateCategory")

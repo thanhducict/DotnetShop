@@ -1,12 +1,11 @@
-using DotnetShop.Catalog.API;
 using DotnetShop.Catalog.API.Features.Categories.CreateCategory;
 using DotnetShop.Catalog.API.Features.Categories.GetCategories;
-//using DotnetShop.Catalog.API.Features.Products.CreateProduct;
-//using DotnetShop.Catalog.API.Features.Products.DeleteProduct;
-//using DotnetShop.Catalog.API.Features.Products.GetProductById;
-//using DotnetShop.Catalog.API.Features.Products.GetProducts;
-//using DotnetShop.Catalog.API.Features.Products.GetProductsByCategory;
-//using DotnetShop.Catalog.API.Features.Products.UpdateProduct;
+using DotnetShop.Catalog.API.Features.Products.CreateProduct;
+using DotnetShop.Catalog.API.Features.Products.DeleteProduct;
+using DotnetShop.Catalog.API.Features.Products.GetProductById;
+using DotnetShop.Catalog.API.Features.Products.GetProducts;
+using DotnetShop.Catalog.API.Features.Products.GetProductsByCategory;
+using DotnetShop.Catalog.API.Features.Products.UpdateProduct;
 using DotnetShop.Catalog.API.Repositories;
 using DotnetShop.Common.Behaviors;
 using DotnetShop.Common.Exceptions.Handlers;
@@ -25,6 +24,7 @@ builder.Services.AddMediatR(config =>
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
 builder.Services.AddSingleton<ICategoryRepository, CategoryRepository>();
+builder.Services.AddSingleton<IProductRepository, ProductRepository>();
 
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
@@ -36,12 +36,12 @@ var app = builder.Build();
 app.AddGetCategoriesEndpoint();
 app.AddCreateCategoryEndpoint();
 
-//app.AddGetProductsEndpoint();
-//app.AddCreateProductEndpoint();
-//app.AddGetProductByIdEndpoint();
-//app.AddGetProductsByCategoryEndpoint();
-//app.AddUpdateProductEndpoint();
-//app.AddDeleteProductEndpoint();
+app.AddGetProductsEndpoint();
+app.AddCreateProductEndpoint();
+app.AddGetProductByIdEndpoint();
+app.AddGetProductsByCategoryEndpoint();
+app.AddUpdateProductEndpoint();
+app.AddDeleteProductEndpoint();
 
 app.UseExceptionHandler(options => { });
 
