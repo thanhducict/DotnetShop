@@ -22,6 +22,9 @@ Content-Type: application/json
 }
 
 ### Product ###
+GET https://{{host}}/health
+###
+
 GET https://{{host}}/products
 ###
 
