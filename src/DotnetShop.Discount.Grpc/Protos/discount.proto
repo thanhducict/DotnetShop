@@ -20,7 +20,7 @@ message GetAllDiscountsResponse {
 }
 
 message GetDiscountRequest {
-  int32 id = 1;
+  string productGuid = 1;
 }
 
 message CreateDiscountRequest {
@@ -37,7 +37,7 @@ message DeleteDiscountRequest {
 
 message CouponModel {
   int32 id = 1;
-  string productId = 2;
+  string productGuid = 2;
   string description = 3;
   int32 amount = 4;
 }

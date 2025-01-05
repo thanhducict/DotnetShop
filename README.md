@@ -8,7 +8,7 @@ This is a pet project to learn technologies. The microservices architecture is u
 * Vertical Slice Architecture
 * CQRS implementation using MediatR library
 * Use ADO.NET to access SQL Server
-* Use Repository Pattern, Unit of Work and Procedure on SQL Server
+* Use Repository Pattern and Procedure on SQL Server
 
 #### Shopping Cart service: 
 * ASP.NET Core REST APIs

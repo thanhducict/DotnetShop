@@ -13,7 +13,7 @@ namespace DotnetShop.Discount.Grpc.Services
             var result = await dbContext.Coupons.Select(x => new CouponModel
             {
                 Id = x.Id,
-                ProductId = x.ProductId.ToString(),
+                ProductGuid = x.ProductGuid.ToString(),
                 Description = x.Description,
                 Amount = (int)x.Amount
             }).ToListAsync();
@@ -26,19 +26,17 @@ namespace DotnetShop.Discount.Grpc.Services
 
         public override async Task<CouponModel> GetDiscount(GetDiscountRequest request, ServerCallContext context)
         {
-            var coupon = await dbContext.Coupons.FirstOrDefaultAsync(x => x.Id == request.Id);
+            var coupon = await dbContext.Coupons
+                .FirstOrDefaultAsync(x => x.ProductGuid.ToString().ToLower() == request.ProductGuid.ToLower());
 
-            if (coupon is null)
-            {
-                coupon = new Coupon { Id = 0, ProductId = null, Amount = 0, Description = "No Discount Description." };
-            }
+            coupon ??= new Coupon { Id = 0, ProductGuid = new Guid(), Amount = 0, Description = "No Discount Description." };
 
-            logger.LogInformation($"Discount is retrieved for ProductId : {coupon.ProductId}, Amount : {coupon.Amount}");
+            logger.LogInformation($"Discount is retrieved for ProductId : {coupon.ProductGuid}, Amount : {coupon.Amount}");
 
             var couponModel = new CouponModel
             {
                 Id = coupon.Id,
-                ProductId = coupon.ProductId.ToString(),
+                ProductGuid = coupon.ProductGuid.ToString(),
                 Description = coupon.Description,
                 Amount = (int)coupon.Amount
             };
@@ -48,14 +46,14 @@ namespace DotnetShop.Discount.Grpc.Services
 
         public override async Task<CouponModel> CreateDiscount(CreateDiscountRequest request, ServerCallContext context)
         {
-            if (request.Coupon.ProductId == null || request.Coupon.Amount == 0)
+            if (request.Coupon.ProductGuid == null || request.Coupon.Amount == 0)
             {
                 throw new RpcException(new Status(StatusCode.InvalidArgument, "Invalid request object"));
             }
 
             var coupon = new Coupon
             {
-                ProductId = new Guid(request.Coupon.ProductId),
+                ProductGuid = new Guid(request.Coupon.ProductGuid),
                 Description = request.Coupon.Description,
                 Amount = request.Coupon.Amount
             };
@@ -68,7 +66,7 @@ namespace DotnetShop.Discount.Grpc.Services
             return new CouponModel
             {
                 Id = coupon.Id,
-                ProductId = coupon.ProductId.ToString(),
+                ProductGuid = coupon.ProductGuid.ToString(),
                 Description = coupon.Description,
                 Amount = (int)coupon.Amount
             };
@@ -79,7 +77,7 @@ namespace DotnetShop.Discount.Grpc.Services
             var coupon = new Coupon
             {
                 Id = request.Coupon.Id,
-                ProductId = new Guid(request.Coupon.ProductId),
+                ProductGuid = new Guid(request.Coupon.ProductGuid),
                 Description = request.Coupon.Description,
                 Amount = request.Coupon.Amount
             };
@@ -97,7 +95,7 @@ namespace DotnetShop.Discount.Grpc.Services
             var couponModel = new CouponModel
             {
                 Id = coupon.Id,
-                ProductId = coupon.ProductId.ToString(),
+                ProductGuid = coupon.ProductGuid.ToString(),
                 Description = coupon.Description,
                 Amount = (int)coupon.Amount
             };

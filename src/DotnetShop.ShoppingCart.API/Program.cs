@@ -1,5 +1,6 @@
 using DotnetShop.Common.Behaviors;
 using DotnetShop.Common.Exceptions.Handlers;
+using DotnetShop.Discount.Grpc;
 using DotnetShop.ShoppingCart.API.Repositories;
 using HealthChecks.UI.Client;
 using Marten;
@@ -34,6 +35,11 @@ builder.Services.AddScoped<ICartRepository>(provider =>
 builder.Services.AddStackExchangeRedisCache(options =>
 {
     options.Configuration = builder.Configuration.GetConnectionString("Redis");
+});
+
+builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(options =>
+{
+    options.Address = new Uri(builder.Configuration["GrpcSettings:DiscountUrl"]);
 });
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 builder.Services.AddHealthChecks()
