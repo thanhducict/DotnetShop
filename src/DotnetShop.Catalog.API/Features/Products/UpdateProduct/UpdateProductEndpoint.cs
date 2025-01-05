@@ -1,7 +1,7 @@
-namespace DotnetShop.Catalog.API.Products.UpdateProduct
+namespace DotnetShop.Catalog.API.Features.Products.UpdateProduct
 {
-    public record UpdateProductRequest(Guid Id, string Name, List<string> Categories, string ShortDescription,
-        string LongDescription, string ImageUrl, string ImageThumbnailUrl, decimal Price);
+    public record UpdateProductRequest(int ProductId, Guid ProductGuid, string ProductName, string ShortDescription, string LongDescription,
+        List<string> ImageUrls, string ImageThumbnailUrl, decimal Price, int CategoryId);
 
     public record UpdateProductResponse(bool IsSuccess);
 
@@ -13,14 +13,15 @@ namespace DotnetShop.Catalog.API.Products.UpdateProduct
                 async (UpdateProductRequest request, ISender sender) =>
                 {
                     var command = new UpdateProductCommand(
-                        request.Id,
-                        request.Name,
-                        request.Categories,
+                        request.ProductId,
+                        request.ProductGuid,
+                        request.ProductName,
                         request.ShortDescription,
                         request.LongDescription,
-                        request.ImageUrl,
+                        request.ImageUrls,
                         request.ImageThumbnailUrl,
-                        request.Price
+                        request.Price,
+                        request.CategoryId
                     );
 
                     var result = await sender.Send(command);
