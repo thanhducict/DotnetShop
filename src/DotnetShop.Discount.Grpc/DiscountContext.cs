@@ -15,8 +15,7 @@ namespace DotnetShop.Discount.Grpc
         {
             modelBuilder.Entity<Coupon>().HasData(
                 new Coupon { Id = 1, ProductId = new Guid("a8814752-c866-4944-8020-61279d380087"), Description = "Discount for Cup<T> White Mug", Amount = 2M },
-                new Coupon { Id = 2, ProductId = new Guid("03eb5b7c-3e42-4361-8210-3cb6ce0cf88f"), Description = "Discount for .NET Black White Mug", Amount = 2M },
-                new Coupon { Id = 3, ProductId = new Guid("a8814752-c866-4944-8020-61279d380087"), Description = "Extra discount for Cup<T> White Mug", Amount = 3M }
+                new Coupon { Id = 2, ProductId = new Guid("03eb5b7c-3e42-4361-8210-3cb6ce0cf88f"), Description = "Discount for .NET Black White Mug", Amount = 2M }
             );
         }
     }
