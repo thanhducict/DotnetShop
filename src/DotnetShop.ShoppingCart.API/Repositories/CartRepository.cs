@@ -6,9 +6,9 @@ namespace DotnetShop.ShoppingCart.API.Repositories
 {
     public class CartRepository(IDocumentSession session) : ICartRepository
     {
-        public async Task<IEnumerable<Cart>> GetCarts(int pageNumber, int pageSize, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<Cart>> GetCarts(CancellationToken cancellationToken = default)
         {
-            var carts = await session.Query<Cart>().ToPagedListAsync(pageNumber, pageSize, token: cancellationToken);
+            var carts = await session.Query<Cart>().ToListAsync(cancellationToken);
 
             return carts;
         }

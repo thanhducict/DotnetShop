@@ -19,7 +19,7 @@ namespace DotnetShop.ShoppingCart.API.Carts.GetCarts
         public async Task<GetCartsResult> Handle(GetCartsQuery query, CancellationToken cancellationToken)
         {
             logger.LogInformation("GetCartsQueryHandler.Handle called with {@Query}", query);
-            var carts = await cartRepository.GetCarts(query.PageNumber, query.PageSize, cancellationToken);
+            var carts = await cartRepository.GetCarts(cancellationToken);
 
             return new GetCartsResult(carts);
         }

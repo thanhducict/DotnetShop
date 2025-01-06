@@ -5,7 +5,7 @@ namespace DotnetShop.ShoppingCart.API.Repositories
 {
     public class CachedCartRepository(ICartRepository cartRepository, IDistributedCache distributedCache) : ICartRepository
     {
-        public async Task<IEnumerable<Cart>> GetCarts(int pageNumber, int pageSize, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<Cart>> GetCarts(CancellationToken cancellationToken = default)
         {
             var cachedCarts = await distributedCache.GetStringAsync("allCarts", cancellationToken);
             if (!string.IsNullOrEmpty(cachedCarts))
@@ -13,7 +13,7 @@ namespace DotnetShop.ShoppingCart.API.Repositories
                 return JsonSerializer.Deserialize<IEnumerable<Cart>>(cachedCarts)!;
             }
 
-            var carts = await cartRepository.GetCarts(pageNumber, pageSize, cancellationToken);
+            var carts = await cartRepository.GetCarts(cancellationToken);
             await distributedCache.SetStringAsync("allCarts", JsonSerializer.Serialize(carts), cancellationToken);
 
             return carts;

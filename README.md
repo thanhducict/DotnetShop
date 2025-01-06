@@ -9,6 +9,7 @@ This is a pet project to learn technologies. The microservices architecture is u
 * CQRS implementation using MediatR library
 * Use ADO.NET to access SQL Server
 * Use Repository Pattern and Procedure on SQL Server
+* TODO: create endpoint to manage image product, retrieve URLs then serialize URLs to JSON and save to catalog DB, may need GUID for image to know which images exist on the server
 
 #### Shopping Cart service: 
 * ASP.NET Core REST APIs
