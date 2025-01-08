@@ -10,6 +10,12 @@ module.exports = (env) => {
         plugins: [new HtmlWebpackPlugin({ template: path.resolve(__dirname, "src/index.html") })],
         devServer: {
             historyApiFallback: true,
+            static: [
+                {
+                    directory: path.join(__dirname, "src/ImageGallery/images"),
+                    publicPath: "/assets",
+                },
+            ],
         },
     };
     const webpack_dev = {
@@ -47,8 +53,19 @@ module.exports = (env) => {
                     ],
                 },
                 {
-                    test: /\.(c|s[ac])ss$/i,
-                    use: [MiniCssExtractPlugin.loader, "css-loader"],
+                    test: /\.s[ac]ss$/i,
+                    use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+                },
+                {
+                    test: /\.(png|jpe?g|gif)$/i,
+                    use: [
+                        {
+                            loader: "file-loader",
+                            options: {
+                                name: "[name].[ext]",
+                            },
+                        },
+                    ],
                 },
                 {
                     test: /\.(woff(2)|eot|ttf|otf|svg)$/,
