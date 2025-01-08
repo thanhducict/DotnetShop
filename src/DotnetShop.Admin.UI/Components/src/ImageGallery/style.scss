@@ -1,0 +1,81 @@
+#image-gallery-wrapper {
+    .image-gallery {
+        &__label {
+            margin-bottom: 5px;
+        }
+
+        &__panel {
+            display: flex;
+            gap: 10px;
+            position: relative;
+            height: 200px;
+            width: 100%;
+            border-radius: 9px;
+
+            button {
+                position: absolute;
+                margin: 0;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        .upload-area {
+            background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='5' ry='5' stroke='%23D6D6D6FF' stroke-width='1' stroke-dasharray='3' stroke-dashoffset='0' stroke-linecap='butt'/%3e%3c/svg%3e");
+            border-radius: 5px;
+            border-radius: 5px;
+            background-color: #fafafa;
+        }
+    }
+
+    .image-box {
+        width: 160px;
+        height: 180px;
+        border: 1px solid #d6d6d6;
+        border-radius: 4px;
+
+        &:hover .image-box__drag {
+            visibility: visible;
+        }
+
+        &__drag {
+            visibility: hidden;
+            height: 24px;
+            width: 24px;
+            position: absolute;
+            cursor: move;
+            background-color: white;
+            margin: 3px 0 0 3px;
+        }
+
+        &__image {
+            width: 160px;
+            height: 120;
+        }
+
+        .image-panel {
+            height: 60px;
+        }
+    }
+
+    .upload-box {
+        position: relative;
+        height: 224px;
+        width: 224px;
+        cursor: pointer;
+
+        img {
+            position: absolute;
+            margin: 0;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+
+    .hide-image {
+        transition: 0.01s;
+        transform: translateX(-9999px);
+    }
+}
