@@ -88,7 +88,9 @@ const ImageGallery: React.FC = () => {
         <div className="image-gallery">
             <div className="image-gallery__label">Image</div>
             <div
-                className={images?.length == 0 ? "image-gallery__panel upload-area" : "image-gallery__panel"}
+                className={
+                    images?.length == 0 ? "image-gallery__panel image-gallery__panel--empty" : "image-gallery__panel"
+                }
                 onDragOver={(e) => e.preventDefault}
             >
                 {images.map((item, index) => (
