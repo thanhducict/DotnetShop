@@ -78,4 +78,8 @@
         transition: 0.01s;
         transform: translateX(-9999px);
     }
+
+    .hide-drag-icon {
+        visibility: hidden !important;
+    }
 }

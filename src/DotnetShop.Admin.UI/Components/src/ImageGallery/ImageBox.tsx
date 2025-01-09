@@ -23,9 +23,7 @@ const ImageBox: React.FC<ImageBoxProps> = (props) => {
                 onDragStart={(e: React.DragEvent<HTMLDivElement>) => props.onDragStartProp(e, props.index)}
                 onDragEnd={props.onDragEndProp}
                 style={{ backgroundImage: `url(${MoveIcon})` }}
-            >
-                {/* <img src={MoveIcon} /> */}
-            </div>
+            ></div>
             <img className="image-box__image" src={props.imageUrl} alt="CupT White Mug HD" />
             <div className="image-panel">
                 <div className="image-panel__info">

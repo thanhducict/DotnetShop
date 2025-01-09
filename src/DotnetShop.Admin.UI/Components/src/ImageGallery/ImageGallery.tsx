@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ImageBox from "./ImageBox";
 import { ImageModel } from "./ImageModel";
 import UploadBox from "./UploadBox";
@@ -7,39 +7,41 @@ const ImageGallery: React.FC = () => {
     const [images, setImages] = useState<ImageModel[]>([
         {
             imageGuid: "740f5670-9373-4fdb-8b93-caf2a8e6726a",
-            imageUrl: "/assets/sample.png",
+            imageUrl: "/assets/CupT Badge.png",
             defaultImage: true,
-            imageName: "CupT White 1",
+            imageName: "CupT Badge",
         } as ImageModel,
         {
             imageGuid: "2193137b-1c46-49e1-a6f0-f0a68bf99670",
-            imageUrl: "/assets/sample.png",
+            imageUrl: "/assets/CupT T-Shirt.png",
             defaultImage: true,
-            imageName: "CupT White 2",
+            imageName: "CupT T-Shirt",
         } as ImageModel,
         {
             imageGuid: "893f0115-71b9-4018-ba61-125585deb54d",
-            imageUrl: "/assets/sample.png",
+            imageUrl: "/assets/CupT White Mug.png",
             defaultImage: true,
-            imageName: "CupT White 3",
+            imageName: "CupT White Mug",
         } as ImageModel,
         {
             imageGuid: "2e4d2d5b-55b5-42fa-b7d6-700999752bad",
-            imageUrl: "/assets/sample.png",
+            imageUrl: "/assets/NET Blue Sweatshirt.png",
             defaultImage: true,
-            imageName: "CupT White 4",
+            imageName: "NET Blue Sweatshirt",
         } as ImageModel,
         {
             imageGuid: "08c35b8d-d287-433f-bce8-dd265cf727d3",
-            imageUrl: "/assets/sample.png",
+            imageUrl: "/assets/Roslyn Red Badge.png",
             defaultImage: true,
-            imageName: "CupT White 5",
+            imageName: "Roslyn Red Badge",
         } as ImageModel,
     ]);
     const [draggedItem, setDraggedItem] = useState<ImageModel | null>();
+    const [draggedItemIndex, setDraggedItemIndex] = useState<number>(-1);
 
     const onDragStart = (e: React.DragEvent<HTMLDivElement>, index: number) => {
         setDraggedItem(images[index]);
+        setDraggedItemIndex(index);
         e.dataTransfer.effectAllowed = "move";
         e.dataTransfer.setData("text/html", (e.target as HTMLLIElement).parentNode?.textContent!);
         ((e.target as HTMLLIElement).parentNode as HTMLElement).classList.add("hide-image");
@@ -50,7 +52,7 @@ const ImageGallery: React.FC = () => {
         e.preventDefault();
         const draggedOverItem = images[index];
 
-        // // if the item which is not the draggable item is selected to drag
+        // if the item which is not the draggable item is selected to drag
         if (draggedItem == null) {
             return;
         }
@@ -72,7 +74,15 @@ const ImageGallery: React.FC = () => {
     const onDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
         ((e.target as HTMLLIElement).parentNode as HTMLElement).classList.remove("hide-image");
         setDraggedItem(null);
+        setDraggedItemIndex(-1);
+        const all = document.querySelectorAll(".image-box__drag");
+        all[draggedItemIndex]?.classList.remove("hide-drag-icon");
     };
+
+    useEffect(() => {
+        const all = document.querySelectorAll(".image-box__drag");
+        all[draggedItemIndex]?.classList.add("hide-drag-icon");
+    }, [images]);
 
     return (
         <div className="image-gallery">
@@ -95,7 +105,7 @@ const ImageGallery: React.FC = () => {
                     />
                 ))}
 
-                <UploadBox />
+                {images?.length != 0 && <UploadBox />}
                 {images?.length == 0 && <button className="image-gallery__upload">Upload new</button>}
             </div>
         </div>
