@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import ImageBox from "./ImageBox";
 import { ImageModel } from "./ImageModel";
-import UploadBox from "./UploadBox";
+import Plus from "./icons/plus.svg";
+import UploadDialog from "./UploadDialog";
 
 const ImageGallery: React.FC = () => {
     const [images, setImages] = useState<ImageModel[]>([
@@ -85,32 +86,41 @@ const ImageGallery: React.FC = () => {
     }, [images]);
 
     return (
-        <div className="image-gallery">
-            <div className="image-gallery__label">Image</div>
-            <div
-                className={
-                    images?.length == 0 ? "image-gallery__panel image-gallery__panel--empty" : "image-gallery__panel"
-                }
-                onDragOver={(e) => e.preventDefault}
-            >
-                {images.map((item, index) => (
-                    <ImageBox
-                        /* Do not use index for key, because filtering out the currently dragged item will mess up index */
-                        key={item.imageGuid}
-                        imageUrl={item.imageUrl}
-                        defaultImage={item.defaultImage}
-                        imageName={item.imageName}
-                        index={index}
-                        onDragStartProp={onDragStart}
-                        onDragOverProp={onDragOver}
-                        onDragEndProp={onDragEnd}
-                    />
-                ))}
+        <>
+            <div className="image-gallery">
+                <div className="image-gallery__label">Image</div>
+                <div
+                    className={
+                        images?.length == 0
+                            ? "image-gallery__panel image-gallery__panel--empty"
+                            : "image-gallery__panel"
+                    }
+                    onDragOver={(e) => e.preventDefault}
+                >
+                    {images.map((item, index) => (
+                        <ImageBox
+                            /* Do not use index for key, because filtering out the currently dragged item will mess up index */
+                            key={item.imageGuid}
+                            imageUrl={item.imageUrl}
+                            defaultImage={item.defaultImage}
+                            imageName={item.imageName}
+                            index={index}
+                            onDragStartProp={onDragStart}
+                            onDragOverProp={onDragOver}
+                            onDragEndProp={onDragEnd}
+                        />
+                    ))}
 
-                {images?.length != 0 && <UploadBox />}
-                {images?.length == 0 && <button className="image-gallery__upload">Upload new</button>}
+                    {images?.length != 0 && (
+                        <div className="upload-box" onClick={() => {}}>
+                            <img src={Plus} />
+                        </div>
+                    )}
+                    {images?.length == 0 && <button className="image-gallery__upload">Upload new</button>}
+                </div>
             </div>
-        </div>
+            <UploadDialog />
+        </>
     );
 };
 
