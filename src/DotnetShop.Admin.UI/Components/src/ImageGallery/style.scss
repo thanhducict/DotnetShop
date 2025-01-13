@@ -7,8 +7,13 @@
 
 #image-gallery-wrapper {
     .image-gallery {
+        width: 800px;
+        height: 230px;
+        overflow-x: auto;
+
         &__label {
             height: 24px;
+
             margin-bottom: 5px;
         }
 
@@ -72,6 +77,11 @@
 
         @extend %upload-area;
 
+        &__content {
+            width: 180px;
+            height: 180px;
+        }
+
         img {
             position: absolute;
             margin: 0;
@@ -101,42 +111,20 @@
         background-color: rgb(0, 0, 0);
         background-color: rgba(0, 0, 0, 0.4);
 
-        @-webkit-keyframes animatetop {
-            from {
-                top: -300px;
-                opacity: 0;
-            }
-            to {
-                top: 0;
-                opacity: 1;
-            }
-        }
-
-        @keyframes animatetop {
-            from {
-                top: -300px;
-                opacity: 0;
-            }
-            to {
-                top: 0;
-                opacity: 1;
-            }
-        }
-
         &__content {
             position: relative;
             background-color: #fefefe;
-            margin: auto;
+            margin: 0;
+            position: absolute;
+            top: 35%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             padding: 0;
             border: 1px solid #888;
-            width: 80%;
+            width: 60%;
             box-shadow:
                 0 4px 8px 0 rgba(0, 0, 0, 0.2),
                 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            -webkit-animation-name: animatetop;
-            -webkit-animation-duration: 0.4s;
-            animation-name: animatetop;
-            animation-duration: 0.4s;
         }
 
         &__close {

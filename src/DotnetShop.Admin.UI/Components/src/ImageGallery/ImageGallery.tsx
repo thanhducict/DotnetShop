@@ -39,6 +39,7 @@ const ImageGallery: React.FC = () => {
     ]);
     const [draggedItem, setDraggedItem] = useState<ImageModel | null>();
     const [draggedItemIndex, setDraggedItemIndex] = useState<number>(-1);
+    const [isUploadDialogShown, setIsUploadDialogShown] = useState<boolean>(false);
 
     const onDragStart = (e: React.DragEvent<HTMLDivElement>, index: number) => {
         setDraggedItem(images[index]);
@@ -113,13 +114,15 @@ const ImageGallery: React.FC = () => {
 
                     {images?.length != 0 && (
                         <div className="upload-box" onClick={() => {}}>
-                            <img src={Plus} />
+                            <div className="upload-box__content">
+                                <img src={Plus} />
+                            </div>
                         </div>
                     )}
                     {images?.length == 0 && <button className="image-gallery__upload">Upload new</button>}
                 </div>
             </div>
-            <UploadDialog />
+            {isUploadDialogShown && <UploadDialog />}
         </>
     );
 };
