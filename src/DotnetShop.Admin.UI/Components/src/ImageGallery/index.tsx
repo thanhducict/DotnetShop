@@ -1,5 +1,5 @@
-import App from "./App";
+import ImageGallery from "./ImageGallery";
 import { createRoot } from "react-dom/client";
-import "./global-style.css";
+import "./style.scss";
 
-createRoot(document.getElementById("image-gallery")!).render(<App />);
+createRoot(document.getElementById("image-gallery-wrapper")!).render(<ImageGallery />);
