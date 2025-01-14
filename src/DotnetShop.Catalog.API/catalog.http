@@ -1,5 +1,5 @@
 @hostname=localhost
-@port=5050
+@port=6060
 
 @host={{hostname}}:{{port}}
 
@@ -17,9 +17,6 @@ Content-Type: application/json
 }
 
 ### Product ###
-GET https://{{host}}/health
-###
-
 GET https://{{host}}/products
 ###
 
