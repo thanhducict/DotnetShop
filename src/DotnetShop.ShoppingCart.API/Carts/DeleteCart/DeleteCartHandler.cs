@@ -1,4 +1,3 @@
-using DotnetShop.ShoppingCart.API.Carts.StoreCart;
 using DotnetShop.ShoppingCart.API.Repositories;
 using FluentValidation;
 

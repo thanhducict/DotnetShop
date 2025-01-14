@@ -1,6 +1,5 @@
 using DotnetShop.ShoppingCart.API.Exceptions;
 using Marten;
-using Marten.Pagination;
 
 namespace DotnetShop.ShoppingCart.API.Repositories
 {
