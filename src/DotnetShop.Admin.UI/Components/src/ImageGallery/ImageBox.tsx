@@ -1,9 +1,12 @@
 import React from "react";
 import MoveIcon from "./icons/move.svg";
+import PopoverMenu from "./PopoverMenu";
+import Edit from "./icons/edit.svg";
+import Trash from "./icons/trash.svg";
 
 interface ImageBoxProps {
     imageUrl: string;
-    defaultImage: boolean;
+    thumbnail: boolean;
     imageName: string;
     index: number;
     onDragStartProp: (e: React.DragEvent<HTMLDivElement>, index: number) => void;
@@ -27,10 +30,21 @@ const ImageBox: React.FC<ImageBoxProps> = (props) => {
             <img className="image-box__image" src={props.imageUrl} alt="CupT White Mug HD" />
             <div className="image-panel">
                 <div className="image-panel__info">
-                    <div className="image-default">{props.index}</div>
-                    <div className="image-name">{props.imageName}</div>
+                    {props.thumbnail ? (
+                        <div className="image-panel__thumbnail">{props.imageUrl.split(".")[1].toUpperCase()}</div>
+                    ) : (
+                        <div className="image-panel__image">{props.imageUrl.split(".")[1].toUpperCase()}</div>
+                    )}
+                    <div className="image-panel__image-name">{props.imageName}</div>
                 </div>
-                <div className="image-panel__button"></div>
+                <div className="image-panel__button">
+                    <PopoverMenu
+                        items={[
+                            { iconUrl: Edit, name: "Edit" },
+                            { iconUrl: Trash, name: "Trash" },
+                        ]}
+                    />
+                </div>
             </div>
         </div>
     );

@@ -4,6 +4,16 @@
     border-radius: 5px;
     background-color: #fafafa;
 }
+%pill {
+    height: 18px;
+    padding: 3px 7px 0px 7px;
+    width: fit-content;
+    border-radius: 6px;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}
 
 #image-gallery-wrapper {
     .image-gallery {
@@ -22,18 +32,9 @@
             position: relative;
             height: 180px;
             width: 100%;
-            border-radius: 9px;
 
             &--empty {
                 @extend %upload-area;
-            }
-
-            button {
-                position: absolute;
-                margin: 0;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
             }
         }
     }
@@ -65,6 +66,44 @@
 
         .image-panel {
             height: 60px;
+            padding: 10px;
+
+            &__info {
+                float: left;
+                width: 98px;
+            }
+
+            &__thumbnail {
+                @extend %pill;
+
+                background-color: rgb(246, 140, 218);
+            }
+
+            &__image {
+                @extend %pill;
+                background-color: rgb(8, 146, 245);
+            }
+
+            &__image-name {
+                margin-top: 3px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            &__button {
+                float: left;
+                padding: 3px;
+                margin: 3px 0 0 10px;
+                cursor: pointer;
+                border: 1px solid transparent;
+                width: 24px;
+                height: 24px;
+
+                &:hover {
+                    border: 1px solid black;
+                }
+            }
         }
     }
 
@@ -138,6 +177,33 @@
             color: black;
             text-decoration: none;
             cursor: pointer;
+        }
+    }
+
+    .popover-menu {
+        position: relative;
+        &____content {
+            background-color: white;
+            border: 1px solid rgb(189, 189, 189);
+            border-radius: 5px;
+            position: absolute;
+            bottom: 28;
+            right: -50;
+            z-index: 10;
+        }
+        &-item {
+            display: flex;
+            padding: 6px;
+
+            &:hover {
+                background-color: #e9e8e8;
+            }
+
+            &__name {
+                padding: 2px;
+                margin-left: 15px;
+                margin-right: 40px;
+            }
         }
     }
 }
