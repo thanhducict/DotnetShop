@@ -1,16 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
-import MoreHorizontal from "./icons/more-horizontal.svg";
+import MoreHorizontal from "../icons/more-horizontal.svg";
 
-interface PopoverMenuProps {
-    items: PopoverMenuItem[];
+interface ContextMenuProps {
+    items: ContextMenuItem[];
 }
 
-export interface PopoverMenuItem {
+export interface ContextMenuItem {
     iconUrl: string;
     name: string;
 }
 
-const PopoverMenu: React.FC<PopoverMenuProps> = (props) => {
+const ContextMenu: React.FC<ContextMenuProps> = (props) => {
     const [isVisible, setIsVisible] = useState(true); // Manages the visibility state of the popover
     const popoverRef = useRef<HTMLDivElement>(null); // Reference to the popover element
     const triggerRef = useRef<HTMLDivElement>(null); // Reference to the button element that triggers the popover
@@ -33,39 +33,39 @@ const PopoverMenu: React.FC<PopoverMenuProps> = (props) => {
     }, []);
 
     return (
-        <div className="popover-menu">
+        <div className="context-menu">
             <div
                 ref={triggerRef}
                 onClick={() => {
                     setIsVisible(!isVisible);
                 }}
-                className="popover-menu__trigger"
+                className="context-menu__trigger"
                 aria-haspopup="true"
                 aria-expanded={isVisible}
-                aria-controls="popover-menu____content"
+                aria-controls="context-menu____content"
             >
                 <img src={MoreHorizontal} />
             </div>
             {isVisible && (
                 <div
-                    id="popover-menu____content"
+                    id="context-menu____content"
                     ref={popoverRef}
-                    className="popover-menu____content"
+                    className="context-menu____content"
                     role="dialog"
                     aria-modal="true"
                 >
                     {props.items.map((x, index) => (
                         <div
                             key={index}
-                            className="popover-menu-item"
+                            className="context-menu-item"
                             onClick={() => {
                                 alert(index);
                             }}
                         >
-                            <div className="popover-menu-item__icon">
+                            <div className="context-menu-item__icon">
                                 <img src={x.iconUrl} />
                             </div>
-                            <div className="popover-menu-item__name">{x.name}</div>
+                            <div className="context-menu-item__name">{x.name}</div>
                         </div>
                     ))}
                 </div>
@@ -74,4 +74,4 @@ const PopoverMenu: React.FC<PopoverMenuProps> = (props) => {
     );
 };
 
-export default PopoverMenu;
+export default ContextMenu;

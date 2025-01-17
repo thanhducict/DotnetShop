@@ -1,8 +1,8 @@
 import React from "react";
-import MoveIcon from "./icons/move.svg";
-import PopoverMenu from "./PopoverMenu";
-import Edit from "./icons/edit.svg";
-import Trash from "./icons/trash.svg";
+import ContextMenu from "../shared/context-menu/context-menu";
+import MoveIcon from "../shared/icons/move.svg";
+import EditIcon from "../shared/icons/edit.svg";
+import TrashIcon from "../shared/icons/trash.svg";
 
 interface ImageBoxProps {
     imageUrl: string;
@@ -38,10 +38,10 @@ const ImageBox: React.FC<ImageBoxProps> = (props) => {
                     <div className="image-panel__image-name">{props.imageName}</div>
                 </div>
                 <div className="image-panel__button">
-                    <PopoverMenu
+                    <ContextMenu
                         items={[
-                            { iconUrl: Edit, name: "Edit" },
-                            { iconUrl: Trash, name: "Trash" },
+                            { iconUrl: EditIcon, name: "Edit" },
+                            { iconUrl: TrashIcon, name: "Trash" },
                         ]}
                     />
                 </div>

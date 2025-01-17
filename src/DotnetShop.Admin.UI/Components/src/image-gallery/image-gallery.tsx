@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import ImageBox from "./ImageBox";
-import { ImageModel } from "./ImageModel";
-import Plus from "./icons/plus.svg";
-import UploadDialog from "./UploadDialog";
+import ImageBox from "./image-box";
+import { ImageModel } from "./image-model";
+import PlusIcon from "../shared/icons/plus.svg";
 
 const ImageGallery: React.FC = () => {
     const [images, setImages] = useState<ImageModel[]>([
@@ -115,14 +114,13 @@ const ImageGallery: React.FC = () => {
                     {images?.length != 0 && (
                         <div className="upload-box" onClick={() => {}}>
                             <div className="upload-box__content">
-                                <img src={Plus} />
+                                <img src={PlusIcon} />
                             </div>
                         </div>
                     )}
                     {images?.length == 0 && <button>Upload new</button>}
                 </div>
             </div>
-            {isUploadDialogShown && <UploadDialog />}
         </>
     );
 };
