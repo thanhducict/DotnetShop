@@ -1,5 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import MoreHorizontal from "../icons/more-horizontal.svg";
+import {
+    autoUpdate,
+    flip,
+    FloatingFocusManager,
+    offset,
+    useClick,
+    useDismiss,
+    useFloating,
+    useInteractions,
+} from "@floating-ui/react";
+import "./context-menu.scss";
 
 interface ContextMenuProps {
     items: ContextMenuItem[];
@@ -11,64 +22,50 @@ export interface ContextMenuItem {
 }
 
 const ContextMenu: React.FC<ContextMenuProps> = (props) => {
-    const [isVisible, setIsVisible] = useState(true); // Manages the visibility state of the popover
-    const popoverRef = useRef<HTMLDivElement>(null); // Reference to the popover element
-    const triggerRef = useRef<HTMLDivElement>(null); // Reference to the button element that triggers the popover
+    const [isOpen, setIsOpen] = useState<boolean>(false);
 
-    useEffect(() => {
-        const handleClickOutside = (event: any) => {
-            if (
-                popoverRef.current &&
-                !popoverRef.current.contains(event.target) &&
-                !triggerRef.current?.contains(event.target)
-            ) {
-                setIsVisible(false); // Close the popover if clicked outside
-            }
-        };
+    const { refs, floatingStyles, context } = useFloating({
+        open: isOpen,
+        onOpenChange: setIsOpen,
+        middleware: [offset(8), flip()],
+        whileElementsMounted: autoUpdate,
+    });
 
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
+    const click = useClick(context);
+    const dismiss = useDismiss(context);
+
+    const { getReferenceProps, getFloatingProps } = useInteractions([click, dismiss]);
 
     return (
         <div className="context-menu">
-            <div
-                ref={triggerRef}
-                onClick={() => {
-                    setIsVisible(!isVisible);
-                }}
-                className="context-menu__trigger"
-                aria-haspopup="true"
-                aria-expanded={isVisible}
-                aria-controls="context-menu____content"
-            >
+            <div className="context-menu__trigger" ref={refs.setReference} {...getReferenceProps()}>
                 <img src={MoreHorizontal} />
             </div>
-            {isVisible && (
-                <div
-                    id="context-menu____content"
-                    ref={popoverRef}
-                    className="context-menu____content"
-                    role="dialog"
-                    aria-modal="true"
-                >
-                    {props.items.map((x, index) => (
-                        <div
-                            key={index}
-                            className="context-menu-item"
-                            onClick={() => {
-                                alert(index);
-                            }}
-                        >
-                            <div className="context-menu-item__icon">
-                                <img src={x.iconUrl} />
+            {isOpen && (
+                <FloatingFocusManager context={context} modal={false}>
+                    <div
+                        id="context-menu____content"
+                        ref={refs.setFloating}
+                        className="context-menu____content"
+                        style={floatingStyles}
+                        {...getFloatingProps()}
+                    >
+                        {props.items.map((x, index) => (
+                            <div
+                                key={index}
+                                className="context-menu-item"
+                                onClick={() => {
+                                    alert(index);
+                                }}
+                            >
+                                <div className="context-menu-item__icon">
+                                    <img src={x.iconUrl} />
+                                </div>
+                                <div className="context-menu-item__name">{x.name}</div>
                             </div>
-                            <div className="context-menu-item__name">{x.name}</div>
-                        </div>
-                    ))}
-                </div>
+                        ))}
+                    </div>
+                </FloatingFocusManager>
             )}
         </div>
     );

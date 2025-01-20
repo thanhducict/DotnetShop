@@ -18,7 +18,7 @@
 #image-gallery-wrapper {
     .image-gallery {
         width: 800px;
-        height: 230px;
+        height: 245px;
         overflow-x: auto;
 
         &__label {
@@ -92,17 +92,8 @@
             }
 
             &__button {
-                float: left;
-                padding: 3px;
-                margin: 3px 0 0 10px;
-                cursor: pointer;
-                border: 1px solid transparent;
-                width: 24px;
-                height: 24px;
-
-                &:hover {
-                    border: 1px solid black;
-                }
+                float: right;
+                margin-top: 3px;
             }
         }
     }
