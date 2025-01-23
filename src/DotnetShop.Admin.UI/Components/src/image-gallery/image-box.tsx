@@ -39,9 +39,9 @@ const ImageBox: React.FC<ImageBoxProps> = (props) => {
                 </div>
                 <div className="image-panel__button">
                     <ContextMenu
-                        items={[
-                            { iconUrl: EditIcon, name: "Edit" },
-                            { iconUrl: TrashIcon, name: "Trash" },
+                        commands={[
+                            { iconUrl: EditIcon, label: "Edit", execute: () => {} },
+                            { iconUrl: TrashIcon, label: "Trash", execute: () => {} },
                         ]}
                     />
                 </div>

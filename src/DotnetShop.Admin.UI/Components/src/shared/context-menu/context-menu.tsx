@@ -13,20 +13,21 @@ import {
 import "./context-menu.scss";
 
 interface ContextMenuProps {
-    items: ContextMenuItem[];
+    commands: ContextMenuCommand[];
 }
 
-export interface ContextMenuItem {
+export interface ContextMenuCommand {
     iconUrl: string;
-    name: string;
+    label: string;
+    execute: () => void;
 }
 
 const ContextMenu: React.FC<ContextMenuProps> = (props) => {
-    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [isVisible, setIsVisible] = useState<boolean>(false);
 
     const { refs, floatingStyles, context } = useFloating({
-        open: isOpen,
-        onOpenChange: setIsOpen,
+        open: isVisible,
+        onOpenChange: setIsVisible,
         middleware: [offset(8), flip()],
         whileElementsMounted: autoUpdate,
     });
@@ -41,27 +42,28 @@ const ContextMenu: React.FC<ContextMenuProps> = (props) => {
             <div className="context-menu__trigger" ref={refs.setReference} {...getReferenceProps()}>
                 <img src={MoreHorizontal} />
             </div>
-            {isOpen && (
+            {isVisible && (
                 <FloatingFocusManager context={context} modal={false}>
                     <div
-                        id="context-menu____content"
+                        id="context-menu__content"
                         ref={refs.setFloating}
-                        className="context-menu____content"
+                        className="context-menu__content"
                         style={floatingStyles}
                         {...getFloatingProps()}
                     >
-                        {props.items.map((x, index) => (
+                        {props.commands.map((c, index) => (
                             <div
                                 key={index}
                                 className="context-menu-item"
                                 onClick={() => {
-                                    alert(index);
+                                    c.execute();
+                                    setIsVisible(false);
                                 }}
                             >
                                 <div className="context-menu-item__icon">
-                                    <img src={x.iconUrl} />
+                                    <img src={c.iconUrl} />
                                 </div>
-                                <div className="context-menu-item__name">{x.name}</div>
+                                <div className="context-menu-item__name">{c.label}</div>
                             </div>
                         ))}
                     </div>

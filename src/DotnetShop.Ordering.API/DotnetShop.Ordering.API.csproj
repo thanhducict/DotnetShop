@@ -6,4 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DotnetShop.Ordering.Application\DotnetShop.Ordering.Application.csproj" />
+    <ProjectReference Include="..\DotnetShop.Ordering.Infrastructure\DotnetShop.Ordering.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
