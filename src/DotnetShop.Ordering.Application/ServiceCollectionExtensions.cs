@@ -1,12 +1,20 @@
-using Microsoft.Extensions.Configuration;
+using DotnetShop.Common.Behaviors;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace DotnetShop.Ordering.Application
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddOrderingApplication(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
+            services.AddMediatR(config =>
+            {
+                config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+                config.AddOpenBehavior(typeof(ValidationBehavior<,>));
+                config.AddOpenBehavior(typeof(LoggingBehavior<,>));
+            });
+
             return services;
         }
     }

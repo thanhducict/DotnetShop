@@ -138,7 +138,7 @@ INSERT INTO dbo.Product (ProductGuid, ProductName, ShortDescription, LongDescrip
 )
 INSERT INTO dbo.Product (ProductGuid, ProductName, ShortDescription, LongDescription, ImageUrls, ImageThumbnailUrl, Price, CategoryId) VALUES (
     '90e3af6d-e79a-45b6-b2c8-8bc25f60708a',
-    'NET Foundation Badge',
+    '.NET Foundation Badge',
     'You''ll love it!',
     'The .NET Foundation Badge is a stylish and meaningful way to show your support for the .NET open-source community. Featuring the iconic .NET Foundation logo, this sleek, high-quality badge is the perfect accessory for any developer passionate about the .NET ecosystem. Whether you pin it to your backpack, jacket, or conference lanyard, this badge serves as a subtle yet powerful symbol of your commitment to collaboration, innovation, and the open-source movement. Crafted from durable materials with a secure backing, the **.NET Foundation Badge** is both lightweight and long-lasting, making it an ideal way to proudly represent your involvement in the .NET community wherever you go. Perfect for meetups, hackathons, and casual wear, this badge is a must-have for any .NET enthusiast.',
     '["/images/Products/NET Foundation Badge HD.png"]',
