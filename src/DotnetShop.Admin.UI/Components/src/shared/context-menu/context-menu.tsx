@@ -38,8 +38,8 @@ const ContextMenu: React.FC<ContextMenuProps> = (props) => {
     const { getReferenceProps, getFloatingProps } = useInteractions([click, dismiss]);
 
     return (
-        <div className="context-menu">
-            <div className="context-menu__trigger" ref={refs.setReference} {...getReferenceProps()}>
+        <div className="context-menu" ref={refs.setReference} {...getReferenceProps()}>
+            <div className="context-menu__trigger">
                 <img src={MoreHorizontal} />
             </div>
             {isVisible && (
