@@ -11,6 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DotnetShop.Common\DotnetShop.Common.csproj" />
     <ProjectReference Include="..\DotnetShop.Ordering.Domain\DotnetShop.Ordering.Domain.csproj" />
   </ItemGroup>

@@ -13,7 +13,7 @@ namespace DotnetShop.Catalog.API.Features.Products.CreateProduct
         {
             RuleFor(x => x.ProducName).NotEmpty().WithMessage("ProductName is required");
             RuleFor(x => x.ProductGuid).NotEmpty().WithMessage("ProductGuid is required");
-            RuleFor(x => x.ImageUrls).NotEmpty().WithMessage("ImageUrls is required"); // TODO: Fluent check not empty list 
+            RuleFor(x => x.ImageUrls).NotNull().WithMessage("ImageUrls is required");
             RuleFor(x => x.ImageThumbnailUrl).NotEmpty().WithMessage("ImageThumbnailUrl is required");
             RuleFor(x => x.Price).GreaterThan(0).WithMessage("Price must be greater than 0");
             RuleFor(x => x.CategoryId).NotEmpty().WithMessage("CategoryId is required");
