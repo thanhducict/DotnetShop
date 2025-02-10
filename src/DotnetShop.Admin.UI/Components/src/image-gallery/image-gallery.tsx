@@ -38,6 +38,7 @@ const ImageGallery: React.FC = () => {
     ]);
     const [draggedItem, setDraggedItem] = useState<ImageModel | null>();
     const [draggedItemIndex, setDraggedItemIndex] = useState<number>(-1);
+    const [draggedOverItemIndex, setDraggedOverItemIndex] = useState<number>(-1);
     const [isUploadDialogShown, setIsUploadDialogShown] = useState<boolean>(false);
 
     const onDragStart = (e: React.DragEvent<HTMLDivElement>, index: number) => {
@@ -51,6 +52,7 @@ const ImageGallery: React.FC = () => {
 
     const onDragOver = (e: React.DragEvent<HTMLDivElement>, index: number) => {
         e.preventDefault();
+        setDraggedOverItemIndex(index);
         const draggedOverItem = images[index];
 
         // if the item which is not the draggable item is selected to drag
@@ -77,7 +79,10 @@ const ImageGallery: React.FC = () => {
         setDraggedItem(null);
         setDraggedItemIndex(-1);
         const all = document.querySelectorAll(".image-box__drag");
-        all[draggedItemIndex]?.classList.remove("hide-drag-icon");
+
+        Array.prototype.slice.call(all).forEach((e) => {
+            e?.classList.remove("hide-drag-icon");
+        });
     };
 
     useEffect(() => {
@@ -95,7 +100,8 @@ const ImageGallery: React.FC = () => {
                             ? "image-gallery__panel image-gallery__panel--empty"
                             : "image-gallery__panel"
                     }
-                    onDragOver={(e) => e.preventDefault}
+                    onDragOver={(e) => e.preventDefault()}
+                    onDrop={(e) => e.preventDefault()}
                 >
                     {images.map((item, index) => (
                         <ImageBox

@@ -54,9 +54,13 @@
             height: 24px;
             width: 24px;
             position: absolute;
-            cursor: move;
+            cursor: grab;
             background-color: white;
             margin: 3px 0 0 3px;
+
+            &:active {
+                cursor: grabbing;
+            }
         }
 
         &__image {
