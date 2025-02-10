@@ -1,5 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-
 namespace DotnetShop.Ordering.Application.Data
 {
     public interface IApplicationDbContext

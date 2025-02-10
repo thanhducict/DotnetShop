@@ -1,6 +1,3 @@
-using MediatR;
-using Microsoft.Extensions.Logging;
-
 namespace DotnetShop.Ordering.Application.Orders.EventHandlers
 {
     public class OrderCreatedEventHandler
