@@ -1,4 +1,5 @@
 using DotnetShop.Ordering.API;
+using DotnetShop.Ordering.API.Endpoints;
 using DotnetShop.Ordering.Application;
 using DotnetShop.Ordering.Infrastructure;
 using DotnetShop.Ordering.Infrastructure.Data.Extensions;
@@ -11,6 +12,13 @@ builder.Services
     .AddApiServices();
 
 var app = builder.Build();
+
+app.AddGetOrdersEndpoint();
+app.AddGetOrdersByCustomerEndpoint();
+app.AddGetOrdersByNameEndpoint();
+app.AddCreateOrderEndpoint();
+app.AddUpdateOrderEndpoint();
+app.AddDeleteOrderEndpoint();
 
 if (app.Environment.IsDevelopment())
 {

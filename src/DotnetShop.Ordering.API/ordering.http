@@ -1,0 +1,7 @@
+@hostname=localhost
+
+# Local
+@port=5053
+
+# Docker
+# @port=6063
