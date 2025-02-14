@@ -1,7 +1,7 @@
 namespace DotnetShop.Ordering.Application.Orders.Commands.UpdateOrder
 {
     public class UpdateOrderHandler(IApplicationDbContext dbContext)
-    : ICommandHandler<UpdateOrderCommand, UpdateOrderResult>
+        : ICommandHandler<UpdateOrderCommand, UpdateOrderResult>
     {
         public async Task<UpdateOrderResult> Handle(UpdateOrderCommand command, CancellationToken cancellationToken)
         {

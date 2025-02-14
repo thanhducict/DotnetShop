@@ -12,8 +12,7 @@ namespace DotnetShop.Ordering.Infrastructure
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
-            var connectionStringWrite = configuration.GetConnectionString("OrderingDbWrite");
-            var connectionStringRead = configuration.GetConnectionString("OrderingDbRead");
+            var connectionString = configuration.GetConnectionString("OrderingDb");
 
             services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
             services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
@@ -21,7 +20,7 @@ namespace DotnetShop.Ordering.Infrastructure
             services.AddDbContext<ApplicationDbContext>((sp, options) =>
             {
                 options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
-                options.UseSqlServer(connectionStringWrite);
+                options.UseSqlServer(connectionString);
             });
 
             services.AddScoped<IApplicationDbContext, ApplicationDbContext>();

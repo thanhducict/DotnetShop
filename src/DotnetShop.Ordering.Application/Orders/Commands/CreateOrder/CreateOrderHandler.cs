@@ -23,7 +23,7 @@ namespace DotnetShop.Ordering.Application.Orders.Commands.CreateOrder
                 orderDto.BillingAddress.Country, orderDto.BillingAddress.State, orderDto.BillingAddress.ZipCode);
 
             var newOrder = Order.Create(
-                    id: OrderId.Of(Guid.NewGuid()),
+                    id: OrderId.Of(orderDto.Id),
                     customerId: CustomerId.Of(orderDto.CustomerId),
                     orderName: OrderName.Of(orderDto.OrderName),
                     shippingAddress: shippingAddress,

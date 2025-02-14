@@ -1,11 +1,17 @@
 using DotnetShop.Ordering.Application.Dtos;
 using DotnetShop.Ordering.Application.Orders.Commands.CreateOrder;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DotnetShop.Ordering.API.Endpoints
 {
     public record CreateOrderRequest(OrderDto Order);
     public record CreateOrderResponse(Guid Id);
+
+    public class TestDto
+    {
+        public string Test { get; set; }
+    }
 
     public static class CreateOrder
     {

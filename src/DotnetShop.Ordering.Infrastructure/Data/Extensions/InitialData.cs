@@ -30,7 +30,7 @@ namespace DotnetShop.Ordering.Infrastructure.Data.Extensions
                 var payment2 = Payment.Of("Scholes", "8888999955559999", "06/30", "222", 2);
 
                 var order1 = Order.Create(
-                    OrderId.Of(Guid.NewGuid()),
+                    OrderId.Of(new Guid("3a347392-c092-4755-89e9-9fa47b9d3ccb")),
                     CustomerId.Of(new Guid("0912b826-7fd9-46c1-b08f-986c28f22558")),
                     OrderName.Of("ORD_1"),
                     shippingAddress: address1,
@@ -40,7 +40,7 @@ namespace DotnetShop.Ordering.Infrastructure.Data.Extensions
                 order1.Add(ProductId.Of(new Guid("293d91cd-0de8-4b18-b2e9-a1a26678dada")), 1, 17.95M);
 
                 var order2 = Order.Create(
-                    OrderId.Of(Guid.NewGuid()),
+                    OrderId.Of(new Guid("9a6cd49e-c1db-4ed1-951b-bc5ac0568b45")),
                     CustomerId.Of(new Guid("108b9eb5-1eff-47f3-b328-7bf498b4145d")),
                     OrderName.Of("ORD_2"),
                     shippingAddress: address2,
