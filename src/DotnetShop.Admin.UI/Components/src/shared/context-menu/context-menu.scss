@@ -1,0 +1,36 @@
+.context-menu {
+    padding: 3px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 4px;
+
+    &:hover {
+        border: 1px solid black;
+        border-radius: 4px;
+    }
+
+    &__content {
+        background-color: white;
+        border: 1px solid rgb(189, 189, 189);
+        border-radius: 5px;
+        z-index: 10;
+
+        &:focus-visible {
+            outline: none;
+        }
+    }
+    &-item {
+        display: flex;
+        padding: 6px;
+
+        &:hover {
+            background-color: #e9e8e8;
+        }
+
+        &__name {
+            padding: 2px;
+            margin-left: 15px;
+            margin-right: 40px;
+        }
+    }
+}

@@ -16,7 +16,7 @@ var allModules = new List<IInitialization>();
 foreach (var item in allModuleTypes)
 {
     var module = Activator.CreateInstance(item) as IInitialization;
-    if(module != null)
+    if (module != null)
     {
         allModules.Add(module);
     }

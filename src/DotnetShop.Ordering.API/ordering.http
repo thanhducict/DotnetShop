@@ -1,0 +1,113 @@
+@hostname=localhost
+
+# Local
+@port=5053
+
+# Docker
+# @port=6063
+
+@host={{hostname}}:{{port}}
+
+GET https://{{host}}/health
+###
+
+GET https://{{host}}/orders?PageIndex=0&PageSize=2
+###
+
+GET https://{{host}}/orders/customer/0912b826-7fd9-46c1-b08f-986c28f22558
+###
+
+POST https://{{host}}/orders
+Content-Type: application/json
+{
+    "order": {
+        "id": "1af3590a-e3c1-40ac-aa50-a713afa8257e",
+        "customerId": "0912b826-7fd9-46c1-b08f-986c28f22558",
+        "orderName": "ORD_3",
+        "shippingAddress": {
+            "firstName": "Wayne",
+            "lastName": "Rooney",
+            "emailAddress": "wayne.rooney@gmail.com",
+            "addressLine": "5 Storeton Road",
+            "country": "England",
+            "state": "Merseyside",
+            "zipCode": "38050"
+        },
+        "billingAddress": {
+        "firstName": "Wayne",
+        "lastName": "Rooney",
+        "emailAddress": "wayne.rooney@gmail.com",
+        "addressLine": "5 Storeton Road",
+        "country": "England",
+        "state": "Merseyside",
+        "zipCode": "38050"
+        },
+        "payment": {
+            "cardName": "Rooney",
+            "cardNumber": "5555333322226666",
+            "expiration": "12/28",
+            "cvv": "355",
+            "paymentMethod": 1
+        },
+        "status": 2,
+        "orderItems": [
+            {
+                "orderId": "3a347392-c092-4755-89e9-9fa47b9d3ccb",
+                "productId": "293d91cd-0de8-4b18-b2e9-a1a26678dada",
+                "quantity": 1,
+                "price": 17.95
+            }
+        ]
+    }
+}
+###
+
+GET https://{{host}}/orders/ORD_3
+###
+
+PUT https://{{host}}/orders
+Content-Type: application/json
+{
+    "order": {
+        "id": "1af3590a-e3c1-40ac-aa50-a713afa8257e",
+        "customerId": "0912b826-7fd9-46c1-b08f-986c28f22558",
+        "orderName": "ORD_3",
+        "shippingAddress": {
+            "firstName": "Cristiano",
+            "lastName": "Ronaldo",
+            "emailAddress": "cristiano.ronaldo@gmail.com",
+            "addressLine": "10 Storeton Road",
+            "country": "England",
+            "state": "Merseyside",
+            "zipCode": "38050"
+        },
+        "billingAddress": {
+        "firstName": "Cristiano",
+        "lastName": "Ronaldo",
+        "emailAddress": "cristiano.ronaldo@gmail.com",
+        "addressLine": "10 Storeton Road",
+        "country": "England",
+        "state": "Merseyside",
+        "zipCode": "38050"
+        },
+        "payment": {
+            "cardName": "Ronaldo",
+            "cardNumber": "5555888833339999",
+            "expiration": "12/15",
+            "cvv": "233",
+            "paymentMethod": 1
+        },
+        "status": 2,
+        "orderItems": [
+            {
+                "orderId": "3a347392-c092-4755-89e9-9fa47b9d3ccb",
+                "productId": "293d91cd-0de8-4b18-b2e9-a1a26678dada",
+                "quantity": 1,
+                "price": 17.95
+            }
+        ]
+    }
+}
+###
+
+DELETE https://{{host}}/orders/1af3590a-e3c1-40ac-aa50-a713afa8257e

@@ -1,4 +1,3 @@
-using DotnetShop.Catalog.API.Models;
 using Microsoft.Data.SqlClient;
 using System.Data;
 using System.Text.Json;
@@ -149,7 +148,7 @@ namespace DotnetShop.Catalog.API.Repositories
 
                 if (selectedCategory != null)
                 {
-                    return products.Where(p => p.CategoryId ==  selectedCategory.CategoryId).ToList();
+                    return products.Where(p => p.CategoryId == selectedCategory.CategoryId).ToList();
                 }
                 else
                 {
@@ -173,8 +172,14 @@ namespace DotnetShop.Catalog.API.Repositories
                 using SqlCommand cmd = new SqlCommand("Product_Create", connection);
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                cmd.Parameters.Add(new SqlParameter { ParameterName = "@ProductId", Value = productId, IsNullable = false,
-                        DbType = DbType.Int32, Direction = ParameterDirection.Output });
+                cmd.Parameters.Add(new SqlParameter
+                {
+                    ParameterName = "@ProductId",
+                    Value = productId,
+                    IsNullable = false,
+                    DbType = DbType.Int32,
+                    Direction = ParameterDirection.Output
+                });
                 cmd.Parameters.Add(new SqlParameter("@ProductGuid", product.ProductGuid));
                 cmd.Parameters.Add(new SqlParameter("@ProductName", product.ProductName));
                 cmd.Parameters.Add(new SqlParameter("@ShortDescription", product.ShortDescription));

@@ -49,11 +49,13 @@ services:
       - ASPNETCORE_URLS=https://+:8081;http://+:8080
       - ConnectionStrings__CartDB=Server=cartdb;Port=5432;Database=CartDb;User Id=admin;Password=secret;Include Error Detail=true
       - ConnectionStrings__Redis=distributedcache:6379
+      - GrpcSettings__DiscountUrl=https://discount.grpc:8081
       - ASPNETCORE_Kestrel__Certificates__Default__Password=mycertificate
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
     depends_on:
         - cartdb
         - distributedcache
+        - discount.grpc
     ports:
       - "6001:8080"
       - "6061:8081"
@@ -65,7 +67,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:8081;http://+:8080
-      - ConnectionStrings__CartDB=Data Source=App_Data\\discount.db
+      - ConnectionStrings__DiscountDb=Data Source=App_Data\\discount.db
       - ASPNETCORE_Kestrel__Certificates__Default__Password=mycertificate
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
     ports:
@@ -73,3 +75,12 @@ services:
       - "6062:8081"
     volumes:
       - ~/.aspnet/https:/https:ro
+
+  orderingdb:
+    container_name: orderingdb
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Secret12
+    restart: always
+    ports:
+      - "1434:1433"

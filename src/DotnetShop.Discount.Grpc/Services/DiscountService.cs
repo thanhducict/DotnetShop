@@ -1,5 +1,4 @@
 using DotnetShop.Discount.Grpc.Models;
-using Google.Protobuf;
 using Grpc.Core;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,7 +7,7 @@ namespace DotnetShop.Discount.Grpc.Services
     public class DiscountService(DiscountContext dbContext, ILogger<DiscountService> logger)
         : DiscountProtoService.DiscountProtoServiceBase
     {
-        public override  async Task<GetAllDiscountsResponse> GetAllDiscounts(GetAllDiscountsRequest request, ServerCallContext context)
+        public override async Task<GetAllDiscountsResponse> GetAllDiscounts(GetAllDiscountsRequest request, ServerCallContext context)
         {
             var result = await dbContext.Coupons.Select(x => new CouponModel
             {

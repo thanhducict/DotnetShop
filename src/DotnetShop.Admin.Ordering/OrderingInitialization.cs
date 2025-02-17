@@ -15,7 +15,7 @@ namespace DotnetShop.Admin.Ordering
         {
             var path = Path.Combine(app.Environment.ContentRootPath, @"modules/DotnetShop.Admin.Ordering");
 
-            if(Directory.Exists(path))
+            if (Directory.Exists(path))
             {
                 app.UseStaticFiles(new StaticFileOptions
                 {
