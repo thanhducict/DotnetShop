@@ -13,12 +13,15 @@ builder.Services
 
 var app = builder.Build();
 
+app.UseApiServices();
+
 app.AddGetOrdersEndpoint();
 app.AddGetOrdersByCustomerEndpoint();
 app.AddGetOrdersByNameEndpoint();
 app.AddCreateOrderEndpoint();
 app.AddUpdateOrderEndpoint();
 app.AddDeleteOrderEndpoint();
+
 
 if (app.Environment.IsDevelopment())
 {
