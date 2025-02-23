@@ -1,3 +1,4 @@
+using DotnetShop.ShoppingCart.API.Carts.CheckoutCart;
 using DotnetShop.ShoppingCart.API.Carts.DeleteCart;
 using DotnetShop.ShoppingCart.API.Carts.GetCartByUsername;
 using DotnetShop.ShoppingCart.API.Carts.GetCarts;
@@ -36,6 +37,16 @@ namespace DotnetShop.ShoppingCart.API.Carts
             var result = await mediator.Send(new StoreCartCommand(request.Cart));
 
             return new StoreCartResponse(result.Username);
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<CheckoutCartResponse>> Checkout([FromBody] CheckoutCartRequest request)
+        {
+            var result = await mediator.Send(new CheckoutCartCommand(request.CartCheckoutDto));
+
+            return new CheckoutCartResponse(result.IsSuccess);
         }
 
         [HttpDelete]

@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DotnetShop.Common.Messaging\DotnetShop.Common.Messaging.csproj" />
     <ProjectReference Include="..\DotnetShop.Common\DotnetShop.Common.csproj" />
   </ItemGroup>
 
