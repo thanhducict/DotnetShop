@@ -19,7 +19,7 @@ namespace DotnetShop.ShoppingCart.API.Carts
             return new GetCartsResponse(result.Carts);
         }
 
-        [Route("{username}")]
+        [Route("{action}/{username}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<GetCartByUsernameResponse>> GetCartByUsername([FromRoute] string username)
@@ -40,6 +40,7 @@ namespace DotnetShop.ShoppingCart.API.Carts
         }
 
         [HttpPost]
+        [Route("{action}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<CheckoutCartResponse>> Checkout([FromBody] CheckoutCartRequest request)

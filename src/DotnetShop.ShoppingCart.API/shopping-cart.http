@@ -14,14 +14,14 @@ GET https://{{host}}/health
 GET https://{{host}}/carts
 ###
 
-GET https://{{host}}/carts/trunks
+GET https://{{host}}/carts/GetCartByUsername/ronaldo
 ###
 
 POST https://{{host}}/carts
 Content-Type: application/json
 {
     "cart": {
-        "username": "trunks",
+        "username": "ronaldo",
         "items": [
             {
                 "productId": "28d65b5d-f522-448c-8ce5-203e4efe2c17",
@@ -43,5 +43,44 @@ Content-Type: application/json
 DELETE https://{{host}}/carts/
 Content-Type: application/json
 {
-    "username": "trunks"
+    "username": "ronaldo"
+}
+###
+
+POST https://{{host}}/carts/Checkout
+Content-Type: application/json
+{
+    "CartCheckoutDto": {
+        "username": "ronaldo",
+        "CustomerId": "1064b11a-6dde-48c0-9275-b8302fa13b34",
+        "CartItems": [
+            {
+                "productId": "28d65b5d-f522-448c-8ce5-203e4efe2c17",
+                "productName": "Kudu Purple Sweatshirt",
+                "quantity": "3",
+                "price": 15.95
+            },
+            {
+                "productId": "51149bd0-c9e0-4068-b8f2-3368caa5c85c",
+                "productName": ".NET Blue Sweatshirt",
+                "quantity": "1",
+                "price": 18.95
+            }
+        ],
+        "TotalPrice ": 0,
+
+        "FirstName": "cristiano",
+        "LastName": "ronaldo",
+        "EmailAddress": "cristiano.ronaldo@manutd.com",
+        "AddressLine": "10 Paulo Martin",
+        "Country": "Portugal",
+        "State": "Restelo",
+        "ZipCode": "38160",
+
+        "CardName": "Ronaldo",
+        "CardNumber": "5555333322228888",
+        "Expiration": "12/15",
+        "CVV": "567",
+        "PaymentMethod": 1
+    }
 }

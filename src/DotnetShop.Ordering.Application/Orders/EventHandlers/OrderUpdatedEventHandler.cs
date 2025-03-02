@@ -1,11 +1,17 @@
+using DotnetShop.Common.Messaging.MessageBroker;
+using Microsoft.Extensions.Hosting;
+
 namespace DotnetShop.Ordering.Application.Orders.EventHandlers
 {
-    public class OrderUpdatedEventHandler(ILogger<OrderUpdatedEventHandler> logger)
-        : INotificationHandler<OrderUpdatedEvent>
+    public class OrderUpdatedEventHandler(MessageConsumer messageConsumer) : BackgroundService
     {
-        public Task Handle(OrderUpdatedEvent notification, CancellationToken cancellationToken)
+        protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            logger.LogInformation("Domain Event handled: {DomainEvent}", notification.GetType().Name);
+            messageConsumer.AddListener("UpdateOrder", "OrderUpdated", (_, args) =>
+            {
+                return Task.CompletedTask;
+            });
+
             return Task.CompletedTask;
         }
     }

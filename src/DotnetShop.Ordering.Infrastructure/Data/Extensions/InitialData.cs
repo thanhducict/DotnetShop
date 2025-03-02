@@ -7,8 +7,8 @@ namespace DotnetShop.Ordering.Infrastructure.Data.Extensions
     {
         public static IEnumerable<Customer> Customers =>
         [
-            Customer.Create(CustomerId.Of(new Guid("0912b826-7fd9-46c1-b08f-986c28f22558")), "Wayne Rooney", "wayne.rooney@manutd.com"),
-            Customer.Create(CustomerId.Of(new Guid("108b9eb5-1eff-47f3-b328-7bf498b4145d")), "Paul Scholes", "paul.scholes@manutd.com")
+            Customer.Create(CustomerId.Of(new Guid("0912b826-7fd9-46c1-b08f-986c28f22558")), "rooney", "wayne.rooney@manutd.com"),
+            Customer.Create(CustomerId.Of(new Guid("108b9eb5-1eff-47f3-b328-7bf498b4145d")), "scholes", "paul.scholes@manutd.com")
         ];
 
         public static IEnumerable<Product> Products =>

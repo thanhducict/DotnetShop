@@ -1,9 +1,10 @@
 namespace DotnetShop.Common.Messaging.Events
 {
-    public record BasketCheckoutEvent : IntegrationEvent
+    public record CartCheckoutEvent : IntegrationEvent
     {
         public string UserName { get; set; } = default!;
         public Guid CustomerId { get; set; } = default!;
+        public List<CartItem> CartItems { get; set; } = default!;
         public decimal TotalPrice { get; set; } = default!;
 
         // Shipping and BillingAddress
@@ -21,5 +22,13 @@ namespace DotnetShop.Common.Messaging.Events
         public string Expiration { get; set; } = default!;
         public string CVV { get; set; } = default!;
         public int PaymentMethod { get; set; } = default!;
+    }
+
+    public record CartItem
+    {
+        public Guid ProductGuid { get; set; } = default!;
+        public string ProductName { get; set; } = default!;
+        public int Quantity { get; set; } = default!;
+        public decimal Price { get; set; } = default!;
     }
 }

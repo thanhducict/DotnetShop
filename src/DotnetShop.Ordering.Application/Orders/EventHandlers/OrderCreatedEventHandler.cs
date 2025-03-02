@@ -1,18 +1,18 @@
+using DotnetShop.Common.Messaging.MessageBroker;
+using Microsoft.Extensions.Hosting;
+
 namespace DotnetShop.Ordering.Application.Orders.EventHandlers
 {
-    public class OrderCreatedEventHandler
-        (/*IPublishEndpoint publishEndpoint, IFeatureManager featureManager, */ILogger<OrderCreatedEventHandler> logger)
-        : INotificationHandler<OrderCreatedEvent>
+    public class OrderCreatedEventHandler(MessageConsumer messageConsumer) : BackgroundService
     {
-        public async Task Handle(OrderCreatedEvent domainEvent, CancellationToken cancellationToken)
+        protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            logger.LogInformation("Domain Event handled: {DomainEvent}", domainEvent.GetType().Name);
+            messageConsumer.AddListener("Checkout", "OrderCreated", (_, args) =>
+            {
+                return Task.CompletedTask;
+            });
 
-            //if (await featureManager.IsEnabledAsync("OrderFullfilment"))
-            //{
-            //    var orderCreatedIntegrationEvent = domainEvent.order.ToOrderDto();
-            //    await publishEndpoint.Publish(orderCreatedIntegrationEvent, cancellationToken);
-            //}
+            return Task.CompletedTask;
         }
     }
 }
