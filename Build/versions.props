@@ -1,5 +1,11 @@
 <Project>
   <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <AdminCoreVersion>1.0.1</AdminCoreVersion>
     <AdminOrderingVersion>1.0.1</AdminOrderingVersion>
   </PropertyGroup>
