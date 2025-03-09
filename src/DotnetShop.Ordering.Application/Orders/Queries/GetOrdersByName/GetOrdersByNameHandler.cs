@@ -12,7 +12,7 @@ namespace DotnetShop.Ordering.Application.Orders.Queries.GetOrdersByName
                     .OrderBy(o => o.OrderName.Value)
                     .ToListAsync(cancellationToken);
 
-            return new GetOrdersByNameResult(orders.ToOrderDtoList());
+            return new GetOrdersByNameResult(orders.ToOrderDtoList(dbContext));
         }
     }
 }

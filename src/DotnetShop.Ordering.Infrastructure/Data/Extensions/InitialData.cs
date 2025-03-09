@@ -32,7 +32,7 @@ namespace DotnetShop.Ordering.Infrastructure.Data.Extensions
                 var order1 = Order.Create(
                     OrderId.Of(new Guid("3a347392-c092-4755-89e9-9fa47b9d3ccb")),
                     CustomerId.Of(new Guid("0912b826-7fd9-46c1-b08f-986c28f22558")),
-                    OrderName.Of("ORD_1"),
+                    OrderName.Of("ORDER_1"),
                     shippingAddress: address1,
                     billingAddress: address1,
                     payment1);
@@ -42,7 +42,7 @@ namespace DotnetShop.Ordering.Infrastructure.Data.Extensions
                 var order2 = Order.Create(
                     OrderId.Of(new Guid("9a6cd49e-c1db-4ed1-951b-bc5ac0568b45")),
                     CustomerId.Of(new Guid("108b9eb5-1eff-47f3-b328-7bf498b4145d")),
-                    OrderName.Of("ORD_2"),
+                    OrderName.Of("ORDER_2"),
                     shippingAddress: address2,
                     billingAddress: address2,
                     payment2);

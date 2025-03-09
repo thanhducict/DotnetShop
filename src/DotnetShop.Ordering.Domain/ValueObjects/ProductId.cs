@@ -9,7 +9,7 @@ namespace DotnetShop.Ordering.Domain.ValueObjects
         {
             if (value == Guid.Empty)
             {
-                throw new DomainException("ProductId cannot be empty.");
+                throw new DomainException("ProductGuid cannot be empty.");
             }
 
             return new ProductId(value);

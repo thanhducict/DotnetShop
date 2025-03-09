@@ -19,6 +19,9 @@ services:
       context: .
       dockerfile: src\DotnetShop.Catalog.API\Dockerfile
 
+  messagebroker:
+    image: rabbitmq:management
+
   shoppingcart.api:
     image: ${DOCKER_REGISTRY-}shoppingcart
     build:

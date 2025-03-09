@@ -2,6 +2,6 @@ using DotnetShop.Ordering.Domain.Enums;
 
 namespace DotnetShop.Ordering.Application.Dtos
 {
-    public record OrderDto(Guid Id, Guid CustomerId, string OrderName, AddressDto ShippingAddress,
-        AddressDto BillingAddress, PaymentDto Payment, OrderStatus Status, List<OrderItemDto> OrderItems);
+    public record OrderDto(Guid Id, string OrderName, CustomerDto Customer, List<OrderItemDto> OrderItems, AddressDto ShippingAddress,
+        AddressDto BillingAddress, PaymentDto Payment, OrderStatus Status);
 }

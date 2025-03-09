@@ -11,7 +11,7 @@ namespace DotnetShop.Ordering.Application.Orders.Queries.GetOrdersByCustomer
                             .OrderBy(o => o.OrderName.Value)
                             .ToListAsync(cancellationToken);
 
-            return new GetOrdersByCustomerResult(orders.ToOrderDtoList());
+            return new GetOrdersByCustomerResult(orders.ToOrderDtoList(dbContext));
         }
     }
 }

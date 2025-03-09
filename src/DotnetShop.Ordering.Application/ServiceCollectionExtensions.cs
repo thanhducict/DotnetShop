@@ -1,7 +1,7 @@
 using DotnetShop.Common.Behaviors;
 using DotnetShop.Common.Messaging;
 using DotnetShop.Common.Messaging.MessageBroker;
-using DotnetShop.Ordering.Application.Orders.EventHandlers;
+using DotnetShop.Ordering.Application.Orders.EventHandlers.Integration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -20,8 +20,9 @@ namespace DotnetShop.Ordering.Application
             });
 
             services.AddMessageBrooker(configuration);
+            services.AddSingleton<MessageProducer>();
             services.AddSingleton<MessageConsumer>();
-            services.AddHostedService<OrderCreatedEventHandler>();
+            services.AddHostedService<CartCheckoutEventHandler>();
 
             return services;
         }
