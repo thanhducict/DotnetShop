@@ -26,9 +26,18 @@ services:
     ports:
       - '6379:6379'
 
+  orderingdb:
+    container_name: orderingdb
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Secret12
+    restart: always
+    ports:
+      - "1434:1433"
+
   messagebroker:
     container_name: messagebroker
-    hostname: dotnetshop-mq
+    hostname: dotnetshopmq
     environment:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
@@ -63,10 +72,14 @@ services:
       - GrpcSettings__DiscountUrl=https://discount.grpc:8081
       - ASPNETCORE_Kestrel__Certificates__Default__Password=mycertificate
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - MessageBroker__Uri=amqp://dotnetshopmq:5672
+      - MessageBroker__UserName=guest
+      - MessageBroker__Password=guest
     depends_on:
         - cartdb
         - distributedcache
         - discount.grpc
+        - messagebroker
     ports:
       - "6001:8080"
       - "6061:8081"
@@ -87,11 +100,22 @@ services:
     volumes:
       - ~/.aspnet/https:/https:ro
 
-  orderingdb:
-    container_name: orderingdb
+  ordering.api:
+    container_name: ordering.api
     environment:
-      - ACCEPT_EULA=Y
-      - MSSQL_SA_PASSWORD=Secret12
-    restart: always
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:8081;http://+:8080
+      - ConnectionStrings__OrderingDB=Server=orderingdb;Database=OrderingDb;User Id=sa;Password=Secret12;TrustServerCertificate=True
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=mycertificate
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - MessageBroker__Uri=amqp://dotnetshopmq:5672
+      - MessageBroker__UserName=guest
+      - MessageBroker__Password=guest
+    depends_on:
+        - orderingdb
+        - messagebroker
     ports:
-      - "1434:1433"
+      - "6003:8080"
+      - "6063:8081"
+    volumes:
+      - ~/.aspnet/https:/https:ro

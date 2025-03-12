@@ -10,15 +10,13 @@ namespace DotnetShop.Common.Messaging
         {
             services.AddSingleton<IConnection>(sp =>
             {
-                var connectionFactory = new ConnectionFactory
-                {
-                    HostName = "localhost",
-                    Port = 5672
-                };
+                var connectionFactory = new ConnectionFactory();
+                connectionFactory.Uri = new Uri(configuration["MessageBroker:Uri"]);
+                connectionFactory.UserName = configuration["MessageBroker:UserName"];
+                connectionFactory.Password = configuration["MessageBroker:Password"];
 
                 return connectionFactory.CreateConnectionAsync().Result;
             });
-
 
             return services;
         }

@@ -18,7 +18,7 @@ namespace DotnetShop.Ordering.Application.Orders.Commands.CreateOrder
         private async void CreateCustomerIfNotExistsAsync(OrderDto order, CancellationToken cancellationToken)
         {
             var customer = dbContext.Customers.ToList()
-                .FirstOrDefault(c => c.Id.Value.CompareTo(order.Customer.CustomerGuid)==0);
+                .FirstOrDefault(c => c.Id.Value.CompareTo(order.Customer.CustomerGuid) == 0);
 
             if (customer == null)
             {

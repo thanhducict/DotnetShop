@@ -12,9 +12,9 @@ namespace DotnetShop.Ordering.Application.Orders.EventHandlers.Domain
             var orderCreatedIntegrationEvent = domainEvent.Order.ToOrderDto(dbContext);
             var message = JsonSerializer.Serialize(orderCreatedIntegrationEvent);
 
-            //await messageProducer.SendMessage("OrderCreated", message);
+            await messageProducer.SendMessage("OrderCreated", message);
             // print the result because there is no consumer yet.
-            await Task.Run(() => logger.LogInformation("Order created: \n{message}", message), cancellationToken);
+            //await Task.Run(() => logger.LogInformation("Order created: \n{message}", message), cancellationToken);
         }
     }
 }

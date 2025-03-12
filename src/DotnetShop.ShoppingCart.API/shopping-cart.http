@@ -1,10 +1,10 @@
 @hostname=localhost
 
 # Local
-@port=5051
+# @port=5051
 
 # Docker
-# @port=6061
+@port=6061
 
 @host={{hostname}}:{{port}}
 
@@ -52,8 +52,8 @@ Content-Type: application/json
 {
     "cartCheckoutDto": {
         "customer": {
-            "username": "ronaldo",
             "customerGuid": "1064b11a-6dde-48c0-9275-b8302fa13b34",
+            "username": "ronaldo",
             "email": "cristiano.ronaldo@manutd.com"
         },
         "cartItems": [

@@ -14,6 +14,7 @@ RUN ./setup.sh
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
+COPY ["build/versions.props", "build/versions.props"]
 COPY ["src/DotnetShop.Catalog.API/DotnetShop.Catalog.API.csproj", "src/DotnetShop.Catalog.API/"]
 COPY ["src/DotnetShop.Common/DotnetShop.Common.csproj", "src/DotnetShop.Common/"]
 RUN dotnet restore "./src/DotnetShop.Catalog.API/DotnetShop.Catalog.API.csproj"
