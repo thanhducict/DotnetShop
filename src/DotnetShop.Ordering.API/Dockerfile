@@ -18,9 +18,10 @@ RUN dotnet restore "./src/DotnetShop.Ordering.API/DotnetShop.Ordering.API.csproj
 COPY . .
 WORKDIR "/src/src/DotnetShop.Ordering.API"
 RUN dotnet build "./DotnetShop.Ordering.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
-
-FROM mcr.microsoft.com/mssql-tools
-RUN ./setup.sh
+#RUN dotnet tool install --global dotnet-ef
+#ENV PATH="${PATH}:/root/.dotnet/tools"
+#RUN dotnet ef migrations add InitialCreate -p ../DotnetShop.Ordering.Infrastructure/DotnetShop.Ordering.Infrastructure.csproj -s DotnetShop.Ordering.API.csproj
+#RUN dotnet ef database update -p ../DotnetShop.Ordering.Infrastructure/DotnetShop.Ordering.Infrastructure.csproj -s DotnetShop.Ordering.API.csproj
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release

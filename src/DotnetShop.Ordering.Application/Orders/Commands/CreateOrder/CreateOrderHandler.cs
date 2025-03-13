@@ -5,8 +5,8 @@ namespace DotnetShop.Ordering.Application.Orders.Commands.CreateOrder
     {
         public async Task<CreateOrderResult> Handle(CreateOrderCommand command, CancellationToken cancellationToken)
         {
-            CreateCustomerIfNotExistsAsync(command.Order, cancellationToken);
-            CreateProductsIfNotExistsAsync(command.Order, cancellationToken);
+            await CreateCustomerIfNotExistsAsync(command.Order, cancellationToken);
+            await CreateProductsIfNotExistsAsync(command.Order, cancellationToken);
 
             var order = CreateNewOrder(command.Order);
             dbContext.Orders.Add(order);
@@ -15,7 +15,7 @@ namespace DotnetShop.Ordering.Application.Orders.Commands.CreateOrder
             return new CreateOrderResult(order.Id.Value);
         }
 
-        private async void CreateCustomerIfNotExistsAsync(OrderDto order, CancellationToken cancellationToken)
+        private async Task CreateCustomerIfNotExistsAsync(OrderDto order, CancellationToken cancellationToken)
         {
             var customer = dbContext.Customers.ToList()
                 .FirstOrDefault(c => c.Id.Value.CompareTo(order.Customer.CustomerGuid) == 0);
@@ -29,18 +29,23 @@ namespace DotnetShop.Ordering.Application.Orders.Commands.CreateOrder
             }
         }
 
-        private async void CreateProductsIfNotExistsAsync(OrderDto order, CancellationToken cancellationToken)
+        private async Task CreateProductsIfNotExistsAsync(OrderDto order, CancellationToken cancellationToken)
         {
+            var products = new List<Product>();
             foreach (var orderItem in order.OrderItems)
             {
                 if (!dbContext.Products.ToList().Any(p => p.Id.Value == orderItem.ProductId))
                 {
                     var newProduct = Product.Create(ProductId.Of(orderItem.ProductId), orderItem.ProductName, orderItem.Price);
-                    dbContext.Products.Add(newProduct);
+                    products.Add(newProduct);
                 }
             }
 
-            await dbContext.SaveChangesAsync(cancellationToken);
+            if (products.Count != 0)
+            {
+                await dbContext.Products.AddRangeAsync(products, cancellationToken);
+                await dbContext.SaveChangesAsync(cancellationToken);
+            }
         }
 
         private Order CreateNewOrder(OrderDto orderDto)
