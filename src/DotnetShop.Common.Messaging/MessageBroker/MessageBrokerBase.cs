@@ -1,5 +1,4 @@
 using RabbitMQ.Client;
-using System.Text;
 
 namespace DotnetShop.Common.Messaging.MessageBroker
 {
