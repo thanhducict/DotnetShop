@@ -16,8 +16,14 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <ul class="navbar-nav">
-                    @* <a class="nav-link" asp-controller="@item.AspController" asp-action="@item.AspAction">@item.MenuItemText</a> *@
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-page="/Index">Home</a>
+                    </li>
+                    @await Component.InvokeAsync("CategoryMenu")
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-page="/About">About</a>
+                    </li>
                 </ul>
             </div>
             <form class="d-flex" role="search">

@@ -1,0 +1,22 @@
+@page
+@model DetailsModel
+
+<h2>@Model.Product.ProductName</h2>
+
+<div class="thumbnail">
+    <img alt="@Model.Product.ProductName" src="@Model.Product.ImageUrls[0]" width="600" >
+    <div class="caption-full">
+        <h3 class="pull-right">@Model.Product.Price</h3>
+        <h3>
+            <a href="#">@Model.Product.ProductName</a>
+        </h3>
+        <h4>@Model.Product.ShortDescription</h4>
+        <p>@Model.Product.LongDescription</p>
+        <div>
+            <a class="btn btn-primary" 
+                asp-page="/Cart"
+                asp-page-handler="AddToCart"
+                asp-route-productId="@Model.Product.ProductId">Add to cart</a>
+        </div>
+    </div>
+</div>
