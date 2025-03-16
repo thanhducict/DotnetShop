@@ -10,6 +10,6 @@ namespace DotnetShop.Catalog.API.Models
         public List<string> ImageUrls { get; set; } = default!;
         public string ImageThumbnailUrl { get; set; } = default!;
         public decimal Price { get; set; }
-        public int CategoryId { get; set; }
+        public Guid CategoryGuid { get; set; }
     }
 }

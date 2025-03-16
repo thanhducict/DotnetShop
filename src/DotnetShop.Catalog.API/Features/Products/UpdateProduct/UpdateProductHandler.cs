@@ -3,7 +3,7 @@ using DotnetShop.Catalog.API.Repositories;
 namespace DotnetShop.Catalog.API.Features.Products.UpdateProduct
 {
     public record UpdateProductCommand(int ProductId, Guid ProductGuid, string ProductName, string ShortDescription, string LongDescription,
-        List<string> ImageUrls, string ImageThumbnailUrl, decimal Price, int CategoryId) : ICommand<UpdateProductResult>;
+        List<string> ImageUrls, string ImageThumbnailUrl, decimal Price, Guid CategoryGuid) : ICommand<UpdateProductResult>;
 
     public record UpdateProductResult(bool IsSuccess);
 
@@ -38,7 +38,7 @@ namespace DotnetShop.Catalog.API.Features.Products.UpdateProduct
                 ImageUrls = command.ImageUrls,
                 ImageThumbnailUrl = command.ImageThumbnailUrl,
                 Price = command.Price,
-                CategoryId = command.CategoryId
+                CategoryGuid = command.CategoryGuid
             };
 
             var result = await productRepository.UpdateProduct(product, cancellationToken);

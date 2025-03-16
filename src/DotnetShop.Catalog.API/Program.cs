@@ -2,7 +2,7 @@ using DotnetShop.Catalog.API.Features.Categories.CreateCategory;
 using DotnetShop.Catalog.API.Features.Categories.GetCategories;
 using DotnetShop.Catalog.API.Features.Products.CreateProduct;
 using DotnetShop.Catalog.API.Features.Products.DeleteProduct;
-using DotnetShop.Catalog.API.Features.Products.GetProductById;
+using DotnetShop.Catalog.API.Features.Products.GetProductByGuid;
 using DotnetShop.Catalog.API.Features.Products.GetProducts;
 using DotnetShop.Catalog.API.Features.Products.GetProductsByCategory;
 using DotnetShop.Catalog.API.Features.Products.UpdateProduct;
@@ -38,7 +38,7 @@ app.AddCreateCategoryEndpoint();
 
 app.AddGetProductsEndpoint();
 app.AddCreateProductEndpoint();
-app.AddGetProductByIdEndpoint();
+app.AddGetProductByGuidEndpoint();
 app.AddGetProductsByCategoryEndpoint();
 app.AddUpdateProductEndpoint();
 app.AddDeleteProductEndpoint();

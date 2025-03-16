@@ -3,7 +3,7 @@ using DotnetShop.Catalog.API.Repositories;
 namespace DotnetShop.Catalog.API.Features.Products.CreateProduct
 {
     public record CreateProductCommand(Guid ProductGuid, string ProducName, string ShortDescription, string LongDescription,
-        List<string> ImageUrls, string ImageThumbnailUrl, decimal Price, int CategoryId) : ICommand<CreateProductResult>;
+        List<string> ImageUrls, string ImageThumbnailUrl, decimal Price, Guid CategoryGuid) : ICommand<CreateProductResult>;
 
     public record CreateProductResult(int ProductId);
 
@@ -16,7 +16,7 @@ namespace DotnetShop.Catalog.API.Features.Products.CreateProduct
             RuleFor(x => x.ImageUrls).NotNull().WithMessage("ImageUrls is required");
             RuleFor(x => x.ImageThumbnailUrl).NotEmpty().WithMessage("ImageThumbnailUrl is required");
             RuleFor(x => x.Price).GreaterThan(0).WithMessage("Price must be greater than 0");
-            RuleFor(x => x.CategoryId).NotEmpty().WithMessage("CategoryId is required");
+            RuleFor(x => x.CategoryGuid).NotEmpty().WithMessage("CategoryGuid is required");
         }
     }
 
@@ -35,7 +35,7 @@ namespace DotnetShop.Catalog.API.Features.Products.CreateProduct
                 ImageUrls = command.ImageUrls,
                 ImageThumbnailUrl = command.ImageThumbnailUrl,
                 Price = command.Price,
-                CategoryId = command.CategoryId,
+                CategoryGuid = command.CategoryGuid,
             };
 
             var productId = await productRepository.CreateProduct(product, cancellationToken);

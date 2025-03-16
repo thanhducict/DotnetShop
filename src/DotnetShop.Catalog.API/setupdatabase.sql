@@ -44,7 +44,7 @@ INSERT INTO dbo.Product (ProductGuid, ProductName, ShortDescription, LongDescrip
     '["/images/Products/Kudu Purple Sweatshirt HD.png"]',
     '/images/Products/Kudu Purple Sweatshirt.png',
     15.95,
-    1
+    '791a4219-b883-4c7b-93bf-bf977a25fdb6'
 )
 INSERT INTO dbo.Product (ProductGuid, ProductName, ShortDescription, LongDescription, ImageUrls, ImageThumbnailUrl, Price, CategoryId) VALUES (
     '51149bd0-c9e0-4068-b8f2-3368caa5c85c',
@@ -54,7 +54,7 @@ INSERT INTO dbo.Product (ProductGuid, ProductName, ShortDescription, LongDescrip
     '["/images/Products/NET Blue Sweatshirt HD.png"]',
     '/images/Products/NET Blue Sweatshirt.png',
     18.95,
-    1
+    '791a4219-b883-4c7b-93bf-bf977a25fdb6'
 )
 INSERT INTO dbo.Product (ProductGuid, ProductName, ShortDescription, LongDescription, ImageUrls, ImageThumbnailUrl, Price, CategoryId) VALUES (
     '5df4c8d9-77ba-469a-8a23-5b87f9f7d9c5',
@@ -64,7 +64,7 @@ INSERT INTO dbo.Product (ProductGuid, ProductName, ShortDescription, LongDescrip
     '["/images/Products/NET Bot Black Sweatshirt HD.png"]',
     '/images/Products/NET Bot Black Sweatshirt.png',
     18.95,
-    1
+    '791a4219-b883-4c7b-93bf-bf977a25fdb6'
 )
 INSERT INTO dbo.Product (ProductGuid, ProductName, ShortDescription, LongDescription, ImageUrls, ImageThumbnailUrl, Price, CategoryId) VALUES (
     '293d91cd-0de8-4b18-b2e9-a1a26678dada',
@@ -74,7 +74,7 @@ INSERT INTO dbo.Product (ProductGuid, ProductName, ShortDescription, LongDescrip
     '["/images/Products/NET Foundation Sweatshirt HD.png"]',
     '/images/Products/NET Foundation Sweatshirt.png',
     17.95,
-    1
+    '791a4219-b883-4c7b-93bf-bf977a25fdb6'
 )
 INSERT INTO dbo.Product (ProductGuid, ProductName, ShortDescription, LongDescription, ImageUrls, ImageThumbnailUrl, Price, CategoryId) VALUES (
     'ad237f2f-94ce-46f5-91e5-950d328922a3',
@@ -84,7 +84,7 @@ INSERT INTO dbo.Product (ProductGuid, ProductName, ShortDescription, LongDescrip
     '["/images/Products/Prism White T-Shirt HD.png"]',
     '/images/Products/Prism White T-Shirt.png',
     18.95,
-    1
+    '791a4219-b883-4c7b-93bf-bf977a25fdb6'
 )
 INSERT INTO dbo.Product (ProductGuid, ProductName, ShortDescription, LongDescription, ImageUrls, ImageThumbnailUrl, Price, CategoryId) VALUES (
     '035cea53-40e4-4100-8a92-3d478342090c',
@@ -94,7 +94,7 @@ INSERT INTO dbo.Product (ProductGuid, ProductName, ShortDescription, LongDescrip
     '["/images/Products/Roslyn Red T-Shirt HD.png"]',
     '/images/Products/Roslyn Red T-Shirt.png',
     17.95,
-    1
+    '791a4219-b883-4c7b-93bf-bf977a25fdb6'
 )
 INSERT INTO dbo.Product (ProductGuid, ProductName, ShortDescription, LongDescription, ImageUrls, ImageThumbnailUrl, Price, CategoryId) VALUES (
     '722baa3a-5cf7-4952-9cda-dfaa1ad1367f',
@@ -104,7 +104,7 @@ INSERT INTO dbo.Product (ProductGuid, ProductName, ShortDescription, LongDescrip
     '["/images/Products/CupT T-Shirt HD.png"]',
     '/images/Products/CupT T-Shirt.png',
     19.95,
-    1
+    '791a4219-b883-4c7b-93bf-bf977a25fdb6'
 )
 INSERT INTO dbo.Product (ProductGuid, ProductName, ShortDescription, LongDescription, ImageUrls, ImageThumbnailUrl, Price, CategoryId) VALUES (
     'a8814752-c866-4944-8020-61279d380087',
@@ -114,7 +114,7 @@ INSERT INTO dbo.Product (ProductGuid, ProductName, ShortDescription, LongDescrip
     '["/images/Products/CupT White Mug HD.png"]',
     '/images/Products/CupT White Mug.png',
     10.95,
-    2
+    '1d097e4a-6950-4eb9-b4ba-1ff8c3315c98'
 )
 INSERT INTO dbo.Product (ProductGuid, ProductName, ShortDescription, LongDescription, ImageUrls, ImageThumbnailUrl, Price, CategoryId) VALUES (
     '03eb5b7c-3e42-4361-8210-3cb6ce0cf88f',
@@ -124,7 +124,7 @@ INSERT INTO dbo.Product (ProductGuid, ProductName, ShortDescription, LongDescrip
     '["/images/Products/NET Black White Mug HD.png"]',
     '/images/Products/NET Black White Mug.png',
     10.95,
-    2
+    '1d097e4a-6950-4eb9-b4ba-1ff8c3315c98'
 )
 INSERT INTO dbo.Product (ProductGuid, ProductName, ShortDescription, LongDescription, ImageUrls, ImageThumbnailUrl, Price, CategoryId) VALUES (
     '4ae642de-3ccf-4bca-8c24-14ae508a759f',
@@ -134,7 +134,7 @@ INSERT INTO dbo.Product (ProductGuid, ProductName, ShortDescription, LongDescrip
     '["/images/Products/CupT Badge HD.png"]',
     '/images/Products/CupT Badge.png',
     4.95,
-    3
+    '18b4cb49-bdee-4387-9935-df3215e0a0bf'
 )
 INSERT INTO dbo.Product (ProductGuid, ProductName, ShortDescription, LongDescription, ImageUrls, ImageThumbnailUrl, Price, CategoryId) VALUES (
     '90e3af6d-e79a-45b6-b2c8-8bc25f60708a',
@@ -144,7 +144,7 @@ INSERT INTO dbo.Product (ProductGuid, ProductName, ShortDescription, LongDescrip
     '["/images/Products/NET Foundation Badge HD.png"]',
     '/images/Products/NET Foundation Badge.png',
     3.95,
-    3
+    '18b4cb49-bdee-4387-9935-df3215e0a0bf'
 )
 INSERT INTO dbo.Product (ProductGuid, ProductName, ShortDescription, LongDescription, ImageUrls, ImageThumbnailUrl, Price, CategoryId) VALUES (
     '324a1f34-97f9-4636-be93-ec456b19f90e',
@@ -154,7 +154,7 @@ INSERT INTO dbo.Product (ProductGuid, ProductName, ShortDescription, LongDescrip
     '["/images/Products/Roslyn Red Badge HD.png"]',
     '/images/Products/Roslyn Red Badge.png',
     3.95,
-    3
+    '18b4cb49-bdee-4387-9935-df3215e0a0bf'
 )
 GO
 

@@ -16,7 +16,7 @@ namespace DotnetShop.WebApp.Pages.Catalog
             _catalogService = catalogService;
         }
 
-        public void OnGet(int id)
+        public void OnGet(Guid guid)
         {
             //var result = _catalogService.GetProductByGuid(id);
             //if (result == null)
