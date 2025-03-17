@@ -18,6 +18,8 @@ services:
     build:
       context: .
       dockerfile: src\DotnetShop.Catalog.API\Dockerfile
+    depends_on:
+      - catalog.migration
 
   messagebroker:
     image: rabbitmq:management
@@ -39,6 +41,17 @@ services:
     build:
       context: .
       dockerfile: src\DotnetShop.Ordering.API\Dockerfile
+
+  catalog.migration:
+    image: mcr.microsoft.com/mssql-tools
+    command: /opt/mssql-tools/bin/sqlcmd -S catalogdb -U sa -P Secret12 -i /migration/setupdatabase.sql
+    depends_on:
+      - catalogdb
+    volumes:
+      - type: bind
+        source: src/DotnetShop.Catalog.API/setupdatabase.sql
+        target: /migration/setupdatabase.sql
+  
 
 volumes:
   postgres_catalog:

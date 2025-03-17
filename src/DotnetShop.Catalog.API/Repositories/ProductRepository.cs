@@ -47,7 +47,7 @@ namespace DotnetShop.Catalog.API.Repositories
                             : JsonSerializer.Deserialize<List<string>>(p.Field<string>("ImageUrls"))!,
                         ImageThumbnailUrl = p.Field<string>("ImageThumbnailUrl"),
                         Price = p.Field<decimal>("Price"),
-                        CategoryGuid = p.Field<Guid>("CategoryGuid")
+                        CategoryId = p.Field<int>("CategoryId")
                     }).ToList();
                 }
             }
@@ -89,7 +89,7 @@ namespace DotnetShop.Catalog.API.Repositories
                             : JsonSerializer.Deserialize<List<string>>(p.Field<string>("ImageUrls"))!,
                         ImageThumbnailUrl = p.Field<string>("ImageThumbnailUrl"),
                         Price = p.Field<decimal>("Price"),
-                        CategoryGuid = p.Field<Guid>("CategoryGuid")
+                        CategoryId = p.Field<int>("CategoryId")
                     }).SingleOrDefault();
                 }
             }
@@ -143,12 +143,12 @@ namespace DotnetShop.Catalog.API.Repositories
                         : JsonSerializer.Deserialize<List<string>>(p.Field<string>("ImageUrls"))!,
                     ImageThumbnailUrl = p.Field<string>("ImageThumbnailUrl"),
                     Price = p.Field<decimal>("Price"),
-                    CategoryGuid = p.Field<Guid>("CategoryGuid"),
+                    CategoryId = p.Field<int>("CategoryId"),
                 }).ToList();
 
                 if (selectedCategory != null)
                 {
-                    return products.Where(p => p.CategoryGuid == selectedCategory.CategoryGuid).ToList();
+                    return products.Where(p => p.CategoryId == selectedCategory.CategoryId).ToList();
                 }
                 else
                 {
@@ -187,7 +187,7 @@ namespace DotnetShop.Catalog.API.Repositories
                 cmd.Parameters.Add(new SqlParameter("@ImageUrls", JsonSerializer.Serialize(product.ImageUrls)));
                 cmd.Parameters.Add(new SqlParameter("@ImageThumbnailUrl", product.ImageThumbnailUrl));
                 cmd.Parameters.Add(new SqlParameter("@Price", product.Price));
-                cmd.Parameters.Add(new SqlParameter("@CategoryGuid", product.CategoryGuid));
+                cmd.Parameters.Add(new SqlParameter("@CategoryId", product.CategoryId));
 
                 await cmd.ExecuteScalarAsync(cancellationToken);
                 productId = (int)cmd.Parameters["@ProductId"].Value;
@@ -222,7 +222,7 @@ namespace DotnetShop.Catalog.API.Repositories
                 cmd.Parameters.Add(new SqlParameter("@ImageUrls", JsonSerializer.Serialize(product.ImageUrls)));
                 cmd.Parameters.Add(new SqlParameter("@ImageThumbnailUrl", product.ImageThumbnailUrl));
                 cmd.Parameters.Add(new SqlParameter("@Price", product.Price));
-                cmd.Parameters.Add(new SqlParameter("@CategoryGuid", product.CategoryGuid));
+                cmd.Parameters.Add(new SqlParameter("@CategoryId", product.CategoryId));
 
                 await cmd.ExecuteNonQueryAsync(cancellationToken);
 

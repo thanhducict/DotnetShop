@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DotnetShop.Catalog.API.Features.Products.CreateProduct
 {
     public record CreateProductRequest(Guid ProductGuid, string ProductName, string ShortDescription, string LongDescription,
-        List<string> ImageUrls, string ImageThumbnailUrl, decimal Price, Guid CategoryGuid);
+        List<string> ImageUrls, string ImageThumbnailUrl, decimal Price, int CategoryId);
 
     public record CreateProductResponse(int ProductId);
 
@@ -22,7 +22,7 @@ namespace DotnetShop.Catalog.API.Features.Products.CreateProduct
                         request.ImageUrls,
                         request.ImageThumbnailUrl,
                         request.Price,
-                        request.CategoryGuid
+                        request.CategoryId
                     );
 
                     var result = await sender.Send(command);
