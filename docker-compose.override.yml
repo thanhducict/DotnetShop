@@ -7,6 +7,23 @@ services:
     restart: always
     ports:
       - "1433:1433"
+    healthcheck:
+      test: /opt/mssql-tools18/bin/sqlcmd -S catalogdb -U sa -P Secret12 -C -Q "SELECT 1"
+      interval: 10s
+      timeout: 3s
+      retries: 20
+      start_period: 10s
+
+  catalog.migration:
+    container_name: catalog.migration
+    command: /opt/mssql-tools18/bin/sqlcmd -S catalogdb -U sa -P Secret12 -C -i /migration/setupdatabase.sql
+    depends_on:
+      catalogdb:
+        condition: service_healthy
+    volumes:
+      - type: bind
+        source: src/DotnetShop.Catalog.API/setupdatabase.sql
+        target: /migration/setupdatabase.sql
 
   cartdb:
     container_name: cartdb
