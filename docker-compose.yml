@@ -43,7 +43,9 @@ services:
     image: ${DOCKER_REGISTRY-}orderingapi
     build:
       context: .
-      dockerfile: src\DotnetShop.Ordering.API\Dockerfile  
+      dockerfile: src\DotnetShop.Ordering.API\Dockerfile
+    depends_on:
+      - orderingdb
 
 volumes:
   postgres_catalog:

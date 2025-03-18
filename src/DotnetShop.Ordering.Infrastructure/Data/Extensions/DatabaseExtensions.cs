@@ -12,7 +12,7 @@ namespace DotnetShop.Ordering.Infrastructure.Data.Extensions
 
             var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-            context.Database.EnsureCreated();
+            //context.Database.EnsureCreated();
 
             await SeedAsync(context);
         }
