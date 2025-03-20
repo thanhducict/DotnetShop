@@ -35,6 +35,36 @@ const ImageGallery: React.FC = () => {
             thumbnail: false,
             imageName: "Roslyn Red Badge",
         } as ImageModel,
+        {
+            imageGuid: "740f5670-9373-4fdb-8b93-caf2a8e6726b",
+            imageUrl: "/assets/CupT Badge.png",
+            thumbnail: true,
+            imageName: "CupT Badge",
+        } as ImageModel,
+        {
+            imageGuid: "2193137b-1c46-49e1-a6f0-f0a68bf99671",
+            imageUrl: "/assets/CupT T-Shirt.png",
+            thumbnail: false,
+            imageName: "CupT T-Shirt",
+        } as ImageModel,
+        {
+            imageGuid: "893f0115-71b9-4018-ba61-125585deb54e",
+            imageUrl: "/assets/CupT White Mug.png",
+            thumbnail: false,
+            imageName: "CupT White Mug",
+        } as ImageModel,
+        {
+            imageGuid: "2e4d2d5b-55b5-42fa-b7d6-700999752bae",
+            imageUrl: "/assets/NET Blue Sweatshirt.png",
+            thumbnail: false,
+            imageName: "NET Blue Sweatshirt",
+        } as ImageModel,
+        {
+            imageGuid: "08c35b8d-d287-433f-bce8-dd265cf727d4",
+            imageUrl: "/assets/Roslyn Red Badge.png",
+            thumbnail: false,
+            imageName: "Roslyn Red Badge",
+        } as ImageModel,
     ]);
     const [draggedItem, setDraggedItem] = useState<ImageModel | null>();
     const [draggedItemIndex, setDraggedItemIndex] = useState<number>(-1);

@@ -1,0 +1,131 @@
+%upload-area {
+    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='5' ry='5' stroke='%23D6D6D6FF' stroke-width='1' stroke-dasharray='3' stroke-dashoffset='0' stroke-linecap='butt'/%3e%3c/svg%3e");
+    border-radius: 5px;
+    border-radius: 5px;
+    background-color: #fafafa;
+}
+%pill {
+    height: 18px;
+    padding: 3px 7px 0px 7px;
+    width: fit-content;
+    border-radius: 6px;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#grid-image-gallery-wrapper {
+    .image-gallery {
+        width: 800px;
+
+        &__label {
+            height: 24px;
+            margin-bottom: 5px;
+        }
+
+        &__panel {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            position: relative;
+
+            &--empty {
+                @extend %upload-area;
+            }
+        }
+    }
+
+    .image-box {
+        width: 160px;
+        height: 180px;
+        border: 1px solid #d6d6d6;
+        border-radius: 4px;
+
+        &--dragging {
+            cursor: grabbing;
+        }
+
+        &:hover .image-box__drag {
+            visibility: visible;
+        }
+
+        &__drag {
+            visibility: hidden;
+            height: 24px;
+            width: 24px;
+            position: absolute;
+            background-color: white;
+            margin: 3px 0 0 3px;
+        }
+
+        &__image {
+            width: 160px;
+            height: 120px;
+        }
+
+        .image-panel {
+            height: 60px;
+            padding: 10px;
+
+            &__info {
+                float: left;
+                width: 98px;
+            }
+
+            &__thumbnail {
+                @extend %pill;
+
+                background-color: rgb(246, 140, 218);
+            }
+
+            &__image {
+                @extend %pill;
+                background-color: rgb(8, 146, 245);
+            }
+
+            &__image-name {
+                margin-top: 3px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            &__button {
+                float: right;
+                margin-top: 3px;
+            }
+        }
+    }
+
+    .upload-box {
+        position: relative;
+        height: 180px;
+        width: 180px;
+        cursor: pointer;
+
+        @extend %upload-area;
+
+        &__content {
+            width: 180px;
+            height: 180px;
+        }
+
+        img {
+            position: absolute;
+            margin: 0;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+
+    .hide-image {
+        transition: 0.01s;
+        transform: translateX(-9999px);
+    }
+
+    .hide-drag-icon {
+        visibility: hidden !important;
+    }
+}

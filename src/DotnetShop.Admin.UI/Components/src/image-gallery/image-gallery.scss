@@ -17,10 +17,6 @@
 
 #image-gallery-wrapper {
     .image-gallery {
-        width: 800px;
-        height: 245px;
-        overflow-x: auto;
-
         &__label {
             height: 24px;
             margin-bottom: 5px;
@@ -28,10 +24,9 @@
 
         &__panel {
             display: flex;
+            flex-wrap: wrap;
             gap: 10px;
             position: relative;
-            height: 180px;
-            width: 100%;
 
             &--empty {
                 @extend %upload-area;
