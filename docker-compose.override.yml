@@ -123,6 +123,16 @@ services:
     volumes:
       - ~/.aspnet/https:/https:ro
 
+  ordering.migrations:
+    container_name: ordering.migrations
+    build:
+      context: .
+      target: final
+      dockerfile: src\DotnetShop.Ordering.API\Dockerfile
+    depends_on:
+      orderingdb:
+        condition: service_healthy
+
   ordering.api:
     container_name: ordering.api
     environment:
@@ -142,5 +152,22 @@ services:
     ports:
       - "6003:8080"
       - "6063:8081"
+    volumes:
+      - ~/.aspnet/https:/https:ro
+
+  yarpapigateway:
+    container_name: yarpapigateway
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:8081;http://+:8080
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=mycertificate
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    depends_on:
+      - catalog.api
+      - shoppingcart.api
+      - ordering.api
+    ports:
+      - "6004:8080"
+      - "6064:8081"
     volumes:
       - ~/.aspnet/https:/https:ro

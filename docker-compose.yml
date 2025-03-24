@@ -39,13 +39,23 @@ services:
       context: .
       dockerfile: src\DotnetShop.Discount.Grpc\Dockerfile
 
+  ordering.migrations:
+    image: mcr.microsoft.com/dotnet/sdk:9.0
+
   ordering.api:
     image: ${DOCKER_REGISTRY-}orderingapi
     build:
       context: .
+      target: final
       dockerfile: src\DotnetShop.Ordering.API\Dockerfile
     depends_on:
-      - orderingdb
+      - ordering.migrations
+
+  yarpapigateway:
+    image: ${DOCKER_REGISTRY-}yarpapigateway
+    build:
+      context: .
+      dockerfile: src\DotnetShop.YarpApiGateway\Dockerfile
 
 volumes:
   postgres_catalog:

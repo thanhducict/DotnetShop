@@ -18,7 +18,6 @@ RUN dotnet restore "./src/DotnetShop.Ordering.API/DotnetShop.Ordering.API.csproj
 COPY . .
 WORKDIR "/src/src/DotnetShop.Ordering.API"
 RUN dotnet build "./DotnetShop.Ordering.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
-RUN ./setup.sh
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release

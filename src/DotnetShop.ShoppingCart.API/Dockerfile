@@ -15,7 +15,6 @@ RUN dotnet restore "./src/DotnetShop.ShoppingCart.API/DotnetShop.ShoppingCart.AP
 COPY . .
 WORKDIR "/src/src/DotnetShop.ShoppingCart.API"
 RUN dotnet build "./DotnetShop.ShoppingCart.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
-RUN ./setup.sh
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
