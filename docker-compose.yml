@@ -1,62 +1,98 @@
 version: '3.4'
 
 services:
-  catalogdb:
-    image: mcr.microsoft.com/mssql/server
-
-  catalog.migration:
-    image: mcr.microsoft.com/mssql/server
-
-  cartdb:
-    image: postgres
-
-  distributedcache:
-    image: redis
-
-  orderingdb:
-    image: mcr.microsoft.com/mssql/server
-
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi
+    container_name: catalog.api
     build:
       context: .
       dockerfile: src\DotnetShop.Catalog.API\Dockerfile
     depends_on:
       - catalog.migration
-
-  messagebroker:
-    image: rabbitmq:management
-
-  shoppingcart.api:
-    image: ${DOCKER_REGISTRY-}shoppingcart
-    build:
-      context: .
-      dockerfile: src\DotnetShop.ShoppingCart.API\Dockerfile
-
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:8081;http://+:8080
+      - ConnectionStrings__CatalogDB=Server=catalogdb;Database=CatalogDb;User Id=sa;Password=Secret12;TrustServerCertificate=True
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=mycertificate
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    ports:
+      - "6000:8080"
+      - "6060:8081"
+    volumes:
+      - ~/.aspnet/https:/https:ro
+   
   discount.grpc:
     image: ${DOCKER_REGISTRY-}discount
+    container_name: discount.grpc
     build:
       context: .
       dockerfile: src\DotnetShop.Discount.Grpc\Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:8081;http://+:8080
+      - ConnectionStrings__DiscountDb=Data Source=App_Data\\discount.db
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=mycertificate
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    ports:
+      - "6002:8080"
+      - "6062:8081"
+    volumes:
+      - ~/.aspnet/https:/https:ro
 
-  ordering.migrations:
-    image: mcr.microsoft.com/dotnet/sdk:9.0
+  shoppingcart.api:
+    image: ${DOCKER_REGISTRY-}shoppingcart
+    container_name: shoppingcart.api
+    build:
+      context: .
+      dockerfile: src\DotnetShop.ShoppingCart.API\Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:8081;http://+:8080
+      - ConnectionStrings__CartDB=Server=cartdb;Port=5432;Database=CartDb;User Id=admin;Password=secret;Include Error Detail=true
+      - ConnectionStrings__Redis=distributedcache:6379
+      - GrpcSettings__DiscountUrl=https://discount.grpc:8081
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=mycertificate
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - MessageBroker__Uri=amqp://dotnetshopmq:5672
+      - MessageBroker__UserName=guest
+      - MessageBroker__Password=guest
+    depends_on:
+        - cartdb
+        - distributedcache
+        - discount.grpc
+        - messagebroker
+    ports:
+      - "6001:8080"
+      - "6061:8081"
+    volumes:
+      - ~/.aspnet/https:/https:ro
 
   ordering.api:
     image: ${DOCKER_REGISTRY-}orderingapi
+    container_name: ordering.api
     build:
       context: .
       target: final
       dockerfile: src\DotnetShop.Ordering.API\Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:8081;http://+:8080
+      - ConnectionStrings__OrderingDB=Server=orderingdb;Database=OrderingDb;User Id=sa;Password=Secret12;TrustServerCertificate=True
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=mycertificate
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - MessageBroker__Uri=amqp://dotnetshopmq:5672
+      - MessageBroker__UserName=guest
+      - MessageBroker__Password=guest
     depends_on:
-      - ordering.migrations
-
-  yarpapigateway:
-    image: ${DOCKER_REGISTRY-}yarpapigateway
-    build:
-      context: .
-      dockerfile: src\DotnetShop.YarpApiGateway\Dockerfile
+      ordering.migrations:
+        condition: service_completed_successfully
+      messagebroker:
+        condition: service_started
+    ports:
+      - "6003:8080"
+      - "6063:8081"
+    volumes:
+      - ~/.aspnet/https:/https:ro
 
 volumes:
-  postgres_catalog:
   postgres_cart:
