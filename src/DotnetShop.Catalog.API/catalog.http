@@ -69,9 +69,4 @@ Content-Type: application/json
 }
 ###
 
-DELETE https://{{host}}/products/
-Content-Type: application/json
-
-{
-    "productId": 13
-}
+DELETE https://{{host}}/products/13

@@ -10,5 +10,8 @@ namespace DotnetShop.WebApp.Services
         Task<int> CreateProduct(ProductModel product, CancellationToken cancellationToken);
         Task<bool> UpdateProduct(ProductModel product, CancellationToken cancellationToken);
         Task<bool> DeleteProduct(int productId, CancellationToken cancellationToken);
+
+        Task<IEnumerable<CategoryModel>> GetCategories(CancellationToken cancellationToken);
+        Task<Guid> CreateCategory(CategoryModel category, CancellationToken cancellationToken);
     }
 }

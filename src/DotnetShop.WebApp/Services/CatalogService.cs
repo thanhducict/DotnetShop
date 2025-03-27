@@ -2,37 +2,53 @@ using DotnetShop.WebApp.Models.Catalog;
 
 namespace DotnetShop.WebApp.Services
 {
-    public class CatalogService : ICatalogService
+    public class CatalogService : HttpClientFactoryBase, ICatalogService
     {
-        public Task<IEnumerable<ProductModel>> GetProducts(int pageNumber, int pageSize, CancellationToken cancellationToken)
+        private readonly string CatalogBaseUri;
+
+        protected CatalogService(IHttpClientFactory httpClientFactory, IConfiguration configuration) : base(httpClientFactory)
         {
-            throw new NotImplementedException();
+            CatalogBaseUri = configuration["ServiceUri:Catalog"]!;
         }
 
-        public Task<int> CreateProduct(ProductModel product, CancellationToken cancellationToken)
+        public async Task<IEnumerable<ProductModel>> GetProducts(int pageNumber, int pageSize, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return await GetAsync<IEnumerable<ProductModel>>("ProductClient", $"{CatalogBaseUri}/products?pageNumber={pageNumber}&pageSize={pageSize}");
         }
 
-        public Task<bool> DeleteProduct(int productId, CancellationToken cancellationToken)
+        public async Task<ProductModel> GetProductById(int productId, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return await GetAsync<ProductModel>("ProductClient", $"{CatalogBaseUri}/products/{productId}");
         }
 
-        public Task<ProductModel> GetProductById(int productId, CancellationToken cancellationToken)
+        public async Task<IEnumerable<ProductModel>> GetProductsByCategory(string categoryName, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return await GetAsync<IEnumerable<ProductModel>>("ProductClient", $"{CatalogBaseUri}/products/category/{categoryName}");
         }
 
-
-        public Task<IEnumerable<ProductModel>> GetProductsByCategory(string categoryName, CancellationToken cancellationToken)
+        public async Task<int> CreateProduct(ProductModel product, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return await PostAsync<int>("ProductClient", $"{CatalogBaseUri}/products", product);
         }
 
-        public Task<bool> UpdateProduct(ProductModel product, CancellationToken cancellationToken)
+        public async Task<bool> UpdateProduct(ProductModel product, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return await PutAsync<bool>("ProductClient", $"{CatalogBaseUri}/products", product);
+        }
+
+        public async Task<bool> DeleteProduct(int productId, CancellationToken cancellationToken)
+        {
+            return await DeleteAsync<bool>("ProductClient", $"{CatalogBaseUri}/products/{productId}");
+        }
+
+        public async Task<IEnumerable<CategoryModel>> GetCategories(CancellationToken cancellationToken)
+        {
+            return await GetAsync<IEnumerable<CategoryModel>>("CategoryClient", $"{CatalogBaseUri}/categories");
+        }
+
+        public async Task<Guid> CreateCategory(CategoryModel category, CancellationToken cancellationToken)
+        {
+            return await PostAsync<Guid>("CategoryClient", $"{CatalogBaseUri}/categories", category);
         }
     }
 }

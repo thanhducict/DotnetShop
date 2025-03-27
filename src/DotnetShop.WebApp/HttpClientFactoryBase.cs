@@ -1,0 +1,63 @@
+using System.Text.Json;
+using System.Text;
+using System.Net.Http.Headers;
+
+namespace DotnetShop.WebApp
+{
+    public class HttpClientFactoryBase
+    {
+        private readonly IHttpClientFactory _httpClientFactory;
+
+        protected HttpClientFactoryBase(IHttpClientFactory httpClientFactory)
+        {
+            _httpClientFactory = httpClientFactory;
+        }
+
+        protected async Task<T> GetAsync<T>(string clientName, string requestUri)
+        {
+            var client = _httpClientFactory.CreateClient(clientName);
+            var response = await client.GetAsync(requestUri);
+            return await HandleResponse<T>(response);
+        }
+
+        protected async Task<T> PostAsync<T>(string clientName, string requestUri, object content)
+        {
+            var client = _httpClientFactory.CreateClient(clientName);
+            var jsonString = JsonSerializer.Serialize(content);
+            var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+            var response = await client.PostAsync(requestUri, httpContent);
+            return await HandleResponse<T>(response);
+        }
+
+        protected async Task<T> PutAsync<T>(string clientName, string requestUri, object content)
+        {
+            var client = _httpClientFactory.CreateClient(clientName);
+            var jsonString = JsonSerializer.Serialize(content);
+            var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+            var response = await client.PutAsync(requestUri, httpContent);
+            return await HandleResponse<T>(response);
+        }
+
+        protected async Task<T> DeleteAsync<T>(string clientName, string requestUri)
+        {
+            var client = _httpClientFactory.CreateClient(clientName);
+            var response = await client.DeleteAsync(requestUri);
+            return await HandleResponse<T>(response);
+        }
+
+        private async Task<T> HandleResponse<T>(HttpResponseMessage response)
+        {
+            response.EnsureSuccessStatusCode();
+            var jsonString = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<T>(jsonString);
+        }
+
+        protected void SetAuthorizationHeader(string clientName, string token)
+        {
+            var client = _httpClientFactory.CreateClient(clientName);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        }
+    }
+}
