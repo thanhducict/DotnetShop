@@ -32,7 +32,10 @@ module.exports = (env) => {
 
     return {
         ...webpack_config,
-        entry: { imagegallery: path.resolve(__dirname, "src/image-gallery/index.tsx") },
+        entry: {
+            imagegallery: path.resolve(__dirname, "src/image-gallery/index.tsx"),
+            gridimagegallery: path.resolve(__dirname, "src/grid-image-gallery/index.tsx"),
+        },
         resolve: {
             extensions: [".tsx", ".ts", ".js"],
         },

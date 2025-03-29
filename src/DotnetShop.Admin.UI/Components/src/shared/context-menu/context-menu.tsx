@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import MoreHorizontal from "../icons/more-horizontal.svg";
 import {
     autoUpdate,
+    detectOverflow,
     flip,
     FloatingFocusManager,
     offset,
+    shift,
     useClick,
     useDismiss,
     useFloating,
@@ -24,11 +26,22 @@ export interface ContextMenuCommand {
 
 const ContextMenu: React.FC<ContextMenuProps> = (props) => {
     const [isVisible, setIsVisible] = useState<boolean>(false);
+    const boundary = document.querySelector(".image-gallery__panel");
 
     const { refs, floatingStyles, context } = useFloating({
         open: isVisible,
         onOpenChange: setIsVisible,
-        middleware: [offset(8), flip()],
+        middleware: [
+            offset(8),
+            shift({
+                boundary: {
+                    x: 0,
+                    y: 0,
+                    width: boundary?.clientWidth ?? 0,
+                    height: boundary?.clientHeight ?? 0,
+                },
+            }),
+        ],
         whileElementsMounted: autoUpdate,
     });
 

@@ -14,7 +14,7 @@ namespace DotnetShop.Ordering.Infrastructure.Data.Configurations
                     customerId => customerId.Value,
                     dbId => CustomerId.Of(dbId));
 
-            builder.Property(c => c.Name).HasMaxLength(100).IsRequired();
+            builder.Property(c => c.Username).HasMaxLength(100).IsRequired();
 
             builder.Property(c => c.Email).HasMaxLength(255);
 

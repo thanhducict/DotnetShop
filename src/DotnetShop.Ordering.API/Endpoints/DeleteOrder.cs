@@ -1,4 +1,3 @@
-using DotnetShop.Ordering.Application.Dtos;
 using DotnetShop.Ordering.Application.Orders.Commands.DeleteOrder;
 using MediatR;
 

@@ -3,6 +3,7 @@
 <head>
     <title>Dotnet Shop</title>
     <link rel="stylesheet" href="~/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/style.css" />
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -15,16 +16,33 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                        @* <a class="nav-link" asp-controller="@item.AspController" asp-action="@item.AspAction">@item.MenuItemText</a> *@
-                </div>
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-page="/Index">Home</a>
+                    </li>
+                    @await Component.InvokeAsync("CategoryMenu")
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-page="/About">About</a>
+                    </li>
+                </ul>
             </div>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
         </div>
     </nav>
 
     <div class="container">
         @RenderBody()
     </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; @DateTime.Now.Year - Dotnet Shop - <a href="#">Admin</a>
+        </div>
+    </footer>
+
     <script src="~/bootstrap.min.js"></script>
 </body>
 </html>

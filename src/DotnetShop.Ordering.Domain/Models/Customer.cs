@@ -2,18 +2,18 @@ namespace DotnetShop.Ordering.Domain.Models
 {
     public class Customer : Entity<CustomerId>
     {
-        public string Name { get; private set; } = default!;
+        public string Username { get; private set; } = default!;
         public string Email { get; private set; } = default!;
 
-        public static Customer Create(CustomerId customerId, string name, string email)
+        public static Customer Create(CustomerId customerId, string username, string email)
         {
-            ArgumentException.ThrowIfNullOrWhiteSpace(name);
+            ArgumentException.ThrowIfNullOrWhiteSpace(username);
             ArgumentException.ThrowIfNullOrWhiteSpace(email);
 
             var customer = new Customer()
             {
                 Id = customerId,
-                Name = name,
+                Username = username,
                 Email = email,
             };
 

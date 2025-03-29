@@ -1,10 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\build\versions.props" />
   <Import Project="..\..\build\nuspec.props" />
   
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
     <NuspecProperties>Configuration=$(Configuration);AdminCoreVersion=$(AdminCoreVersion)</NuspecProperties>
     <NuspecFile>DotnetShop.Admin.Core.nuspec</NuspecFile>
   </PropertyGroup>

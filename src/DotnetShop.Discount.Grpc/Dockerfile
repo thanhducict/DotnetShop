@@ -1,23 +1,14 @@
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
-USER app
-WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
-
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
+COPY ["build/versions.props", "build/versions.props"]
 COPY ["src/DotnetShop.Discount.Grpc/DotnetShop.Discount.Grpc.csproj", "src/DotnetShop.Discount.Grpc/"]
 RUN dotnet restore "./src/DotnetShop.Discount.Grpc/DotnetShop.Discount.Grpc.csproj"
 COPY . .
 WORKDIR "/src/src/DotnetShop.Discount.Grpc"
-RUN dotnet build "./DotnetShop.Discount.Grpc.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet publish "./DotnetShop.Discount.Grpc.csproj" -c $BUILD_CONFIGURATION --no-restore -o /app/publish /p:UseAppHost=false
 
-FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./DotnetShop.Discount.Grpc.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
-
-FROM base AS final
+FROM mcr.microsoft.com/dotnet/aspnet:9.0
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=build /app/publish .
 ENTRYPOINT ["dotnet", "DotnetShop.Discount.Grpc.dll"]

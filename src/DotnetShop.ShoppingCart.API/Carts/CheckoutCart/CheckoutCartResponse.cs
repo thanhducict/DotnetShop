@@ -1,4 +1,4 @@
 namespace DotnetShop.ShoppingCart.API.Carts.CheckoutCart
 {
-    public class CheckoutCartResponse;
+    public record CheckoutCartResponse(bool IsSuccess);
 }

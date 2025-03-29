@@ -13,7 +13,7 @@ namespace DotnetShop.Ordering.Application.Orders.Commands.UpdateOrder
         {
             RuleFor(x => x.Order.Id).NotEmpty().WithMessage("Id is required");
             RuleFor(x => x.Order.OrderName).NotEmpty().WithMessage("Name is required");
-            RuleFor(x => x.Order.CustomerId).NotNull().WithMessage("CustomerId is required");
+            RuleFor(x => x.Order.Customer).NotNull().WithMessage("Customer is required");
         }
     }
 }

@@ -24,7 +24,7 @@ namespace DotnetShop.Ordering.Application.Orders.Queries.GetOrders
                     pageIndex,
                     pageSize,
                     totalCount,
-                    orders.ToOrderDtoList()
+                    orders.ToOrderDtoList(dbContext)
                 )
             );
         }

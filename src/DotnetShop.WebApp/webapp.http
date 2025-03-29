@@ -1,0 +1,278 @@
+@hostname=localhost
+
+# Local
+# @port=5054
+
+# Docker
+@port=6064
+
+@host={{hostname}}:{{port}}
+
+### CATALOG SERVICE ###
+GET https://{{host}}/catalog-service/health
+###
+
+### Category ###
+GET https://{{host}}/catalog-service/categories
+###
+
+POST https://{{host}}/catalog-service/categories
+Content-Type: application/json
+{
+    "categoryName": "Notebook"
+}
+
+### Product ###
+GET https://{{host}}/catalog-service/products
+###
+
+GET https://{{host}}/catalog-service/products?pageNumber=2&pageSize=10
+###
+
+POST https://{{host}}/catalog-service/products
+Content-Type: application/json
+{
+    "productGuid": "659e3447-382c-49ed-a740-be12df8615ed",
+    "productName": "T-Shirt 3",
+    "shortDescription": "This is a shirt for men.",
+    "longDescription": "This is a shirt for men. This shirt is in very good quality.",
+    "imageUrls" : [
+        "URL 1",
+        "URL 2"
+    ],
+    "imageThumbnailUrl" : "image thumbnail URL",
+    "price": 10,
+    "categoryId": 1
+}
+###
+
+GET https://{{host}}/catalog-service/products/13
+###
+
+GET https://{{host}}/catalog-service/products/category/cup
+###
+
+PUT https://{{host}}/catalog-service/products
+Content-Type: application/json
+{
+    "productId": 13,
+    "productGuid": "659e3447-382c-49ed-a740-be12df8615ed",
+    "productName": "UPDATED T-Shirt 3",
+    "shortDescription": "UPDATED This is a shirt for men.",
+    "longDescription": "UPDATED This is a shirt for men. This shirt is in very good quality.",
+    "imageUrls" : [
+        "UPDATED URL 1",
+        "UPDATED URL 2"
+    ],
+    "imageThumbnailUrl" : "UPDATED image thumbnail URL",
+    "price": 20,
+    "categoryId": 1
+}
+###
+
+DELETE https://{{host}}/catalog-service/products/
+Content-Type: application/json
+{
+    "productId": 13
+}
+
+### SHOPPING CART SERVICE ###
+GET https://{{host}}/shoppingcart-service/health
+###
+
+GET https://{{host}}/shoppingcart-service/carts
+###
+
+GET https://{{host}}/shoppingcart-service/carts/GetCartByUsername/ronaldo
+###
+
+POST https://{{host}}/shoppingcart-service/carts
+Content-Type: application/json
+{
+    "cart": {
+        "username": "ronaldo",
+        "items": [
+            {
+                "productGuid": "28d65b5d-f522-448c-8ce5-203e4efe2c17",
+                "productName": "Kudu Purple Sweatshirt",
+                "quantity": "3",
+                "price": 15.95
+            },
+            {
+                "productGuid": "51149bd0-c9e0-4068-b8f2-3368caa5c85c",
+                "productName": ".NET Blue Sweatshirt",
+                "quantity": "1",
+                "price": 18.95
+            }
+        ]
+    }
+}
+###
+
+DELETE https://{{host}}/shoppingcart-service/carts/
+Content-Type: application/json
+{
+    "username": "ronaldo"
+}
+###
+
+POST https://{{host}}/shoppingcart-service/carts/Checkout
+Content-Type: application/json
+{
+    "cartCheckoutDto": {
+        "customer": {
+            "customerGuid": "1064b11a-6dde-48c0-9275-b8302fa13b34",
+            "username": "ronaldo",
+            "email": "cristiano.ronaldo@manutd.com"
+        },
+        "cartItems": [
+            {
+                "productGuid": "28d65b5d-f522-448c-8ce5-203e4efe2c17",
+                "productName": "Kudu Purple Sweatshirt",
+                "quantity": "3",
+                "price": 15.95
+            },
+            {
+                "productGuid": "51149bd0-c9e0-4068-b8f2-3368caa5c85c",
+                "productName": ".NET Blue Sweatshirt",
+                "quantity": "1",
+                "price": 18.95
+            }
+        ],
+        "shippingAddress": {
+            "firstName": "Cristiano",
+            "lastName": "Ronaldo",
+            "emailAddress": "cristiano.ronaldo@manutd.com",
+            "addressLine": "10 Paulo Martin",
+            "country": "Portugal",
+            "state": "Restelo",
+            "zipCode": "38160"
+        },
+        "billingAddress": {
+            "firstName": "Cristiano",
+            "lastName": "Ronaldo",
+            "emailAddress": "cristiano.ronaldo@manutd.com",
+            "addressLine": "10 Paulo Martin",
+            "country": "Portugal",
+            "state": "Restelo",
+            "zipCode": "38160"
+        },
+        "payment": {
+            "cardName": "Ronaldo",
+            "cardNumber": "5555333322228888",
+            "expiration": "12/15",
+            "cvv": "567",
+            "paymentMethod": 1
+        },
+        "totalPrice ": 0
+    }
+}
+
+### ORDERING SERVICE ###
+GET https://{{host}}/ordering-service/health
+###
+
+GET https://{{host}}/ordering-service/orders?PageIndex=0&PageSize=2
+###
+
+GET https://{{host}}/ordering-service/orders/customer/0912b826-7fd9-46c1-b08f-986c28f22558
+###
+
+POST https://{{host}}/ordering-service/orders
+Content-Type: application/json
+{
+    "order": {
+        "id": "1af3590a-e3c1-40ac-aa50-a713afa8257e",
+        "customer": {
+            "customerGuid": "0912b826-7fd9-46c1-b08f-986c28f22558",
+            "username": "rooney",
+            "email": "wayne.rooney@gmail.com"
+        }
+        "orderName": "ORD_3",
+        "shippingAddress": {
+            "firstName": "Wayne",
+            "lastName": "Rooney",
+            "emailAddress": "wayne.rooney@gmail.com",
+            "addressLine": "5 Storeton Road",
+            "country": "England",
+            "state": "Merseyside",
+            "zipCode": "38050"
+        },
+        "billingAddress": {
+        "firstName": "Wayne",
+        "lastName": "Rooney",
+        "emailAddress": "wayne.rooney@gmail.com",
+        "addressLine": "5 Storeton Road",
+        "country": "England",
+        "state": "Merseyside",
+        "zipCode": "38050"
+        },
+        "payment": {
+            "cardName": "Rooney",
+            "cardNumber": "5555333322226666",
+            "expiration": "12/28",
+            "cvv": "355",
+            "paymentMethod": 1
+        },
+        "status": 2,
+        "orderItems": [
+            {
+                "orderId": "3a347392-c092-4755-89e9-9fa47b9d3ccb",
+                "productId": "293d91cd-0de8-4b18-b2e9-a1a26678dada",
+                "quantity": 1,
+                "price": 17.95
+            }
+        ]
+    }
+}
+###
+
+GET https://{{host}}/ordering-service/orders/ORD_3
+###
+
+PUT https://{{host}}/ordering-service/orders
+Content-Type: application/json
+{
+    "order": {
+        "id": "1af3590a-e3c1-40ac-aa50-a713afa8257e",
+        "customerId": "0912b826-7fd9-46c1-b08f-986c28f22558",
+        "orderName": "ORD_3",
+        "shippingAddress": {
+            "firstName": "Cristiano",
+            "lastName": "Ronaldo",
+            "emailAddress": "cristiano.ronaldo@gmail.com",
+            "addressLine": "10 Storeton Road",
+            "country": "England",
+            "state": "Merseyside",
+            "zipCode": "38050"
+        },
+        "billingAddress": {
+        "firstName": "Cristiano",
+        "lastName": "Ronaldo",
+        "emailAddress": "cristiano.ronaldo@gmail.com",
+        "addressLine": "10 Storeton Road",
+        "country": "England",
+        "state": "Merseyside",
+        "zipCode": "38050"
+        },
+        "payment": {
+            "cardName": "Ronaldo",
+            "cardNumber": "5555888833339999",
+            "expiration": "12/15",
+            "cvv": "233",
+            "paymentMethod": 1
+        },
+        "status": 2,
+        "orderItems": [
+            {
+                "orderId": "3a347392-c092-4755-89e9-9fa47b9d3ccb",
+                "productId": "293d91cd-0de8-4b18-b2e9-a1a26678dada",
+                "quantity": 1,
+                "price": 17.95
+            }
+        ]
+    }
+}
+###
+
+DELETE https://{{host}}/ordering-service/orders/1af3590a-e3c1-40ac-aa50-a713afa8257e

@@ -1,7 +1,7 @@
 using DotnetShop.Ordering.Domain.Abstractions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using Microsoft.EntityFrameworkCore;
 
 namespace DotnetShop.Ordering.Infrastructure.Data.Interceptors
 {

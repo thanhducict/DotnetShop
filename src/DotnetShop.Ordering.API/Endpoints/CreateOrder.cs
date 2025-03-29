@@ -1,7 +1,6 @@
 using DotnetShop.Ordering.Application.Dtos;
 using DotnetShop.Ordering.Application.Orders.Commands.CreateOrder;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
 
 namespace DotnetShop.Ordering.API.Endpoints
 {

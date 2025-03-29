@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "DotnetShop.Admin.UI": {
+    "https": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

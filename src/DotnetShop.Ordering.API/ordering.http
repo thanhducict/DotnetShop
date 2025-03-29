@@ -1,17 +1,17 @@
 @hostname=localhost
 
 # Local
-@port=5053
+# @port=5053
 
 # Docker
-# @port=6063
+@port=6063
 
 @host={{hostname}}:{{port}}
 
 GET https://{{host}}/health
 ###
 
-GET https://{{host}}/orders?PageIndex=0&PageSize=2
+GET https://{{host}}/orders?PageIndex=0&PageSize=10
 ###
 
 GET https://{{host}}/orders/customer/0912b826-7fd9-46c1-b08f-986c28f22558
@@ -22,7 +22,11 @@ Content-Type: application/json
 {
     "order": {
         "id": "1af3590a-e3c1-40ac-aa50-a713afa8257e",
-        "customerId": "0912b826-7fd9-46c1-b08f-986c28f22558",
+        "customer": {
+            "customerGuid": "0912b826-7fd9-46c1-b08f-986c28f22558",
+            "username": "rooney",
+            "email": "wayne.rooney@gmail.com"
+        }
         "orderName": "ORD_3",
         "shippingAddress": {
             "firstName": "Wayne",

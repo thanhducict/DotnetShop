@@ -2,18 +2,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DotnetShop.Catalog.API.Features.Products.DeleteProduct
 {
-    public record DeleteProductRequest(int ProductId);
-
     public record DeleteProductResponse(bool IsSuccess);
 
     public static class DeleteroductEndpoint
     {
         public static void AddDeleteProductEndpoint(this WebApplication app)
         {
-            app.MapDelete("products",
-                async ([FromBody] DeleteProductRequest request, ISender sender) =>
+            app.MapDelete("products/{productId}",
+                async (int productId, ISender sender) =>
                 {
-                    var command = new DeleteProductCommand(request.ProductId);
+                    var command = new DeleteProductCommand(productId);
 
                     var result = await sender.Send(command);
 

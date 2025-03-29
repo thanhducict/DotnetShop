@@ -1,6 +1,8 @@
 using DotnetShop.Common.Behaviors;
 using DotnetShop.Common.Exceptions.Handlers;
+using DotnetShop.Common.Messaging;
 using DotnetShop.Discount.Grpc;
+using DotnetShop.ShoppingCart.API.Producers;
 using DotnetShop.ShoppingCart.API.Repositories;
 using HealthChecks.UI.Client;
 using Marten;
@@ -51,6 +53,9 @@ builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(
 
     return handler;
 });
+
+builder.Services.AddMessageBrooker(builder.Configuration);
+builder.Services.AddSingleton<CartCheckoutProducer>();
 
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 builder.Services.AddHealthChecks()
