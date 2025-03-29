@@ -76,6 +76,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotnetShop.WebApp.Tests", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotnetShop.YarpApiGateway", "src\DotnetShop.YarpApiGateway\DotnetShop.YarpApiGateway.csproj", "{67820853-9911-4DB1-A9A2-71B36B807D9C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{38135E8B-FBA6-4FEB-AAC6-A830FD4A7C3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotnetShop.Identity.API", "src\DotnetShop.Identity.API\DotnetShop.Identity.API.csproj", "{D2D8D520-D664-4D5F-85BB-EA69D740149E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -146,6 +150,10 @@ Global
 		{67820853-9911-4DB1-A9A2-71B36B807D9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67820853-9911-4DB1-A9A2-71B36B807D9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67820853-9911-4DB1-A9A2-71B36B807D9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2D8D520-D664-4D5F-85BB-EA69D740149E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2D8D520-D664-4D5F-85BB-EA69D740149E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2D8D520-D664-4D5F-85BB-EA69D740149E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2D8D520-D664-4D5F-85BB-EA69D740149E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -172,6 +180,8 @@ Global
 		{77214661-5D85-48D3-8F4F-5D63ABD6E40A} = {ED6CA4D9-C410-45B6-B851-A05B3948EDEF}
 		{5DD67F26-BC75-48DF-A49F-632D5C109B8D} = {C98DBC52-83A6-4152-A71D-4A4152B39B4F}
 		{67820853-9911-4DB1-A9A2-71B36B807D9C} = {4F2B1989-C3FA-45E3-8878-10412C0AB9DD}
+		{38135E8B-FBA6-4FEB-AAC6-A830FD4A7C3D} = {7E52746C-4A8B-4C00-9657-F01EC255849A}
+		{D2D8D520-D664-4D5F-85BB-EA69D740149E} = {38135E8B-FBA6-4FEB-AAC6-A830FD4A7C3D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7E819618-5CC8-465C-93D1-7692B08CFA4B}
