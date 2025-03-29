@@ -1,6 +1,8 @@
 using DotnetShop.Identity.API.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<UserManager<ApplicationUser>>();
 builder.Services.AddScoped<UserManager<CustomerUser>>();
 
+builder.Services.AddDbContext<IdentityApiDbContext>(option =>
+{
+    option.UseSqlServer(builder.Configuration.GetConnectionString("IdentityDb"));
+});
 builder.Services.AddIdentityCore<ApplicationUser>(options =>
 {
     options.Password.RequiredLength = 8;
@@ -29,16 +35,17 @@ builder.Services.AddAuthentication("Bearer").AddJwtBearer(options =>
         ValidateIssuer = true,
         ValidateAudience = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = builder.Configuration["Authentication:Issuer"],
-        ValidAudience = builder.Configuration["Authentication:Audience"],
+        ValidIssuer = builder.Configuration["JwtTokenSettings:Issuer"],
+        ValidAudience = builder.Configuration["JwtTokenSettings:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(
-            Encoding.ASCII.GetBytes(builder.Configuration["Authentication:SecretForKey"])),
+            Encoding.ASCII.GetBytes(builder.Configuration["JwtTokenSettings:SecretForKey"])),
         ClockSkew = TimeSpan.Zero
     };
 });
 
 var app = builder.Build();
 
+app.Logger.LogInformation("Seeding Database...");
 using var scope = app.Services.CreateScope();
 var scopedProvider = scope.ServiceProvider;
 try
@@ -51,5 +58,7 @@ catch (Exception ex)
 {
     app.Logger.LogError(ex, "An error occurred seeding the DB.");
 }
+
+app.MapGet("/", () => "Hello World!");
 
 app.Run();

@@ -32,7 +32,7 @@ internal class IdentityApiDbContext : IdentityDbContext
             ZipCode = "38050",
         });
 
-        builder.Entity<ApplicationUser>().HasData(new CustomerUser
+        builder.Entity<CustomerUser>().HasData(new CustomerUser
         {
             Id = new Guid("108b9eb5-1eff-47f3-b328-7bf498b4145d").ToString(),
             UserName = "scholes",

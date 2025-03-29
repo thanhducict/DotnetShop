@@ -76,6 +76,22 @@ services:
       orderingdb:
         condition: service_healthy
 
+  identitydb:
+    image: mcr.microsoft.com/mssql/server
+    container_name: identitydb
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Secret12
+    restart: always
+    ports:
+      - "1435:1433"
+    healthcheck:
+      test: /opt/mssql-tools18/bin/sqlcmd -S catalogdb -U sa -P Secret12 -C -Q "SELECT 1"
+      interval: 10s
+      timeout: 3s
+      retries: 20
+      start_period: 10s
+
   messagebroker:
     image: rabbitmq:management
     container_name: messagebroker
