@@ -9,20 +9,11 @@ namespace DotnetShop.WebApp.Pages.Catalog
         public IEnumerable<ProductModel> Products { get; set; }
         public string CurrentCategory { get; set; }
 
-        public void OnGet(int categoryId)
+        public async Task OnGet(CancellationToken cancellationToken, int pageNumber = 1, int pageSize = 10)
         {
-            //if (categoryId > 0)
-            //{
-            //    Products = catalogService.GetProducts().Where(p => p.Category.CategoryId == categoryId)
-            //         .OrderBy(p => p.ProductId);
-            //    CurrentCategory = catalogService.GetCategories()
-            //        .FirstOrDefault(c => c.CategoryId == categoryId)?.CategoryName;
-            //}
-            //else
-            //{
-            //    Products = catalogService.GetProducts().OrderBy(p => p.ProductId);
-            //    CurrentCategory = "All products";
-            //}
+            var result = await catalogService.GetProducts(pageNumber, pageSize, cancellationToken);
+
+            Products = result.ToList();
         }
     }
 }

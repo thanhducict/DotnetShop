@@ -2,27 +2,20 @@ using System.Text.Json;
 using System.Text;
 using System.Net.Http.Headers;
 
-namespace DotnetShop.WebApp
+namespace DotnetShop.WebApp.Services
 {
-    public class HttpClientFactoryBase
+    public class HttpClientFactoryBase(IHttpClientFactory httpClientFactory) : IHttpClientFactoryBase
     {
-        private readonly IHttpClientFactory _httpClientFactory;
-
-        protected HttpClientFactoryBase(IHttpClientFactory httpClientFactory)
+        public async Task<T> GetAsync<T>(string clientName, string requestUri)
         {
-            _httpClientFactory = httpClientFactory;
-        }
-
-        protected async Task<T> GetAsync<T>(string clientName, string requestUri)
-        {
-            var client = _httpClientFactory.CreateClient(clientName);
+            var client = httpClientFactory.CreateClient(clientName);
             var response = await client.GetAsync(requestUri);
             return await HandleResponse<T>(response);
         }
 
-        protected async Task<T> PostAsync<T>(string clientName, string requestUri, object content)
+        public async Task<T> PostAsync<T>(string clientName, string requestUri, object content)
         {
-            var client = _httpClientFactory.CreateClient(clientName);
+            var client = httpClientFactory.CreateClient(clientName);
             var jsonString = JsonSerializer.Serialize(content);
             var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
@@ -30,9 +23,9 @@ namespace DotnetShop.WebApp
             return await HandleResponse<T>(response);
         }
 
-        protected async Task<T> PutAsync<T>(string clientName, string requestUri, object content)
+        public async Task<T> PutAsync<T>(string clientName, string requestUri, object content)
         {
-            var client = _httpClientFactory.CreateClient(clientName);
+            var client = httpClientFactory.CreateClient(clientName);
             var jsonString = JsonSerializer.Serialize(content);
             var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
@@ -40,9 +33,9 @@ namespace DotnetShop.WebApp
             return await HandleResponse<T>(response);
         }
 
-        protected async Task<T> DeleteAsync<T>(string clientName, string requestUri)
+        public async Task<T> DeleteAsync<T>(string clientName, string requestUri)
         {
-            var client = _httpClientFactory.CreateClient(clientName);
+            var client = httpClientFactory.CreateClient(clientName);
             var response = await client.DeleteAsync(requestUri);
             return await HandleResponse<T>(response);
         }
@@ -54,9 +47,9 @@ namespace DotnetShop.WebApp
             return JsonSerializer.Deserialize<T>(jsonString);
         }
 
-        protected void SetAuthorizationHeader(string clientName, string token)
+        public void SetAuthorizationHeader(string clientName, string token)
         {
-            var client = _httpClientFactory.CreateClient(clientName);
+            var client = httpClientFactory.CreateClient(clientName);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         }
     }

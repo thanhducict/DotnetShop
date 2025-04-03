@@ -93,6 +93,27 @@ services:
       - "6063:8081"
     volumes:
       - ~/.aspnet/https:/https:ro
+  
+  yarpapigateway:
+    image: ${DOCKER_REGISTRY-}yarpapigateway
+    container_name: yarpapigateway
+    build:
+      context: .
+      dockerfile: src\DotnetShop.YarpApiGateway\Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:8081;http://+:8080
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=mycertificate
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    depends_on:
+      - catalog.api
+      - shoppingcart.api
+      - ordering.api
+    ports:
+      - "6004:8080"
+      - "6064:8081"
+    volumes:
+      - ~/.aspnet/https:/https:ro
 
 volumes:
   postgres_cart:

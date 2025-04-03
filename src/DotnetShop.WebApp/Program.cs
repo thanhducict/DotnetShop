@@ -5,6 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddHttpClient();
 
+builder.Services.AddSingleton<IHttpClientFactoryBase, HttpClientFactoryBase>();
 builder.Services.AddSingleton<ICatalogService, CatalogService>();
 
 var app = builder.Build();
