@@ -6,4 +6,6 @@ namespace DotnetShop.WebApp.Models.Catalog
         public Guid CategoryGuid { get; set; }
         public string CategoryName { get; set; } = string.Empty;
     }
+
+    public record GetCategoriesResponse(IEnumerable<CategoryModel> Categories);
 }

@@ -1,6 +1,6 @@
 namespace DotnetShop.Catalog.API.Features.Products.GetProductById
 {
-    public record GetProductByIdResponse(Product Products);
+    public record GetProductByIdResponse(Product Product);
 
     public static class GetProductByIdEndpoint
     {

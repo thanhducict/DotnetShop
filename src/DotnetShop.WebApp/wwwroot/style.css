@@ -1,3 +1,7 @@
+.navbar.navbar-expand-lg {
+    margin-bottom: 20px;
+}
+
 .footer {
     position: absolute;
     bottom: 0;

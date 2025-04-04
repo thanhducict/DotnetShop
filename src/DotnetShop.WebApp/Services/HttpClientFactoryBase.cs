@@ -6,6 +6,11 @@ namespace DotnetShop.WebApp.Services
 {
     public class HttpClientFactoryBase(IHttpClientFactory httpClientFactory) : IHttpClientFactoryBase
     {
+        private readonly JsonSerializerOptions serializerOptions = new()
+        {
+            PropertyNameCaseInsensitive = true
+        };
+
         public async Task<T> GetAsync<T>(string clientName, string requestUri)
         {
             var client = httpClientFactory.CreateClient(clientName);
@@ -44,7 +49,9 @@ namespace DotnetShop.WebApp.Services
         {
             response.EnsureSuccessStatusCode();
             var jsonString = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<T>(jsonString);
+            var result = JsonSerializer.Deserialize<T>(jsonString, serializerOptions);
+
+            return result;
         }
 
         public void SetAuthorizationHeader(string clientName, string token)

@@ -17,7 +17,7 @@ namespace DotnetShop.WebApp.Pages.Catalog
             }
             else
             {
-                Product = result;
+                Product = result.Product;
             }
         }
     }

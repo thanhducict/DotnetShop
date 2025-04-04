@@ -15,7 +15,7 @@ namespace DotnetShop.WebApp.Pages
         {
             var result = await catalogService.GetProducts(pageNumber, pageSize, cancellationToken);
 
-            ProductsOfTheWeek = result.TakeRandom(5);
+            ProductsOfTheWeek = result.Products.TakeRandom(4);
         }
 
         public override async Task OnPageHandlerExecutionAsync(PageHandlerExecutingContext context,
