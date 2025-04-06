@@ -4,7 +4,15 @@
 <h2>@Model.Product.ProductName</h2>
 
 <div class="thumbnail">
-    <img alt="@Model.Product.ProductName" src="@Model.Product.ImageUrls[0]" width="600" >
+    <div>
+        <img alt="@Model.Product.ProductName" src="@Model.Product.ImageUrls[0]" width="600" />
+    </div>
+    <div>
+        @for (int i = 1; i < Model.Product.ImageUrls.Count; i++)
+        {
+            <img alt="@Model.Product.ProductName" src="@Model.Product.ImageUrls[i]" height="50" />
+        }
+    </div>
     <div class="caption-full">
         <h3 class="pull-right">@Model.Product.Price</h3>
         <h3>
@@ -13,10 +21,10 @@
         <h4>@Model.Product.ShortDescription</h4>
         <p>@Model.Product.LongDescription</p>
         <div>
-            <a class="btn btn-primary" 
-                asp-page="/Cart"
-                asp-page-handler="AddToCart"
-                asp-route-productId="@Model.Product.ProductId">Add to cart</a>
+            <a class="btn btn-primary"
+               asp-page="/Cart"
+               asp-page-handler="AddToCart"
+               asp-route-productId="@Model.Product.ProductId">Add to cart</a>
         </div>
     </div>
 </div>

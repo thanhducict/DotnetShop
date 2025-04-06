@@ -13,6 +13,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:8081;http://+:8080
       - ConnectionStrings__CatalogDB=Server=catalogdb;Database=CatalogDb;User Id=sa;Password=Secret12;TrustServerCertificate=True
+      - HostUrl=https://localhost:6060
       - ASPNETCORE_Kestrel__Certificates__Default__Password=mycertificate
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
     ports:

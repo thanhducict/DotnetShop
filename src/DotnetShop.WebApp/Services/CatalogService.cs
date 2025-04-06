@@ -8,42 +8,42 @@ namespace DotnetShop.WebApp.Services
 
         public async Task<GetProductsResponse> GetProducts(int pageNumber, int pageSize, CancellationToken cancellationToken)
         {
-            return await httpClientFactoryBase.GetAsync<GetProductsResponse>("ProductClient", $"{CatalogBaseUri}/products?pageNumber={pageNumber}&pageSize={pageSize}");
+            return await httpClientFactoryBase.GetAsync<GetProductsResponse>("CatalogClient", $"{CatalogBaseUri}/products?pageNumber={pageNumber}&pageSize={pageSize}");
         }
 
         public async Task<GetProductByIdResponse> GetProductById(int productId, CancellationToken cancellationToken)
         {
-            return await httpClientFactoryBase.GetAsync<GetProductByIdResponse>("ProductClient", $"{CatalogBaseUri}/products/{productId}");
+            return await httpClientFactoryBase.GetAsync<GetProductByIdResponse>("CatalogClient", $"{CatalogBaseUri}/products/{productId}");
         }
 
         public async Task<GetProductsByCategoryResponse> GetProductsByCategory(string categoryName, CancellationToken cancellationToken)
         {
-            return await httpClientFactoryBase.GetAsync<GetProductsByCategoryResponse>("ProductClient", $"{CatalogBaseUri}/products/category/{categoryName}");
+            return await httpClientFactoryBase.GetAsync<GetProductsByCategoryResponse>("CatalogClient", $"{CatalogBaseUri}/products/category/{categoryName}");
         }
 
         public async Task<int> CreateProduct(ProductModel product, CancellationToken cancellationToken)
         {
-            return await httpClientFactoryBase.PostAsync<int>("ProductClient", $"{CatalogBaseUri}/products", product);
+            return await httpClientFactoryBase.PostAsync<int>("CatalogClient", $"{CatalogBaseUri}/products", product);
         }
 
         public async Task<bool> UpdateProduct(ProductModel product, CancellationToken cancellationToken)
         {
-            return await httpClientFactoryBase.PutAsync<bool>("ProductClient", $"{CatalogBaseUri}/products", product);
+            return await httpClientFactoryBase.PutAsync<bool>("CatalogClient", $"{CatalogBaseUri}/products", product);
         }
 
         public async Task<bool> DeleteProduct(int productId, CancellationToken cancellationToken)
         {
-            return await httpClientFactoryBase.DeleteAsync<bool>("ProductClient", $"{CatalogBaseUri}/products/{productId}");
+            return await httpClientFactoryBase.DeleteAsync<bool>("CatalogClient", $"{CatalogBaseUri}/products/{productId}");
         }
 
         public async Task<GetCategoriesResponse> GetCategories(CancellationToken cancellationToken)
         {
-            return await httpClientFactoryBase.GetAsync<GetCategoriesResponse>("CategoryClient", $"{CatalogBaseUri}/categories");
+            return await httpClientFactoryBase.GetAsync<GetCategoriesResponse>("CatalogClient", $"{CatalogBaseUri}/categories");
         }
 
         public async Task<Guid> CreateCategory(CategoryModel category, CancellationToken cancellationToken)
         {
-            return await httpClientFactoryBase.PostAsync<Guid>("CategoryClient", $"{CatalogBaseUri}/categories", category);
+            return await httpClientFactoryBase.PostAsync<Guid>("CatalogClient", $"{CatalogBaseUri}/categories", category);
         }
     }
 }

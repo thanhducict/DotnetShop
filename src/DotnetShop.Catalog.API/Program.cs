@@ -1,3 +1,4 @@
+using DotnetShop.Catalog.API;
 using DotnetShop.Catalog.API.Features.Categories.CreateCategory;
 using DotnetShop.Catalog.API.Features.Categories.GetCategories;
 using DotnetShop.Catalog.API.Features.Products.CreateProduct;
@@ -20,6 +21,7 @@ builder.Services.AddMediatR(config =>
     config.RegisterServicesFromAssembly(typeof(Program).Assembly);
     config.AddOpenBehavior(typeof(ValidationBehavior<,>));
     config.AddOpenBehavior(typeof(LoggingBehavior<,>));
+    config.AddOpenBehavior(typeof(AddHostUrlToImageUrlsBehavior<,>));
 });
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
@@ -44,7 +46,7 @@ app.AddUpdateProductEndpoint();
 app.AddDeleteProductEndpoint();
 
 app.UseExceptionHandler(options => { });
-
+app.UseStaticFiles();
 app.UseHealthChecks("/health",
     new HealthCheckOptions
     {

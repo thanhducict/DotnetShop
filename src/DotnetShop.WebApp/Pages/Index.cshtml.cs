@@ -21,7 +21,7 @@ namespace DotnetShop.WebApp.Pages
         public override async Task OnPageHandlerExecutionAsync(PageHandlerExecutingContext context,
                                                   PageHandlerExecutionDelegate next)
         {
-            Slogan = "Our weekly selection - just for you!";
+            Slogan = "I'm feeling lucky!";
             await next.Invoke();
         }
     }
