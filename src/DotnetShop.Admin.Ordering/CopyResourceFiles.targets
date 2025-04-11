@@ -1,0 +1,19 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+    <ItemGroup>
+        <OrderingSourceScripts Include="$(MSBuildThisFileDirectory)..\..\contentFiles\any\any\modules\DotnetShop.Admin.Ordering\*.*"/>
+        <DashboardSourceScripts Include="$(MSBuildThisFileDirectory)..\..\contentFiles\any\any\modules\DotnetShop.Admin.Dashboard\*.*"/>
+    </ItemGroup>
+
+    <Target Name="CopyZipFiles" BeforeTargets="Build">
+        <Copy
+          SkipUnchangedFiles="true"
+          SourceFiles="@(OrderingSourceScripts)"
+          DestinationFolder="$(MSBuildProjectDirectory)\modules\DotnetShop.Admin.Ordering\%(RecursiveDir)"
+        />
+        <Copy
+          SkipUnchangedFiles="true"
+          SourceFiles="@(DashboardSourceScripts)"
+          DestinationFolder="$(MSBuildProjectDirectory)\modules\DotnetShop.Admin.Dashboard\%(RecursiveDir)"
+        />
+    </Target>
+</Project>
