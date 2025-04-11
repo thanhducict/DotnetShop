@@ -14,14 +14,14 @@ namespace DotnetShop.Admin.Dashboard
 
         public void ConfigureUseStaticFilesMiddleware(WebApplication app)
         {
-            var path = Path.Combine(app.Environment.ContentRootPath, @"modules/DotnetShop.Admin.Ordering");
+            var path = Path.Combine(app.Environment.ContentRootPath, @"modules/DotnetShop.Admin.Dashboard");
 
             if (Directory.Exists(path))
             {
                 app.UseStaticFiles(new StaticFileOptions
                 {
                     FileProvider = new PhysicalFileProvider(path),
-                    RequestPath = "/admin-ordering-assets"
+                    RequestPath = "/admin-dashboard-assets"
                 });
             }
         }
