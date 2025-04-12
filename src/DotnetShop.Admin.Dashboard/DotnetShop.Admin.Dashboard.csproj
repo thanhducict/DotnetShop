@@ -15,10 +15,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="ClientApp\*" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="DotnetShop.Admin.Core" Version="$(AdminCoreVersion)" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="ClientApp\*" />
     <None Include="ClientApp\dist\dotnetshop.admin.dashboard.js" Pack="true" PackagePath="contentFiles\any\any\modules\DotnetShop.Admin.Dashboard\" CopyToOutputDirectory="Always" />
     <None Include="ClientApp\dist\dotnetshop.admin.dashboard.css" Pack="true" PackagePath="contentFiles\any\any\modules\DotnetShop.Admin.Dashboard\" CopyToOutputDirectory="Always" />
     <None Include="CopyResourceFiles.targets" Pack="true" PackagePath="build\net9.0\DotnetShop.Admin.Dashboard.targets" />

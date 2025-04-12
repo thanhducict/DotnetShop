@@ -2,7 +2,7 @@ echo off
 
 rem This script is for local development only.
 
-set buildNumber=42
+set buildNumber=50
 set configuration=Debug
 set ROOTPATH=%cd%
 
