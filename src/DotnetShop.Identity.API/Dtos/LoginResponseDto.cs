@@ -1,6 +1,6 @@
 ﻿namespace DotnetShop.Identity.API.Dtos
 {
-    public class RegistrationRequest
+    public class LoginResponseDto
     {
     }
 }

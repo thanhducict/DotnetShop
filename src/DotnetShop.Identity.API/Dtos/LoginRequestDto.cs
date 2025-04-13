@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DotnetShop.Identity.API.Dtos
 {
-    public class LoginRequest
+    public class LoginRequestDto
     {
         [Required]
         public string Username { get; set; }

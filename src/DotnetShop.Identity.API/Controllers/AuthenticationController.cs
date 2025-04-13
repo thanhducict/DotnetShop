@@ -11,7 +11,7 @@ namespace DotnetShop.Identity.API.Controllers
     public class AuthenticationController : Controller
     {
         [HttpPost]
-        public IActionResult Login([FromBody] LoginRequest credential)
+        public IActionResult Login([FromBody] LoginRequestDto credential)
         {
             //var user = ValidateUserCredentials(
             //    credential.Username,

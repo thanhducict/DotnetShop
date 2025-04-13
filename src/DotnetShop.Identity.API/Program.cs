@@ -8,20 +8,11 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<UserManager<ApplicationUser>>();
-builder.Services.AddScoped<UserManager<CustomerUser>>();
-
 builder.Services.AddDbContext<IdentityApiDbContext>(option =>
 {
     option.UseSqlServer(builder.Configuration.GetConnectionString("IdentityDb"));
 });
 builder.Services.AddIdentityCore<ApplicationUser>(options =>
-{
-    options.Password.RequiredLength = 8;
-    options.Password.RequireUppercase = true;
-    options.Password.RequireDigit = true;
-}).AddEntityFrameworkStores<IdentityApiDbContext>();
-
-builder.Services.AddIdentityCore<CustomerUser>(options =>
 {
     options.Password.RequiredLength = 8;
     options.Password.RequireUppercase = true;
