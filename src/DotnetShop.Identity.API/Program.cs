@@ -1,3 +1,4 @@
+using DotnetShop.Identity.API;
 using DotnetShop.Identity.API.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -42,8 +43,11 @@ var scopedProvider = scope.ServiceProvider;
 try
 {
     var context = scopedProvider.GetRequiredService<IdentityApiDbContext>();
+    var userManager = scopedProvider.GetRequiredService<UserManager<ApplicationUser>>();
+    var roleManager = scopedProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
     await context.Database.EnsureCreatedAsync();
+    await SeedData.AddSampleUsers(userManager);
 }
 catch (Exception ex)
 {

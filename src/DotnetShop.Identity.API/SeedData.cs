@@ -6,16 +6,21 @@ namespace DotnetShop.Identity.API
 {
     public static class SeedData
     {
-        private static async Task AddSampleUsers(UserManager<ApplicationUser> userManager)
+        public static async Task AddSampleUsers(UserManager<ApplicationUser> userManager)
         {
             if (await userManager.FindByNameAsync("admin") == null)
             {
                 var user = new ApplicationUser
                 {
                     UserName = "admin",
+                    Email = "thanhduc.nguyen@dotnetshop.com",
                     FirstName = "Thanh Duc",
                     LastName = "Nguyen",
-                    Email = "thanhduc.nguyen@dotnetshop.com"
+                    Gender = true,
+                    AddressLine = "8/3 Street, Hai Ba Trung",
+                    Country = "Vietnam",
+                    State = "Hanoi",
+                    ZipCode = "00084"
                 };
 
                 var result = await userManager.CreateAsync(user, "Cvbnm123@");
@@ -23,7 +28,7 @@ namespace DotnetShop.Identity.API
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(user, "admin");
-                    await userManager.AddClaimsAsync(user, new List<Claim>());
+                    //await userManager.AddClaimsAsync(user, new List<Claim>());
                 }
             }
 

@@ -9,7 +9,6 @@ This is a pet project to learn technologies. The microservices architecture is u
 * CQRS implementation using MediatR library
 * Use ADO.NET to access SQL Server
 * Use Repository Pattern and Procedure on SQL Server
-* TODO: image gallery for images (dndkit), click upload button to open a dialog to drag and drop (HTML5 API)
 
 #### Shopping Cart service: 
 * ASP.NET Core REST APIs
@@ -40,6 +39,9 @@ This is a pet project to learn technologies. The microservices architecture is u
 * Global Exception Handling
 * Health Checks
 * FluentValidation
+
+## TODO
+* Identity API uses basic authentication, save users in JSON using text file
 
 ## License
 This repository is licensed under the MIT license.
