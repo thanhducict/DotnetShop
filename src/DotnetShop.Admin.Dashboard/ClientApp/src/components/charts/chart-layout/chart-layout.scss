@@ -1,0 +1,21 @@
+.chart-container {
+    border: solid 1px #dadfeb;
+    padding: 12px 20px 20px 20px;
+    border-radius: 6px;
+    height: 450px;
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .cart-abandonment-tile {
+            text-align: left;
+            color: #66708c;
+        }
+
+        .cart-abandonment-ellipsis {
+            text-align: right;
+        }
+    }
+}

@@ -48,11 +48,16 @@ module.exports = (env) => {
                 },
                 {
                     test: /\.(c|s[ac])ss$/i,
-                    use: [MiniCssExtractPlugin.loader, "css-loader"],
+                    use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
                 },
                 {
-                    test: /\.(woff(2)|eot|ttf|otf|svg)$/,
+                    test: /\.(woff(2)|eot|ttf|otf)$/,
                     type: "asset/inline",
+                },
+                {
+                    test: /\.svg$/i,
+                    issuer: /\.[jt]sx?$/,
+                    use: ["@svgr/webpack"],
                 },
             ],
         },

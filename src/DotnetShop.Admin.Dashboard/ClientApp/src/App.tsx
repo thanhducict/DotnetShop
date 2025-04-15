@@ -1,12 +1,8 @@
 import React from "react";
-import Chart from "chart.js/auto";
-import { CategoryScale } from "chart.js";
 import { useState } from "react";
-import { Data } from "./Data";
-import "./global-style.css";
-import PieChart from "./components/PieChart";
-
-Chart.register(CategoryScale);
+import { Data } from "./components/charts/cart-abandonment-rate/mock-data";
+import "./App.scss";
+import CartAbandonmentRate from "./components/charts/cart-abandonment-rate/cart-abandonment-rate";
 
 const App: React.FC = () => {
     const [chartData, setChartData] = useState({
@@ -15,16 +11,29 @@ const App: React.FC = () => {
             {
                 label: "Users Gained ",
                 data: Data.map((data: any) => data.userGain),
-                backgroundColor: ["rgba(75,192,192,1)", "&quot;#ecf0f1", "#50AF95", "#f3ba2f", "#2a71d0"],
-                borderColor: "black",
+                backgroundColor: ["#1B41FF1A"],
+                borderColor: "#B3C3FF",
                 borderWidth: 2,
+                fill: true,
+                tension: 0.5,
+                pointRadius: 0,
             },
         ],
     });
 
     return (
-        <div className="App">
-            <PieChart chartData={chartData} />
+        <div className="dashboard-app">
+            <h2>Dashboard</h2>
+            <div className="dashboard-app__filter"></div>
+            <div className="dashboard-app__summary"></div>
+            <div className="dashboard-app__chart-area">
+                <CartAbandonmentRate
+                    title="Cart Abandonment Rate"
+                    generalValue="3.52%"
+                    comparisonValue="-1.14 (33%)"
+                    demo="This is where the cart abandonment rate chart will be displayed."
+                />
+            </div>
         </div>
     );
 };
