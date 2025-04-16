@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 namespace DotnetShop.Identity.API.Services
 {
     public class AuthenticationService(
-        IdentityApiDbContext db,
+        IdentityApiDbContext identityApiDbContext,
         IJwtTokenGenerator jwtTokenGenerator,
         UserManager<ApplicationUser> userManager,
         RoleManager<IdentityRole> roleManager) : IAuthenticationService
@@ -52,7 +52,7 @@ namespace DotnetShop.Identity.API.Services
             //}
             return "Error Encountered";
         }
-         
+
         public async Task<bool> AssignRole(string email, string roleName)
         {
             //var user = _db.ApplicationUsers.FirstOrDefault(u => u.Email.ToLower() == email.ToLower());
@@ -72,35 +72,34 @@ namespace DotnetShop.Identity.API.Services
 
         public async Task<LoginResponseDto> Login(LoginRequestDto loginRequestDto)
         {
-            //var user = _db.ApplicationUsers.FirstOrDefault(u => u.UserName.ToLower() == loginRequestDto.UserName.ToLower());
+            var user = identityApiDbContext.Users.FirstOrDefault(u => u.UserName.ToLower() == loginRequestDto.UserName.ToLower());
 
-            //bool isValid = await userManager.CheckPasswordAsync(user, loginRequestDto.Password);
+            bool isValid = await userManager.CheckPasswordAsync(user, loginRequestDto.Password);
 
-            //if (user == null || isValid == false)
-            //{
-            //    return new LoginResponseDto() { User = null, Token = "" };
-            //}
+            if (user == null || isValid == false)
+            {
+                return new LoginResponseDto() { User = new UserDto(), Token = string.Empty };
+            }
 
-            ////if user was found , Generate JWT Token
-            //var roles = await userManager.GetRolesAsync(user);
-            //var token = jwtTokenGenerator.GenerateToken(user, roles);
+            var roles = await userManager.GetRolesAsync(user);
+            var claims = await userManager.GetClaimsAsync(user);
+            var token = jwtTokenGenerator.GenerateToken(user, roles, claims);
 
-            //UserDto userDTO = new()
-            //{
-            //    Email = user.Email,
-            //    ID = user.Id,
-            //    Name = user.Name,
-            //    PhoneNumber = user.PhoneNumber
-            //};
+            UserDto userDTO = new()
+            {
+                Id = user.Id,
+                Email = user.Email,
+                UserName = user.UserName,
+                PhoneNumber = user.PhoneNumber
+            };
 
-            //LoginResponseDto loginResponseDto = new LoginResponseDto()
-            //{
-            //    User = userDTO,
-            //    Token = token
-            //};
+            var loginResponseDto = new LoginResponseDto()
+            {
+                User = userDTO,
+                Token = token
+            };
 
             return new LoginResponseDto();
         }
-
     }
 }

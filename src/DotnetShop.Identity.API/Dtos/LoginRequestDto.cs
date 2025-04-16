@@ -5,7 +5,7 @@ namespace DotnetShop.Identity.API.Dtos
     public class LoginRequestDto
     {
         [Required]
-        public string Username { get; set; }
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]

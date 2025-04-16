@@ -40,8 +40,5 @@ This is a pet project to learn technologies. The microservices architecture is u
 * Health Checks
 * FluentValidation
 
-## TODO
-* Identity API uses basic authentication, save users in JSON using text file
-
 ## License
 This repository is licensed under the MIT license.
