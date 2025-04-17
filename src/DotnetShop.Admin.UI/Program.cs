@@ -1,5 +1,7 @@
 using DotnetShop.Admin.Core.Initialization;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 var environment = builder.Environment;
@@ -7,6 +9,20 @@ var services = builder.Services;
 
 services.AddMvc();
 services.AddRazorPages();
+services.AddAuthentication("MyBearerScheme").AddJwtBearer("MyBearerScheme", options =>
+{
+    options.TokenValidationParameters = new()
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["JwtTokenSettings:Issuer"],
+        ValidAudience = builder.Configuration["JwtTokenSettings:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(
+            Encoding.ASCII.GetBytes(builder.Configuration["JwtTokenSettings:Secret"])),
+        ClockSkew = TimeSpan.Zero
+    };
+});
 
 var allModuleTypes = AppDomain.CurrentDomain.GetAssemblies()
                .SelectMany(s => s.GetTypes()).Where(p => typeof(IInitialization).IsAssignableFrom(p) && p.IsClass);

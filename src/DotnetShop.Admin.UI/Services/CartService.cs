@@ -1,4 +1,4 @@
-﻿namespace DotnetShop.WebApp.Services
+namespace DotnetShop.Admin.UI.Services
 {
     public class CartService
     {

@@ -2,7 +2,7 @@ using System.Text.Json;
 using System.Text;
 using System.Net.Http.Headers;
 
-namespace DotnetShop.WebApp.Services
+namespace DotnetShop.Admin.Core.HttpClient
 {
     public class HttpClientFactoryBase(IHttpClientFactory httpClientFactory) : IHttpClientFactoryBase
     {
@@ -57,7 +57,7 @@ namespace DotnetShop.WebApp.Services
         public void SetAuthorizationHeader(string clientName, string token)
         {
             var client = httpClientFactory.CreateClient(clientName);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("MyBearerScheme", token);
         }
     }
 }

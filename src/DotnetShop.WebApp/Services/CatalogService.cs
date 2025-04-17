@@ -2,48 +2,47 @@ using DotnetShop.WebApp.Models.Catalog;
 
 namespace DotnetShop.WebApp.Services
 {
-    public class CatalogService(IHttpClientFactoryBase httpClientFactoryBase, IConfiguration configuration) : ICatalogService
+    public class CatalogService : ICatalogService
     {
-        private readonly string CatalogBaseUri = configuration["ServiceUri:Catalog"]!;
 
         public async Task<GetProductsResponse> GetProducts(int pageNumber, int pageSize, CancellationToken cancellationToken)
         {
-            return await httpClientFactoryBase.GetAsync<GetProductsResponse>("CatalogClient", $"{CatalogBaseUri}/products?pageNumber={pageNumber}&pageSize={pageSize}");
+            throw new Exception("Not implemented");
         }
 
         public async Task<GetProductByIdResponse> GetProductById(int productId, CancellationToken cancellationToken)
         {
-            return await httpClientFactoryBase.GetAsync<GetProductByIdResponse>("CatalogClient", $"{CatalogBaseUri}/products/{productId}");
+            throw new Exception("Not implemented");
         }
 
         public async Task<GetProductsByCategoryResponse> GetProductsByCategory(string categoryName, CancellationToken cancellationToken)
         {
-            return await httpClientFactoryBase.GetAsync<GetProductsByCategoryResponse>("CatalogClient", $"{CatalogBaseUri}/products/category/{categoryName}");
+            throw new Exception("Not implemented");
         }
 
         public async Task<int> CreateProduct(ProductModel product, CancellationToken cancellationToken)
         {
-            return await httpClientFactoryBase.PostAsync<int>("CatalogClient", $"{CatalogBaseUri}/products", product);
+            throw new Exception("Not implemented");
         }
 
         public async Task<bool> UpdateProduct(ProductModel product, CancellationToken cancellationToken)
         {
-            return await httpClientFactoryBase.PutAsync<bool>("CatalogClient", $"{CatalogBaseUri}/products", product);
+            throw new Exception("Not implemented");
         }
 
         public async Task<bool> DeleteProduct(int productId, CancellationToken cancellationToken)
         {
-            return await httpClientFactoryBase.DeleteAsync<bool>("CatalogClient", $"{CatalogBaseUri}/products/{productId}");
+            throw new Exception("Not implemented");
         }
 
         public async Task<GetCategoriesResponse> GetCategories(CancellationToken cancellationToken)
         {
-            return await httpClientFactoryBase.GetAsync<GetCategoriesResponse>("CatalogClient", $"{CatalogBaseUri}/categories");
+            throw new Exception("Not implemented");
         }
 
         public async Task<Guid> CreateCategory(CategoryModel category, CancellationToken cancellationToken)
         {
-            return await httpClientFactoryBase.PostAsync<Guid>("CatalogClient", $"{CatalogBaseUri}/categories", category);
+            throw new Exception("Not implemented");
         }
     }
 }

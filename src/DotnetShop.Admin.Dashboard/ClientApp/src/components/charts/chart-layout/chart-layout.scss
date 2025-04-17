@@ -9,13 +9,23 @@
         justify-content: space-between;
         align-items: center;
 
-        .cart-abandonment-tile {
+        .chart-header-tile {
             text-align: left;
             color: #66708c;
         }
 
-        .cart-abandonment-ellipsis {
+        .chart-header-ellipsis {
             text-align: right;
+        }
+    }
+
+    &__general-value {
+        p:first-child {
+            margin: 8px 0 0px 0;
+        }
+
+        p:last-child {
+            margin: 8px 0 10px 0;
         }
     }
 }

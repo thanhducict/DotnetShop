@@ -1,25 +1,25 @@
-import React from "react";
-import { useState } from "react";
-import { Data } from "./components/charts/cart-abandonment-rate/mock-data";
+import React, { useState } from "react";
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+    Filler,
+    BarElement,
+} from "chart.js";
 import "./App.scss";
-import CartAbandonmentRate from "./components/charts/cart-abandonment-rate/cart-abandonment-rate";
+import LineChart from "./components/charts/line-chart";
+import BarChart from "./components/charts/bar-chart";
+
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend, Filler);
 
 const App: React.FC = () => {
-    const [chartData, setChartData] = useState({
-        labels: Data.map((data: any) => data.year),
-        datasets: [
-            {
-                label: "Users Gained ",
-                data: Data.map((data: any) => data.userGain),
-                backgroundColor: ["#1B41FF1A"],
-                borderColor: "#B3C3FF",
-                borderWidth: 2,
-                fill: true,
-                tension: 0.5,
-                pointRadius: 0,
-            },
-        ],
-    });
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
 
     return (
         <div className="dashboard-app">
@@ -27,12 +27,46 @@ const App: React.FC = () => {
             <div className="dashboard-app__filter"></div>
             <div className="dashboard-app__summary"></div>
             <div className="dashboard-app__chart-area">
-                <CartAbandonmentRate
-                    title="Cart Abandonment Rate"
-                    generalValue="3.52%"
-                    comparisonValue="-1.14 (33%)"
-                    demo="This is where the cart abandonment rate chart will be displayed."
-                />
+                <div className="dashboard-app__row">
+                    <div className="dashboard-app__column">
+                        <LineChart
+                            title="Sessions"
+                            generalValue="120"
+                            comparisonValue="+90 (200%)"
+                            label={["12:00 AM", "4:00 AM", "8:00 AM", "12:00 PM", "4:00 PM", "8:00 PM"]}
+                            datasets={[
+                                {
+                                    data: [0, 25, 30, 50, 40, 150],
+                                    borderWidth: 2,
+                                    borderColor: "#B3C3FF",
+                                    tension: 0.1,
+                                    pointRadius: 0,
+                                },
+                            ]}
+                            isFullScreen={isFullScreen}
+                            isLoading={isLoading}
+                        />
+                    </div>
+                    <div className="dashboard-app__column">
+                        <BarChart
+                            title="Sessions"
+                            generalValue="120"
+                            comparisonValue="+90 (200%)"
+                            label={["2024", "May 2025"]}
+                            datasets={[
+                                {
+                                    data: [30, 120],
+                                    backgroundColor: ["#B3C3FF", "#0037FF"],
+                                    borderColor: ["#B3C3FF", "#0037FF"],
+                                    borderWidth: 1,
+                                    maxBarThickness: 70,
+                                },
+                            ]}
+                            isFullScreen={isFullScreen}
+                            isLoading={isLoading}
+                        />
+                    </div>
+                </div>
             </div>
         </div>
     );
