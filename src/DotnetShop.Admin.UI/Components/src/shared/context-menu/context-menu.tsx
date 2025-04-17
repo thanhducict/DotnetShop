@@ -32,7 +32,7 @@ const ContextMenu: React.FC<ContextMenuProps> = (props) => {
         open: isVisible,
         onOpenChange: setIsVisible,
         middleware: [
-            offset(8),
+            offset({ mainAxis: 8, crossAxis: 0 }),
             shift({
                 boundary: {
                     x: 0,

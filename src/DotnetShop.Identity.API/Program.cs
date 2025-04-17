@@ -6,21 +6,29 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddControllers();
+builder.Services.AddHealthChecks();
 
-builder.Services.AddScoped<UserManager<ApplicationUser>>();
 builder.Services.AddDbContext<IdentityApiDbContext>(option =>
 {
-    option.UseSqlServer(builder.Configuration.GetConnectionString("IdentityDb"));
+    option.UseSqlite(builder.Configuration.GetConnectionString("IdentityDb"));
 });
+
 builder.Services.AddIdentityCore<ApplicationUser>(options =>
 {
     options.Password.RequiredLength = 8;
     options.Password.RequireUppercase = true;
     options.Password.RequireDigit = true;
-}).AddEntityFrameworkStores<IdentityApiDbContext>();
+}).AddRoles<IdentityRole>()
+.AddEntityFrameworkStores<IdentityApiDbContext>();
 
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("ApiSettings:JwtOptions"));
-builder.Services.AddAuthentication("Bearer").AddJwtBearer(options =>
+builder.Services.AddScoped<DotnetShop.Identity.API.Services.IAuthenticationService,
+    DotnetShop.Identity.API.Services.AuthenticationService>();
+builder.Services.AddScoped<DotnetShop.Identity.API.Services.IJwtTokenGenerator,
+    DotnetShop.Identity.API.Services.JwtTokenGenerator>();
+
+builder.Services.AddAuthentication("MyBearerScheme").AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new()
     {
@@ -46,7 +54,13 @@ try
     var userManager = scopedProvider.GetRequiredService<UserManager<ApplicationUser>>();
     var roleManager = scopedProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
+    if (!Directory.Exists("App_Data"))
+    {
+        Directory.CreateDirectory("App_Data");
+    }
+
     await context.Database.EnsureCreatedAsync();
+    await SeedData.AddSampleRoles(roleManager);
     await SeedData.AddSampleUsers(userManager);
 }
 catch (Exception ex)
@@ -54,6 +68,7 @@ catch (Exception ex)
     app.Logger.LogError(ex, "An error occurred seeding the DB.");
 }
 
-app.MapGet("/", () => "Hello World!");
+app.MapControllers();
+app.UseHealthChecks("/health");
 
 app.Run();

@@ -41,31 +41,12 @@ namespace DotnetShop.Identity.API
 
                 if (result.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(user, "admin");
+                    await userManager.AddToRoleAsync(user, Roles.Admin);
                     await userManager.AddClaimsAsync(user, new List<Claim>
                     {
                         new Claim(ClaimTypes.Name, user.UserName),
-                        new Claim(ClaimTypes.Email, user.Email),
-                        new Claim(ClaimTypes.Role, Roles.Customer)
+                        new Claim(ClaimTypes.Email, user.Email)
                     });
-                }
-            }
-
-            if (await userManager.FindByNameAsync("scholes") == null)
-            {
-                var user = new ApplicationUser
-                {
-                    UserName = "scholes",
-                    FirstName = "Paul",
-                    LastName = "Scholes",
-                    Email = "paul.scholes@manutd.com"
-                };
-
-                var result = await userManager.CreateAsync(user, "Cvbnm123@");
-
-                if (result.Succeeded)
-                {
-                    await userManager.AddToRoleAsync(user, "customer");
                 }
             }
 
@@ -83,7 +64,7 @@ namespace DotnetShop.Identity.API
 
                 if (result.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(user, "customer");
+                    await userManager.AddToRoleAsync(user, Roles.Customer);
                 }
             }
 
@@ -101,7 +82,7 @@ namespace DotnetShop.Identity.API
 
                 if (result.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(user, "customer");
+                    await userManager.AddToRoleAsync(user, Roles.Customer);
                 }
             }
         }

@@ -1,76 +1,68 @@
 using DotnetShop.Identity.API.Dtos;
 using DotnetShop.Identity.API.Models;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace DotnetShop.Identity.API.Services
 {
     public class AuthenticationService(
         IdentityApiDbContext identityApiDbContext,
-        IJwtTokenGenerator jwtTokenGenerator,
+        IJwtTokenGenerator bearerTokenGenerator,
         UserManager<ApplicationUser> userManager,
         RoleManager<IdentityRole> roleManager) : IAuthenticationService
     {
         public async Task<string> Register(RegistrationRequestDto registrationRequestDto)
         {
-            //ApplicationUser user = new()
-            //{
-            //    UserName = registrationRequestDto.Email,
-            //    Email = registrationRequestDto.Email,
-            //    NormalizedEmail = registrationRequestDto.Email.ToUpper(),
-            //    FirstName = registrationRequestDto.Firstname,
-            //    LastName = registrationRequestDto.Lastname,
-            //    PhoneNumber = registrationRequestDto.PhoneNumber
-            //};
+            var user = new ApplicationUser
+            {
+                UserName = registrationRequestDto.Email,
+                Email = registrationRequestDto.Email,
+                NormalizedEmail = registrationRequestDto.Email.ToUpper(),
+                FirstName = registrationRequestDto.Firstname,
+                LastName = registrationRequestDto.Lastname,
+                PhoneNumber = registrationRequestDto.PhoneNumber
+            };
 
-            //try
-            //{
-            //    var result = await userManager.CreateAsync(user, registrationRequestDto.Password);
-            //    if (result.Succeeded)
-            //    {
-            //        var userToReturn = _db.ApplicationUsers.First(u => u.UserName == registrationRequestDto.Email);
+            var result = await userManager.CreateAsync(user, registrationRequestDto.Password);
 
-            //        UserDto userDto = new()
-            //        {
-            //            Email = userToReturn.Email,
-            //            ID = userToReturn.Id,
-            //            Name = userToReturn.Name,
-            //            PhoneNumber = userToReturn.PhoneNumber
-            //        };
+            if (result.Succeeded)
+            {
+                if (!string.IsNullOrEmpty(registrationRequestDto.Role))
+                {
+                    if (await roleManager.RoleExistsAsync(registrationRequestDto.Role))
+                    {
+                        await userManager.AddToRoleAsync(user, registrationRequestDto.Role);
+                    }
+                    else
+                    {
+                        await roleManager.CreateAsync(new IdentityRole(registrationRequestDto.Role));
+                        await userManager.AddToRoleAsync(user, registrationRequestDto.Role);
+                    }
+                }
 
-            //        return "";
+                if (registrationRequestDto.Claims != null && registrationRequestDto.Claims.Count != 0)
+                {
+                    foreach (var claim in registrationRequestDto.Claims)
+                    {
+                        var claimType = claim.Type;
+                        var claimValue = claim.Value;
+                        if (!string.IsNullOrEmpty(claimType) && !string.IsNullOrEmpty(claimValue))
+                        {
+                            var newClaim = new Claim(claimType, claimValue);
+                            await userManager.AddClaimAsync(user, newClaim);
+                        }
+                    }
+                }
 
-            //    }
-            //    else
-            //    {
-            //        return result.Errors.FirstOrDefault().Description;
-            //    }
-
-            //}
-            //catch (Exception ex)
-            //{
-
-            //}
-            return "Error Encountered";
+                return "User registered successfully.";
+            }
+            else
+            {
+                return result.Errors.FirstOrDefault()?.Description ?? "User registration failed.";
+            }
         }
 
-        public async Task<bool> AssignRole(string email, string roleName)
-        {
-            //var user = _db.ApplicationUsers.FirstOrDefault(u => u.Email.ToLower() == email.ToLower());
-            //if (user != null)
-            //{
-            //    if (!roleManager.RoleExistsAsync(roleName).GetAwaiter().GetResult())
-            //    {
-            //        //create role if it does not exist
-            //        roleManager.CreateAsync(new IdentityRole(roleName)).GetAwaiter().GetResult();
-            //    }
-            //    await userManager.AddToRoleAsync(user, roleName);
-            //    return true;
-            //}
-            return false;
-
-        }
-
-        public async Task<LoginResponseDto> Login(LoginRequestDto loginRequestDto)
+        public async Task<LoginResponseDto> GetToken(LoginRequestDto loginRequestDto)
         {
             var user = identityApiDbContext.Users.FirstOrDefault(u => u.UserName.ToLower() == loginRequestDto.UserName.ToLower());
 
@@ -83,7 +75,7 @@ namespace DotnetShop.Identity.API.Services
 
             var roles = await userManager.GetRolesAsync(user);
             var claims = await userManager.GetClaimsAsync(user);
-            var token = jwtTokenGenerator.GenerateToken(user, roles, claims);
+            var token = bearerTokenGenerator.GenerateToken(user, roles, claims);
 
             UserDto userDTO = new()
             {
@@ -96,10 +88,53 @@ namespace DotnetShop.Identity.API.Services
             var loginResponseDto = new LoginResponseDto()
             {
                 User = userDTO,
-                Token = token
+                Token = token,
             };
 
-            return new LoginResponseDto();
+            return loginResponseDto;
+        }
+
+        public async Task<bool> AssignRole(string email, string role)
+        {
+            var user = identityApiDbContext.Users.FirstOrDefault(u => u.Email.ToLower() == email.ToLower());
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            if (await roleManager.RoleExistsAsync(role))
+            {
+                await userManager.AddToRoleAsync(user, role);
+            }
+            else
+            {
+                await roleManager.CreateAsync(new IdentityRole(role));
+            }
+
+            return true;
+        }
+
+        public async Task<bool> AssignClaims(string email, IEnumerable<ClaimDto> claimDtos)
+        {
+            var user = await userManager.FindByEmailAsync(email);
+            var claims = claimDtos.Select(c => new Claim(c.Type, c.Value)).ToList();
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            var userClaims = await userManager.GetClaimsAsync(user);
+
+            if (claims.Any(claim => userClaims.Any(c => c.Type == claim.Type && c.Value == claim.Value)))
+            {
+                return false;
+            }
+
+            var result = await userManager.AddClaimsAsync(user, claims);
+
+            return result.Succeeded;
         }
     }
 }

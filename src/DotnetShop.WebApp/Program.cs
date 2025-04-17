@@ -8,6 +8,8 @@ builder.Services.AddHttpClient();
 builder.Services.AddSingleton<IHttpClientFactoryBase, HttpClientFactoryBase>();
 builder.Services.AddSingleton<ICatalogService, CatalogService>();
 
+builder.Services.AddAuthentication("MyBearerScheme");
+
 var app = builder.Build();
 
 app.UseStaticFiles();

@@ -8,5 +8,6 @@ namespace DotnetShop.Identity.API.Dtos
         public string PhoneNumber { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public string? Role { get; set; }
+        public List<ClaimDto>? Claims { get; set; } = new List<ClaimDto>();
     }
 }

@@ -1,0 +1,19 @@
+@hostname=localhost
+
+# Local
+@port=5054
+
+# Docker
+# @port=6064
+
+@host={{hostname}}:{{port}}
+
+GET https://{{host}}/health
+###
+
+POST https://{{host}}/authentication/login
+Content-Type: application/json
+{
+    "userName": "admin",
+    "password": "Cvbnm123@"
+}
