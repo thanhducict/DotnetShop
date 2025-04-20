@@ -1,7 +1,7 @@
 using DotnetShop.Admin.Core.HttpClient;
-using DotnetShop.Admin.UI.Models;
+using DotnetShop.Admin.UI.Areas.Admin.Models;
 
-namespace DotnetShop.Admin.UI.Services
+namespace DotnetShop.Admin.UI.Areas.Admin.Services
 {
     public class CatalogService(IHttpClientFactoryBase httpClientFactoryBase, IConfiguration configuration) : ICatalogService
     {

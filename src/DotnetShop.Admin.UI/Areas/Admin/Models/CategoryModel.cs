@@ -1,4 +1,4 @@
-namespace DotnetShop.Admin.UI.Models
+namespace DotnetShop.Admin.UI.Areas.Admin.Models
 {
     public class CategoryModel
     {

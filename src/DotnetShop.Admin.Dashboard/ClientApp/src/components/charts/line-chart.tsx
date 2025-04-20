@@ -1,12 +1,9 @@
 import React from "react";
-import withChartHeader, { ChartHeaderProps } from "./chart-layout/chart-layout";
+import withChartHeader, { ChartProps } from "./chart-layout/chart-layout";
 import { Line } from "react-chartjs-2";
 
-interface LineChartProps extends ChartHeaderProps {
+interface LineChartProps extends ChartProps {
     isLoading: boolean;
-    label: string[];
-    datasets: any;
-    options?: any;
 }
 
 const GraphicArea: React.FC<LineChartProps> = (props) => {
@@ -17,8 +14,8 @@ const GraphicArea: React.FC<LineChartProps> = (props) => {
             ) : (
                 <Line
                     data={{
-                        labels: props.label,
-                        datasets: props.datasets,
+                        labels: props.chart.label,
+                        datasets: props.chart.datasets,
                     }}
                     height={350}
                     options={{

@@ -1,12 +1,9 @@
 import React from "react";
-import withChartHeader, { ChartHeaderProps } from "./chart-layout/chart-layout";
+import withChartHeader, { ChartProps } from "./chart-layout/chart-layout";
 import { Bar } from "react-chartjs-2";
 
-interface BarChartProps extends ChartHeaderProps {
+interface BarChartProps extends ChartProps {
     isLoading: boolean;
-    label: string[];
-    datasets: any;
-    options?: any;
 }
 
 const GraphicArea: React.FC<BarChartProps> = (props) => {
@@ -17,8 +14,8 @@ const GraphicArea: React.FC<BarChartProps> = (props) => {
             ) : (
                 <Bar
                     data={{
-                        labels: props.label,
-                        datasets: props.datasets,
+                        labels: props.chart.label,
+                        datasets: props.chart.datasets,
                     }}
                     height={350}
                     options={{

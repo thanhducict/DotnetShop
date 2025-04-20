@@ -1,6 +1,6 @@
-using DotnetShop.Admin.UI.Models;
+using DotnetShop.Admin.UI.Areas.Admin.Models;
 
-namespace DotnetShop.Admin.UI.Services
+namespace DotnetShop.Admin.UI.Areas.Admin.Services
 {
     public interface ICatalogService
     {
