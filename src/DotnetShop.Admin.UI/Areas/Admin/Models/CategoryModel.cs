@@ -6,9 +6,4 @@ namespace DotnetShop.Admin.UI.Areas.Admin.Models
         public Guid CategoryGuid { get; set; }
         public string CategoryName { get; set; } = string.Empty;
     }
-
-    public class GetCategoriesResponse
-    {
-        public IEnumerable<CategoryModel> Categories { get; set; } = default!;
-    }
 }

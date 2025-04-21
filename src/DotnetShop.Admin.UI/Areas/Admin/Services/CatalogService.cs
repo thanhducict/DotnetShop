@@ -1,25 +1,27 @@
 using DotnetShop.Admin.Core.HttpClient;
+using DotnetShop.Admin.UI.Areas.Admin.Dtos;
 using DotnetShop.Admin.UI.Areas.Admin.Models;
 
 namespace DotnetShop.Admin.UI.Areas.Admin.Services
 {
-    public class CatalogService(IHttpClientFactoryBase httpClientFactoryBase, IConfiguration configuration) : ICatalogService
+    public class CatalogService(IHttpClientFactoryBase httpClientFactoryBase, IConfiguration configuration)
+        : ICatalogService
     {
         private readonly string CatalogBaseUri = configuration["ServiceUri:Catalog"]!;
 
-        public async Task<GetProductsResponse> GetProducts(int pageNumber, int pageSize, CancellationToken cancellationToken)
+        public async Task<GetProductsDto> GetProducts(int pageNumber, int pageSize, CancellationToken cancellationToken)
         {
-            return await httpClientFactoryBase.GetAsync<GetProductsResponse>("CatalogClient", $"{CatalogBaseUri}/products?pageNumber={pageNumber}&pageSize={pageSize}");
+            return await httpClientFactoryBase.GetAsync<GetProductsDto>("CatalogClient", $"{CatalogBaseUri}/products?pageNumber={pageNumber}&pageSize={pageSize}");
         }
 
-        public async Task<GetProductByIdResponse> GetProductById(int productId, CancellationToken cancellationToken)
+        public async Task<GetProductByIdDto> GetProductById(int productId, CancellationToken cancellationToken)
         {
-            return await httpClientFactoryBase.GetAsync<GetProductByIdResponse>("CatalogClient", $"{CatalogBaseUri}/products/{productId}");
+            return await httpClientFactoryBase.GetAsync<GetProductByIdDto>("CatalogClient", $"{CatalogBaseUri}/products/{productId}");
         }
 
-        public async Task<GetProductsByCategoryResponse> GetProductsByCategory(string categoryName, CancellationToken cancellationToken)
+        public async Task<GetProductsByCategoryDto> GetProductsByCategory(string categoryName, CancellationToken cancellationToken)
         {
-            return await httpClientFactoryBase.GetAsync<GetProductsByCategoryResponse>("CatalogClient", $"{CatalogBaseUri}/products/category/{categoryName}");
+            return await httpClientFactoryBase.GetAsync<GetProductsByCategoryDto>("CatalogClient", $"{CatalogBaseUri}/products/category/{categoryName}");
         }
 
         public async Task<int> CreateProduct(ProductModel product, CancellationToken cancellationToken)
@@ -37,9 +39,9 @@ namespace DotnetShop.Admin.UI.Areas.Admin.Services
             return await httpClientFactoryBase.DeleteAsync<bool>("CatalogClient", $"{CatalogBaseUri}/products/{productId}");
         }
 
-        public async Task<GetCategoriesResponse> GetCategories(CancellationToken cancellationToken)
+        public async Task<GetCategoriesDto> GetCategories(CancellationToken cancellationToken)
         {
-            return await httpClientFactoryBase.GetAsync<GetCategoriesResponse>("CatalogClient", $"{CatalogBaseUri}/categories");
+            return await httpClientFactoryBase.GetAsync<GetCategoriesDto>("CatalogClient", $"{CatalogBaseUri}/categories");
         }
 
         public async Task<Guid> CreateCategory(CategoryModel category, CancellationToken cancellationToken)

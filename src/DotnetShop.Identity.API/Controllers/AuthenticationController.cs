@@ -6,22 +6,15 @@ namespace DotnetShop.Identity.API.Controllers
 {
     [ApiController]
     [Route("{controller}/{action}")]
-    public class AuthenticationController(IAuthenticationService authenticationService) : ControllerBase
+    public class AuthenticationController(IAppAuthenticationService authenticationService) : ControllerBase
     {
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Register([FromBody] RegistrationRequestDto model)
         {
-            var response = new ResponseDto();
-            var message = await authenticationService.Register(model);
+            var result = await authenticationService.Register(model);
 
-            if (!string.IsNullOrEmpty(message))
-            {
-                response.Message = message;
-                return BadRequest(response);
-            }
-
-            return Ok(response);
+            return result ? BadRequest() : Ok();
         }
 
         [HttpPost]
@@ -29,7 +22,7 @@ namespace DotnetShop.Identity.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Login([FromBody] LoginRequestDto credential)
         {
-            var response = new ResponseDto();
+            var response = new LoginResponseDto();
 
             if (credential == null || string.IsNullOrEmpty(credential.UserName) || string.IsNullOrEmpty(credential.Password))
             {
@@ -44,7 +37,8 @@ namespace DotnetShop.Identity.API.Controllers
                 return BadRequest(response);
             }
 
-            response.Result = loginResponse;
+            response.User = loginResponse.User;
+            response.Token = loginResponse.Token;
             response.Message = "Token retrieved successfully.";
 
             return Ok(response);
@@ -54,37 +48,28 @@ namespace DotnetShop.Identity.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> AssignRole([FromBody] RegistrationRequestDto model)
         {
-            var response = new ResponseDto();
-            var assignRoleSuccessful = await authenticationService.AssignRole(model.Email, model.Role);
+            var assignRoleSuccessful = await authenticationService.AssignRole(model.UserName, model.Role);
 
             if (!assignRoleSuccessful)
             {
-                response.Message = "Error encountered";
-                return BadRequest(response);
+                return BadRequest();
             }
 
-            return Ok(response);
+            return Ok();
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> AssignClaim([FromBody] RegistrationRequestDto model)
         {
-            var response = new ResponseDto();
-            var result = await authenticationService.AssignClaims(model.Email, model.Claims);
+            var assignClaimsSuccessful = await authenticationService.AssignClaims(model.UserName, model.Claims);
 
-            if (!result)
+            if (!assignClaimsSuccessful)
             {
-                response.Result = result;
-                response.Message = "Error encountered";
-
-                return BadRequest(response);
+                return BadRequest();
             }
 
-            response.Result = result;
-            response.Message = "Claims assigned successfully.";
-
-            return Ok(response);
+            return Ok();
         }
     }
 }

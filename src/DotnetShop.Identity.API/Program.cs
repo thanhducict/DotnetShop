@@ -1,5 +1,6 @@
 using DotnetShop.Identity.API;
 using DotnetShop.Identity.API.Models;
+using DotnetShop.Identity.API.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -23,10 +24,8 @@ builder.Services.AddIdentityCore<ApplicationUser>(options =>
 .AddEntityFrameworkStores<IdentityApiDbContext>();
 
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("ApiSettings:JwtOptions"));
-builder.Services.AddScoped<DotnetShop.Identity.API.Services.IAuthenticationService,
-    DotnetShop.Identity.API.Services.AuthenticationService>();
-builder.Services.AddScoped<DotnetShop.Identity.API.Services.IJwtTokenGenerator,
-    DotnetShop.Identity.API.Services.JwtTokenGenerator>();
+builder.Services.AddScoped<IAppAuthenticationService, AppAuthenticationService>();
+builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 
 builder.Services.AddAuthentication("MyBearerScheme").AddJwtBearer(options =>
 {

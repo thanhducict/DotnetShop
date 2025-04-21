@@ -1,0 +1,17 @@
+using DotnetShop.Admin.Core.HttpClient;
+using DotnetShop.Admin.UI.Areas.Admin.Dtos;
+
+namespace DotnetShop.Admin.UI.Areas.Admin.Services
+{
+    public class AppAuthenticationService(IHttpClientFactoryBase httpClientFactoryBase, IConfiguration configuration)
+        : IAppAuthenticationService
+    {
+        private readonly string IdentityBaseUri = configuration["ServiceUri:Identity"]!;
+
+        public async Task<LoginResponseDto> LoginAsync(LoginRequestDto loginRequestDto)
+        {
+            return await httpClientFactoryBase.PostAsync<LoginResponseDto>
+                ("AuthenticationClient", $"{IdentityBaseUri}/authentication/login", loginRequestDto);
+        }
+    }
+}

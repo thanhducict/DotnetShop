@@ -1,4 +1,7 @@
+using DotnetShop.Admin.Core.HttpClient;
 using DotnetShop.Admin.Core.Initialization;
+using DotnetShop.Admin.UI.Areas.Admin.Services;
+using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
 using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,9 +10,10 @@ var services = builder.Services;
 
 services.AddMvc();
 services.AddRazorPages();
-services.AddAuthentication("MyCookieAuthentication").AddCookie("MyCookieAuthentication", options =>
+services.AddAuthentication("MyBearerScheme").AddCookie("MyBearerScheme", options =>
 {
-    options.AccessDeniedPath = "/Account/NoPermission";
+    options.LoginPath = "/Admin/AppAuthentication/Login";
+    options.AccessDeniedPath = "/Admin/AppAuthentication/NoPermission";
     options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
 });
 
@@ -31,6 +35,10 @@ foreach (var module in allModules)
 {
     module.ConfigureContainer(builder);
 }
+
+services.AddHttpClient();
+services.AddScoped<IHttpClientFactoryBase, HttpClientFactoryBase>();
+services.AddScoped<IAppAuthenticationService, AppAuthenticationService>();
 
 var app = builder.Build();
 

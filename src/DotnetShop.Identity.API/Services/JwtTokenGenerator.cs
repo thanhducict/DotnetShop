@@ -19,8 +19,6 @@ namespace DotnetShop.Identity.API.Services
             var claimsForToken = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(ClaimTypes.Email, user.Email),
             };
 
             foreach (var claim in claims)

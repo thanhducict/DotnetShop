@@ -12,19 +12,4 @@ namespace DotnetShop.Admin.UI.Areas.Admin.Models
         public decimal Price { get; set; }
         public int CategoryId { get; set; }
     }
-
-    public class GetProductsResponse()
-    {
-        public IEnumerable<ProductModel> Products { get; set; } = default!;
-    }
-
-    public class GetProductByIdResponse
-    {
-        public ProductModel Product { get; set; } = default!;
-    }
-
-    public class GetProductsByCategoryResponse
-    {
-        public IEnumerable<ProductModel> Products { get; set; } = default!;
-    }
 }

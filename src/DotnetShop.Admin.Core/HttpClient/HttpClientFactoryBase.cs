@@ -8,7 +8,7 @@ namespace DotnetShop.Admin.Core.HttpClient
     {
         private readonly JsonSerializerOptions serializerOptions = new()
         {
-            PropertyNameCaseInsensitive = true
+            PropertyNameCaseInsensitive = true,
         };
 
         public async Task<T> GetAsync<T>(string clientName, string requestUri)

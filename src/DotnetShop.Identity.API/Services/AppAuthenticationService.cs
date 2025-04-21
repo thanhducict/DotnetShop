@@ -1,21 +1,24 @@
 using DotnetShop.Identity.API.Dtos;
 using DotnetShop.Identity.API.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System.Security.Claims;
 
 namespace DotnetShop.Identity.API.Services
 {
-    public class AuthenticationService(
+    public class AppAuthenticationService(
         IdentityApiDbContext identityApiDbContext,
         IJwtTokenGenerator bearerTokenGenerator,
         UserManager<ApplicationUser> userManager,
-        RoleManager<IdentityRole> roleManager) : IAuthenticationService
+        RoleManager<IdentityRole> roleManager) : IAppAuthenticationService
     {
-        public async Task<string> Register(RegistrationRequestDto registrationRequestDto)
+        public async Task<bool> Register(RegistrationRequestDto registrationRequestDto)
         {
             var user = new ApplicationUser
             {
-                UserName = registrationRequestDto.Email,
+                UserName = registrationRequestDto.UserName,
                 Email = registrationRequestDto.Email,
                 NormalizedEmail = registrationRequestDto.Email.ToUpper(),
                 FirstName = registrationRequestDto.Firstname,
@@ -53,13 +56,9 @@ namespace DotnetShop.Identity.API.Services
                         }
                     }
                 }
+            }
 
-                return "User registered successfully.";
-            }
-            else
-            {
-                return result.Errors.FirstOrDefault()?.Description ?? "User registration failed.";
-            }
+            return true;
         }
 
         public async Task<LoginResponseDto> GetToken(LoginRequestDto loginRequestDto)
@@ -70,7 +69,7 @@ namespace DotnetShop.Identity.API.Services
 
             if (user == null || isValid == false)
             {
-                return new LoginResponseDto() { User = new UserDto(), Token = string.Empty };
+                return new LoginResponseDto { User = new UserDto(), Token = string.Empty };
             }
 
             var roles = await userManager.GetRolesAsync(user);
@@ -110,6 +109,7 @@ namespace DotnetShop.Identity.API.Services
             else
             {
                 await roleManager.CreateAsync(new IdentityRole(role));
+                await userManager.AddToRoleAsync(user, role);
             }
 
             return true;
@@ -134,7 +134,7 @@ namespace DotnetShop.Identity.API.Services
 
             var result = await userManager.AddClaimsAsync(user, claims);
 
-            return result.Succeeded;
+            return true;
         }
     }
 }

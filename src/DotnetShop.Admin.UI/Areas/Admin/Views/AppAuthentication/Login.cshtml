@@ -1,33 +1,30 @@
-@page
-@model AspNetCoreSecurity.Pages.Account.LoginModel
-@{
-}
+@model LoginDto
 
 <div class="container border" style="padding:20px">
     <form method="post">
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
         <div class="mb-3">
             <div class="col-2">
-                <label class="form-label" asp-for="Credential.Username"></label>
+                <label class="form-label" asp-for="@Model.UserName"></label>
             </div>
             <div class="col-5">
-                <input class="form-control" type="text" asp-for="Credential.Username" value="admin" />
+                <input class="form-control" type="text" asp-for="@Model.UserName" value="admin" />
             </div>
-            <span class="text-danger" asp-validation-for="Credential.Username"></span>
+            <span class="text-danger" asp-validation-for="@Model.UserName"></span>
         </div>
         <div class="mb-3">
             <div class="col-2">
-                <label class="form-label" asp-for="Credential.Password"></label>
+                <label class="form-label" asp-for="@Model.Password"></label>
             </div>
             <div class="col-5">
-                <input class="form-control" type="password" value="Cvbnm123@@" asp-for="Credential.Password" />
+                <input class="form-control" type="password" value="Cvbnm123@@" asp-for="@Model.Password" />
             </div>
-            <span class="text-danger" asp-validation-for="Credential.Password"></span>
+            <span class="text-danger" asp-validation-for="@Model.Password"></span>
         </div>
         <div class="mb-3">
             <div class="col-5">
-                <input type="checkbox" asp-for="Credential.RememberMe" />
-                <label class="form-label" asp-for="Credential.RememberMe"></label>
+                <input type="checkbox" asp-for="@Model.RememberMe" />
+                <label class="form-label" asp-for="@Model.RememberMe"></label>
             </div>
         </div>
         <div class="mb-3">
