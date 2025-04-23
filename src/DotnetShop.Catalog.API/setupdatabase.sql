@@ -166,7 +166,7 @@ BEGIN
     DECLARE @SkipNumber INT;
 
     IF @PageNumber = 1
-        SET @SkipNumber = 0;
+        SET @SkipNumber = 0
     ELSE
         SET @SkipNumber = @PageSize * (@PageNumber - 1)
     SELECT * FROM dbo.Product ORDER BY CURRENT_TIMESTAMP OFFSET @SkipNumber ROWS FETCH NEXT @PageSize ROWS ONLY

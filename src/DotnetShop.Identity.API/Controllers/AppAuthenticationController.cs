@@ -6,7 +6,7 @@ namespace DotnetShop.Identity.API.Controllers
 {
     [ApiController]
     [Route("{controller}/{action}")]
-    public class AuthenticationController(IAppAuthenticationService authenticationService) : ControllerBase
+    public class AppAuthenticationController(IAppAuthenticationService authenticationService) : ControllerBase
     {
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

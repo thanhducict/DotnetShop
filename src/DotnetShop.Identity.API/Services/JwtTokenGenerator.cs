@@ -26,6 +26,11 @@ namespace DotnetShop.Identity.API.Services
                 claimsForToken.Add(claim);
             }
 
+            foreach (var role in roles)
+            {
+                claimsForToken.Add(new Claim(ClaimTypes.Role, role));
+            }
+
             var jwtSecurityToken = new JwtSecurityToken(
                 _jwtOptions.Issuer,
                 _jwtOptions.Audience,

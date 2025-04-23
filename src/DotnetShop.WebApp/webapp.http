@@ -4,7 +4,7 @@
 # @port=5000
 
 # Docker
-@port=6060
+@port=6064
 
 @host={{hostname}}:{{port}}
 

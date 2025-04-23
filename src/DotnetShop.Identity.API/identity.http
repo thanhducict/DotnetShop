@@ -11,7 +11,7 @@
 GET https://{{host}}/health
 ###
 
-POST https://{{host}}/authentication/login
+POST https://{{host}}/appauthentication/login
 Content-Type: application/json
 {
     "userName": "admin",

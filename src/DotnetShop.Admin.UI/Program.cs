@@ -1,7 +1,7 @@
 using DotnetShop.Admin.Core.HttpClient;
 using DotnetShop.Admin.Core.Initialization;
+using DotnetShop.Admin.UI;
 using DotnetShop.Admin.UI.Areas.Admin.Services;
-using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
 using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +10,7 @@ var services = builder.Services;
 
 services.AddMvc();
 services.AddRazorPages();
-services.AddAuthentication("MyBearerScheme").AddCookie("MyBearerScheme", options =>
+services.AddAuthentication(Constants.MyBearerScheme).AddCookie(Constants.MyBearerScheme, options =>
 {
     options.LoginPath = "/Admin/AppAuthentication/Login";
     options.AccessDeniedPath = "/Admin/AppAuthentication/NoPermission";
@@ -39,6 +39,7 @@ foreach (var module in allModules)
 services.AddHttpClient();
 services.AddScoped<IHttpClientFactoryBase, HttpClientFactoryBase>();
 services.AddScoped<IAppAuthenticationService, AppAuthenticationService>();
+services.AddScoped<ICatalogService, CatalogService>();
 
 var app = builder.Build();
 
@@ -60,7 +61,7 @@ foreach (var module in allModules)
 
 app.MapControllerRoute(
     name: "Default Area",
-    pattern: "{area=Admin}/{controller=Catalog}/{action=Index}/{id?}");
+    pattern: "{area=Admin}/{controller=Catalog}/{action=Index}");
 app.MapRazorPages();
 
 app.Run();

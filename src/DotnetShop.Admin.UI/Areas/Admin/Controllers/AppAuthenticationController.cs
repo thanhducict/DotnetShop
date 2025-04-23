@@ -29,7 +29,7 @@ namespace DotnetShop.Admin.UI.Areas.Admin.Controllers
             {
                 var handler = new JwtSecurityTokenHandler();
                 var token = handler.ReadJwtToken(response.Token);
-                var identity = new ClaimsIdentity(token.Claims, "MyBearerScheme");
+                var identity = new ClaimsIdentity(token.Claims, Constants.MyBearerScheme);
                 var claimsPrincipal = new ClaimsPrincipal(identity);
 
                 var authProperties = new AuthenticationProperties
@@ -37,17 +37,35 @@ namespace DotnetShop.Admin.UI.Areas.Admin.Controllers
                     IsPersistent = loginDto.RememberMe,
                 };
 
-                await HttpContext.SignInAsync("MyBearerScheme", claimsPrincipal, authProperties);
+                await HttpContext.SignInAsync(Constants.MyBearerScheme, claimsPrincipal, authProperties);
 
                 if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                 {
                     return Redirect(returnUrl);
                 }
 
-                return RedirectToAction("Index", "Home", new { area = "Admin" });
+                return RedirectToAction("Index", "Catalog", new { area = "Admin" });
             }
 
             return View(loginDto);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout(string? returnUrl)
+        {
+            await HttpContext.SignOutAsync(Constants.MyBearerScheme);
+
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+
+            return RedirectToAction("Index", "Catalog", new { area = "Admin" });
+        }
+
+        public IActionResult Register()
+        {
+            return View();
         }
     }
 }

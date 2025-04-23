@@ -27,21 +27,6 @@ builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("ApiSett
 builder.Services.AddScoped<IAppAuthenticationService, AppAuthenticationService>();
 builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 
-builder.Services.AddAuthentication("MyBearerScheme").AddJwtBearer(options =>
-{
-    options.TokenValidationParameters = new()
-    {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateIssuerSigningKey = true,
-        ValidIssuer = builder.Configuration["JwtTokenSettings:Issuer"],
-        ValidAudience = builder.Configuration["JwtTokenSettings:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(
-            Encoding.ASCII.GetBytes(builder.Configuration["JwtTokenSettings:SecretForKey"])),
-        ClockSkew = TimeSpan.Zero
-    };
-});
-
 var app = builder.Build();
 
 app.Logger.LogInformation("Seeding Database...");

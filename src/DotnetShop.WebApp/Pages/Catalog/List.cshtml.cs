@@ -11,6 +11,7 @@ namespace DotnetShop.WebApp.Pages.Catalog
 
         public async Task OnGet(CancellationToken cancellationToken, string categoryName = "", int pageNumber = 1, int pageSize = 10)
         {
+            return;
             if (string.IsNullOrEmpty(categoryName))
             {
                 var productsResponse = await catalogService.GetProducts(pageNumber, pageSize, cancellationToken);

@@ -5,7 +5,7 @@ namespace DotnetShop.Admin.UI.Areas.Admin.Services
 {
     public interface ICatalogService
     {
-        Task<GetProductsDto> GetProducts(int pageNumber, int pageSize, CancellationToken cancellationToken);
+        Task<GetProductsDto> GetProducts(CancellationToken cancellationToken, int pageNumber = 1, int pageSize = 10);
         Task<GetProductByIdDto> GetProductById(int productId, CancellationToken cancellationToken);
         Task<GetProductsByCategoryDto> GetProductsByCategory(string categoryName, CancellationToken cancellationToken);
         Task<int> CreateProduct(ProductModel product, CancellationToken cancellationToken);

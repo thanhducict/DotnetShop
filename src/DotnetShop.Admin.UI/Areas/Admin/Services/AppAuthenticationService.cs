@@ -11,7 +11,7 @@ namespace DotnetShop.Admin.UI.Areas.Admin.Services
         public async Task<LoginResponseDto> LoginAsync(LoginRequestDto loginRequestDto)
         {
             return await httpClientFactoryBase.PostAsync<LoginResponseDto>
-                ("AuthenticationClient", $"{IdentityBaseUri}/authentication/login", loginRequestDto);
+                (Constants.AuthenticationClient, $"{IdentityBaseUri}/appauthentication/login", loginRequestDto);
         }
     }
 }

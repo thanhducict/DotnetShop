@@ -3,13 +3,21 @@
 <head>
     <title>Dotnet Shop Admin</title>
     <link rel="stylesheet" href="~/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/style.css" />
     <link rel="stylesheet" href="~/dist/imagegallery.css" />
 </head>
 <body>
     @await Component.InvokeAsync("AdminNavigation")
-    <div class="container">
+    <main class="container">
         @RenderBody()
-    </div>
+    </main>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; @DateTime.Now.Year - Dotnet Shop - <a href="#">Website</a>
+        </div>
+    </footer>
+
     <script src="~/bootstrap.min.js"></script>
     <script src="~/dist/imagegallery.js"></script>
 </body>

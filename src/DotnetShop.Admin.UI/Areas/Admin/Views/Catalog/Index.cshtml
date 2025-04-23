@@ -1,3 +1,58 @@
-<button class="btn btn-primary">Click me</button>
+@model GetProductsDto
 
-<div id="image-gallery"></div>
+<div class="row mb-3">
+    <div class="col-md-12 mb-2">
+        <h2>Products</h2>
+    </div>
+    <div class="col-md-12">
+        <a asp-page="/Products/Create" class="btn btn-primary">Create product</a>
+    </div>
+</div>
+
+<div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Image</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model.Products)
+            {
+                <tr>
+                    <th scope="row">@product.ProductId</th>
+                    <td>@product.ProductName</td>
+                    <td>@product.Price</td>
+                    <td><img src="@product.ImageThumbnailUrl" height="40" /></td>
+                    <td >
+                        <div class="float-end">
+                        <div style="float: left; margin-right: 5px;">
+                            <a class="btn btn-outline-primary" asp-area="Admin" asp-controller="Catalog"
+                               asp-action="Details" asp-route-id="@product.ProductId">Details</a>
+                        </div>
+                        <div style="float: left; margin-right: 5px;">
+                                <a class="btn btn-outline-success" asp-area="Admin" asp-controller="Catalog"
+                               asp-action="Edit" asp-route-id="@product.ProductId">Edit</a>
+                        </div>
+                        <div style="float: left; margin-right: 5px;">
+                            <form asp-action="Delete" method="post">
+                                <input type="hidden" name="productId" value="@product.ProductId" />
+                                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                            </form>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <div class="col-12">
+        @await Html.PartialAsync("_Paging", Model.PagingInfo)
+    </div>
+</div>
