@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace DotnetShop.Identity.API.Dtos
 {
     public class LoginRequestDto

@@ -1,8 +1,6 @@
 using DotnetShop.Identity.API.Dtos;
 using DotnetShop.Identity.API.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System.Security.Claims;
 

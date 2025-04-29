@@ -10,7 +10,7 @@
             <files include="any\any\modules\DotnetShop.Admin.Ordering\dotnetshop.admin.ordering.css" buildAction="None" copyToOutput="true" />
         </contentFiles>
         <dependencies>
-            <group targetFramework="net9.0">
+            <group targetFramework="$TargetFramework$">
                 <dependency id="DotnetShop.Admin.Core" version="$AdminCoreVersion$" />
             </group>
         </dependencies>
@@ -18,8 +18,8 @@
     <files>
         <file src="src\DotnetShop.Admin.Ordering\ClientApp\dist\dotnetshop.admin.ordering.js" target="contentFiles\any\any\modules\DotnetShop.Admin.Ordering" />
         <file src="src\DotnetShop.Admin.Ordering\ClientApp\dist\dotnetshop.admin.ordering.css" target="contentFiles\any\any\modules\DotnetShop.Admin.Ordering" />
-        <file src="src\DotnetShop.Admin.Ordering\bin\$Configuration$\net9.0\DotnetShop.Admin.Ordering.dll" target="lib\net9.0" />
-        <file src="src\DotnetShop.Admin.Ordering\bin\$Configuration$\net9.0\DotnetShop.Admin.Ordering.pdb" target="lib\net9.0" />
-        <file src="src\DotnetShop.Admin.Ordering\CopyResourceFiles.targets" target="build\net9.0\DotnetShop.Admin.Ordering.targets" />
+        <file src="src\DotnetShop.Admin.Ordering\bin\$Configuration$\$TargetFramework$\DotnetShop.Admin.Ordering.dll" target="lib\$TargetFramework$" />
+        <file src="src\DotnetShop.Admin.Ordering\bin\$Configuration$\$TargetFramework$\DotnetShop.Admin.Ordering.pdb" target="lib\$TargetFramework$" />
+        <file src="src\DotnetShop.Admin.Ordering\CopyResourceFiles.targets" target="build\$TargetFramework$\DotnetShop.Admin.Ordering.targets" />
     </files>
 </package>

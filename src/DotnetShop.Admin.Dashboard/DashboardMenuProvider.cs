@@ -8,7 +8,7 @@ namespace DotnetShop.Admin.Dashboard
         {
             return new List<AdminMenuItem>
             {
-                new AdminMenuItem { AspArea = "Admin", AspController = "Dashboard", AspAction = "Index", MenuItemText = "Dashboard", Order = 10 }
+                new AdminMenuItem { AspPage = "Dashboard", AspPageHandler = string.Empty, MenuItemText = "Dashboard", Order = 10 }
             };
         }
     }

@@ -1,5 +1,5 @@
-using Microsoft.Playwright.Xunit;
 using Microsoft.Playwright;
+using Microsoft.Playwright.Xunit;
 using System.Text.RegularExpressions;
 
 namespace DotnetShop.WebApp.Tests

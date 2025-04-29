@@ -1,14 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\..\build\versions.props" />
+  <Import Project="..\..\build\common.props" />
   <Import Project="..\..\build\nuspec.props" />
   
   <PropertyGroup>
-    <NuspecProperties>Configuration=$(Configuration);AdminCoreVersion=$(AdminCoreVersion)</NuspecProperties>
-    <NuspecFile>DotnetShop.Admin.Core.nuspec</NuspecFile>
+    <PackageId>DotnetShop.Admin.Core</PackageId>
+    <Version>$(AdminCoreVersion)</Version>
+    <Description>Admin Core for Dotnet Shop.</Description>
+    <Authors>Thanh Duc Nguyen</Authors>
   </PropertyGroup>
 
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="$(OutputPath)\DotnetShop.Admin.Core.pdb" Pack="true" PackagePath="lib\$(targetFramework)" />
   </ItemGroup>
 
 </Project>

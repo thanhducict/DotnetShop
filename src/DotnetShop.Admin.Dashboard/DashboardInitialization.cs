@@ -1,5 +1,4 @@
 using DotnetShop.Admin.Core.Initialization;
-using DotnetShop.Admin.Dashboard;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.FileProviders;
 

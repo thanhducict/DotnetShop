@@ -1,6 +1,6 @@
-using System.Text.Json;
-using System.Text;
 using System.Net.Http.Headers;
+using System.Text;
+using System.Text.Json;
 
 namespace DotnetShop.Admin.Core.HttpClient
 {

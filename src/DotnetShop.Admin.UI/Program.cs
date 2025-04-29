@@ -1,19 +1,18 @@
 using DotnetShop.Admin.Core.HttpClient;
 using DotnetShop.Admin.Core.Initialization;
 using DotnetShop.Admin.UI;
-using DotnetShop.Admin.UI.Areas.Admin.Services;
+using DotnetShop.Admin.UI.Services;
 using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 var environment = builder.Environment;
 var services = builder.Services;
 
-services.AddMvc();
 services.AddRazorPages();
 services.AddAuthentication(Constants.MyBearerScheme).AddCookie(Constants.MyBearerScheme, options =>
 {
-    options.LoginPath = "/Admin/AppAuthentication/Login";
-    options.AccessDeniedPath = "/Admin/AppAuthentication/NoPermission";
+    options.LoginPath = "/AppAuthentication/Login";
+    options.AccessDeniedPath = "/AppAuthentication/NoPermission";
     options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
 });
 
@@ -59,9 +58,12 @@ foreach (var module in allModules)
     module.ConfigureUseStaticFilesMiddleware(app);
 }
 
-app.MapControllerRoute(
-    name: "Default Area",
-    pattern: "{area=Admin}/{controller=Catalog}/{action=Index}");
 app.MapRazorPages();
+app.MapGet("/", context =>
+{
+    context.Response.Redirect("/Catalog/List");
+    return Task.CompletedTask;
+});
 
+app.MapRazorPages();
 app.Run();

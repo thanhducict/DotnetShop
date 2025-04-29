@@ -1,32 +1,35 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
-  <Import Project="..\..\build\versions.props" />
-  <Import Project="..\..\build\nuspec.props" />
+<Project Sdk="Microsoft.NET.Sdk.Web">  
+ <Import Project="..\..\build\common.props" />  
+ <Import Project="..\..\build\nuspec.props" />  
 
-  <PropertyGroup>
-    <OutputType>Library</OutputType>
-    <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
-  </PropertyGroup>
+ <PropertyGroup>  
+   <OutputType>Library</OutputType>  
+   <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>  
+ </PropertyGroup>  
 
-  <PropertyGroup>
-    <PackageId>DotnetShop.Admin.Dashboard</PackageId>
-    <Version>$(AdminDashboardVersion)</Version>
-    <Description>Admin UI of Dashboard for Dotnet Shop.</Description>
-    <Authors>Thanh Duc Nguyen</Authors>
-  </PropertyGroup>
+ <PropertyGroup>  
+   <PackageId>DotnetShop.Admin.Dashboard</PackageId>  
+   <Version>$(AdminDashboardVersion)</Version>  
+   <Description>Admin UI of Dashboard for Dotnet Shop.</Description>  
+   <Authors>Thanh Duc Nguyen</Authors>  
+ </PropertyGroup>  
 
-  <ItemGroup>
-    <Content Remove="ClientApp\*" />
-  </ItemGroup>
+ <ItemGroup>  
+   <Content Remove="ClientApp\*" />  
+ </ItemGroup>  
 
-  <ItemGroup>
-    <PackageReference Include="DotnetShop.Admin.Core" Version="$(AdminCoreVersion)" />
-  </ItemGroup>
+ <ItemGroup>  
+   <None Include="ClientApp\*" />  
+   <None Include="ClientApp\dist\dotnetshop.admin.dashboard.js" Pack="true" PackagePath="contentFiles\any\any\modules\DotnetShop.Admin.Dashboard\" CopyToOutputDirectory="Always" />  
+   <None Include="ClientApp\dist\dotnetshop.admin.dashboard.css" Pack="true" PackagePath="contentFiles\any\any\modules\DotnetShop.Admin.Dashboard\" CopyToOutputDirectory="Always" />  
+   <None Include="CopyResourceFiles.targets" Pack="true" PackagePath="build\$(targetFramework)\DotnetShop.Admin.Dashboard.targets" />  
+ </ItemGroup>  
 
-  <ItemGroup>
-    <None Include="ClientApp\*" />
-    <None Include="ClientApp\dist\dotnetshop.admin.dashboard.js" Pack="true" PackagePath="contentFiles\any\any\modules\DotnetShop.Admin.Dashboard\" CopyToOutputDirectory="Always" />
-    <None Include="ClientApp\dist\dotnetshop.admin.dashboard.css" Pack="true" PackagePath="contentFiles\any\any\modules\DotnetShop.Admin.Dashboard\" CopyToOutputDirectory="Always" />
-    <None Include="CopyResourceFiles.targets" Pack="true" PackagePath="build\net9.0\DotnetShop.Admin.Dashboard.targets" />
-  </ItemGroup>
+ <ItemGroup Condition="'$(Configuration)' == 'Debug'">  
+   <ProjectReference Include="..\DotnetShop.Admin.Core\DotnetShop.Admin.Core.csproj" />  
+ </ItemGroup>  
 
+ <ItemGroup Condition="'$(Configuration)' == 'Release'">  
+   <PackageReference Include="DotnetShop.Admin.Core" Version="$(AdminCoreVersion)" />  
+ </ItemGroup>  
 </Project>

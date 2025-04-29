@@ -21,6 +21,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{5DE7657B-D33E-49AE-A736-F1E84F21F255}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\clients.yml = .github\workflows\clients.yml
+		build\common.props = build\common.props
 		build\nuspec.props = build\nuspec.props
 		pack-local.cmd = pack-local.cmd
 		build\pack.ps1 = build\pack.ps1
