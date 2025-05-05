@@ -7,11 +7,11 @@ namespace DotnetShop.Catalog.API.Features.Products.DeleteProduct
         public static void AddDeleteProductEndpoint(this WebApplication app)
         {
             app.MapDelete("products/{productId}",
-                async (int productId, ISender sender) =>
+                async (int productId, IRequestDispatcher dispatcher) =>
                 {
                     var command = new DeleteProductCommand(productId);
 
-                    var result = await sender.Send(command);
+                    var result = await dispatcher.DispatchAsync(command);
 
                     var response = new DeleteProductResponse(result.IsSuccess);
 

@@ -6,6 +6,5 @@ global using DotnetShop.Ordering.Application.Extensions;
 global using DotnetShop.Ordering.Domain.Events;
 global using DotnetShop.Ordering.Domain.Models;
 global using DotnetShop.Ordering.Domain.ValueObjects;
-global using MediatR;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.Logging;

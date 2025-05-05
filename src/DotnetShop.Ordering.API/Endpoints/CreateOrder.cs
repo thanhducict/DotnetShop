@@ -1,26 +1,21 @@
+using DotnetShop.Common.CQRS;
 using DotnetShop.Ordering.Application.Dtos;
 using DotnetShop.Ordering.Application.Orders.Commands.CreateOrder;
-using MediatR;
 
 namespace DotnetShop.Ordering.API.Endpoints
 {
     public record CreateOrderRequest(OrderDto Order);
     public record CreateOrderResponse(Guid Id);
 
-    public class TestDto
-    {
-        public string Test { get; set; }
-    }
-
     public static class CreateOrder
     {
         public static void AddCreateOrderEndpoint(this WebApplication app)
         {
-            app.MapPost("orders", async (CreateOrderRequest request, ISender sender) =>
+            app.MapPost("orders", async (CreateOrderRequest request, IRequestDispatcher dispatcher) =>
             {
                 var command = new CreateOrderCommand(request.Order);
 
-                var result = await sender.Send(command);
+                var result = await dispatcher.DispatchAsync(command);
 
                 var response = new CreateOrderResponse(result.Id);
 

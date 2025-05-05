@@ -3,7 +3,7 @@ using DotnetShop.Common.Pagination;
 namespace DotnetShop.Ordering.Application.Orders.Queries.GetOrders
 {
     public class GetOrdersHandler(IApplicationDbContext dbContext)
-    : IQueryHandler<GetOrdersQuery, GetOrdersResult>
+        : IQueryHandler<GetOrdersQuery, GetOrdersResult>
     {
         public async Task<GetOrdersResult> Handle(GetOrdersQuery query, CancellationToken cancellationToken)
         {
@@ -13,11 +13,11 @@ namespace DotnetShop.Ordering.Application.Orders.Queries.GetOrders
             var totalCount = await dbContext.Orders.LongCountAsync(cancellationToken);
 
             var orders = await dbContext.Orders
-                           .Include(o => o.OrderItems)
-                           .OrderBy(o => o.OrderName.Value)
-                           .Skip(pageSize * pageIndex)
-                           .Take(pageSize)
-                           .ToListAsync(cancellationToken);
+                .Include(o => o.OrderItems)
+                .OrderBy(o => o.OrderName.Value)
+                .Skip(pageSize * pageIndex)
+                .Take(pageSize)
+                .ToListAsync(cancellationToken);
 
             return new GetOrdersResult(
                 new PaginatedResult<OrderDto>(

@@ -8,13 +8,13 @@ namespace DotnetShop.ShoppingCart.API.Carts
 {
     [ApiController]
     [Route("{controller}")]
-    public class CartsController(IMediator mediator) : ControllerBase
+    public class CartsController(IRequestDispatcher dispatcher) : ControllerBase
     {
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<GetCartsResponse>> GetCarts([FromQuery] GetCartsRequest request)
         {
-            var result = await mediator.Send(new GetCartsQuery(request.PageNumber, request.PageSize));
+            var result = await dispatcher.DispatchAsync(new GetCartsQuery(request.PageNumber, request.PageSize));
 
             return new GetCartsResponse(result.Carts);
         }
@@ -24,7 +24,7 @@ namespace DotnetShop.ShoppingCart.API.Carts
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<GetCartByUsernameResponse>> GetCartByUsername([FromRoute] string username)
         {
-            var result = await mediator.Send(new GetCartByUsernameQuery(username));
+            var result = await dispatcher.DispatchAsync(new GetCartByUsernameQuery(username));
 
             return new GetCartByUsernameResponse(result.Cart);
         }
@@ -34,7 +34,7 @@ namespace DotnetShop.ShoppingCart.API.Carts
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<StoreCartResponse>> StoreCart([FromBody] StoreCartRequest request)
         {
-            var result = await mediator.Send(new StoreCartCommand(request.Cart));
+            var result = await dispatcher.DispatchAsync(new StoreCartCommand(request.Cart));
 
             return new StoreCartResponse(result.Username);
         }
@@ -45,7 +45,7 @@ namespace DotnetShop.ShoppingCart.API.Carts
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<CheckoutCartResponse>> Checkout([FromBody] CheckoutCartRequest request)
         {
-            var result = await mediator.Send(new CheckoutCartCommand(request.CartCheckoutDto));
+            var result = await dispatcher.DispatchAsync(new CheckoutCartCommand(request.CartCheckoutDto));
 
             return new CheckoutCartResponse(result.IsSuccess);
         }
@@ -55,7 +55,7 @@ namespace DotnetShop.ShoppingCart.API.Carts
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<DeleteCartResponse>> DeleteCart([FromBody] DeleteCartRequest request)
         {
-            var result = await mediator.Send(new DeleteCartCommand(request.Username));
+            var result = await dispatcher.DispatchAsync(new DeleteCartCommand(request.Username));
 
             return new DeleteCartResponse(result.IsSuccess);
         }

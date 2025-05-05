@@ -11,13 +11,13 @@ namespace DotnetShop.Catalog.API.Features.Categories.CreateCategory
         public static void AddCreateCategoryEndpoint(this WebApplication app)
         {
             app.MapPost("categories",
-                async ([FromBody] CreateCategoryRequest request, ISender sender) =>
+                async ([FromBody] CreateCategoryRequest request, IRequestDispatcher dispatcher) =>
                 {
                     var command = new CreateCategoryCommand(
                         request.CategoryName
                     );
 
-                    var result = await sender.Send(command);
+                    var result = await dispatcher.DispatchAsync(command);
 
                     var response = new CreateCategoryResponse(result.CategoryId);
 

@@ -1,13 +1,12 @@
 using DotnetShop.Common.CQRS;
 using FluentValidation;
-using MediatR;
 
 namespace DotnetShop.Common.Behaviors
 {
     public class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators)
         : IPipelineBehavior<TRequest, TResponse> where TRequest : ICommand<TResponse>
     {
-        public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+        public async Task<TResponse> Handle(TRequest request, Func<Task<TResponse>> next, CancellationToken cancellationToken = default)
         {
             var context = new ValidationContext<TRequest>(request);
 

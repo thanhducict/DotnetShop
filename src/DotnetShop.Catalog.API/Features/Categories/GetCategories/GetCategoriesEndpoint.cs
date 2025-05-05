@@ -9,11 +9,11 @@ namespace DotnetShop.Catalog.API.Features.Categories.GetCategories
         public static void AddGetCategoriesEndpoint(this WebApplication app)
         {
             app.MapGet("categories",
-                async ([AsParameters] GetCategoriesRequest request, ISender sender) =>
+                async ([AsParameters] GetCategoriesRequest request, IRequestDispatcher dispatcher) =>
                 {
                     var query = new GetCategoriesQuery();
 
-                    var result = await sender.Send(query);
+                    var result = await dispatcher.DispatchAsync(query);
 
                     var response = new GetCategoriesResponse(result.Categories);
 

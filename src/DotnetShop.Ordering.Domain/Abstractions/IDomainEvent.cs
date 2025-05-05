@@ -1,8 +1,6 @@
-using MediatR;
-
 namespace DotnetShop.Ordering.Domain.Abstractions
 {
-    public interface IDomainEvent : INotification
+    public interface IDomainEvent
     {
         Guid EventId => Guid.NewGuid();
         public DateTime OccurredOn => DateTime.Now;
