@@ -1,6 +1,6 @@
+using DotnetShop.Common.CQRS;
 using DotnetShop.Ordering.Application.Dtos;
 using DotnetShop.Ordering.Application.Orders.Queries.GetOrdersByCustomer;
-using MediatR;
 
 namespace DotnetShop.Ordering.API.Endpoints
 {
@@ -10,11 +10,11 @@ namespace DotnetShop.Ordering.API.Endpoints
     {
         public static void AddGetOrdersByCustomerEndpoint(this WebApplication app)
         {
-            app.MapGet("/orders/customer/{customerId}", async (Guid customerId, ISender sender) =>
+            app.MapGet("/orders/customer/{customerId}", async (Guid customerId, IRequestDispatcher dispatcher) =>
                 {
                     var command = new GetOrdersByCustomerQuery(customerId);
 
-                    var result = await sender.Send(command);
+                    var result = await dispatcher.DispatchAsync(command);
 
                     var response = new GetOrdersByCustomerResponse(result.Orders);
 

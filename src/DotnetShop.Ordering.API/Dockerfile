@@ -1,6 +1,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
+COPY ["build/common.props", "build/common.props"]
 COPY ["build/versions.props", "build/versions.props"]
 COPY ["src/DotnetShop.Ordering.API/DotnetShop.Ordering.API.csproj", "src/DotnetShop.Ordering.API/"]
 COPY ["src/DotnetShop.Ordering.Application/DotnetShop.Ordering.Application.csproj", "src/DotnetShop.Ordering.Application/"]

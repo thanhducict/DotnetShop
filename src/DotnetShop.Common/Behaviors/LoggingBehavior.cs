@@ -1,4 +1,3 @@
-using MediatR;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 
@@ -6,10 +5,10 @@ namespace DotnetShop.Common.Behaviors
 {
     public class LoggingBehavior<TRequest, TResponse>(ILogger<LoggingBehavior<TRequest, TResponse>> logger)
         : IPipelineBehavior<TRequest, TResponse>
-        where TRequest : notnull, IRequest<TResponse>
+        where TRequest : notnull
         where TResponse : notnull
     {
-        public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+        public async Task<TResponse> Handle(TRequest request, Func<Task<TResponse>> next, CancellationToken cancellationToken = default)
         {
             logger.LogInformation("[START] Handle request={Request} - Response={Response} - RequestData={RequestData}",
                 typeof(TRequest).Name, typeof(TResponse).Name, request);

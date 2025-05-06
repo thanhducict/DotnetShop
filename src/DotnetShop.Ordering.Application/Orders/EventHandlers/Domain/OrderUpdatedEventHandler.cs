@@ -1,12 +1,13 @@
 using DotnetShop.Common.Messaging.MessageBroker;
+using DotnetShop.Ordering.Domain.Abstractions;
 using System.Text.Json;
 
 namespace DotnetShop.Ordering.Application.Orders.EventHandlers.Domain
 {
     public class OrderUpdatedEventHandler(MessageProducer messageProducer, IApplicationDbContext dbContext, ILogger<OrderUpdatedEventHandler> logger)
-        : INotificationHandler<OrderUpdatedEvent>
+        : ISubscriber<OrderUpdatedEvent>
     {
-        public async Task Handle(OrderUpdatedEvent domainEvent, CancellationToken cancellationToken)
+        public async Task HandleAsync(OrderUpdatedEvent domainEvent, CancellationToken cancellationToken)
         {
             logger.LogInformation("Domain Event handled: {DomainEvent}", domainEvent.GetType().Name);
 

@@ -7,11 +7,11 @@ namespace DotnetShop.Catalog.API.Features.Products.GetProductById
         public static void AddGetProductByIdEndpoint(this WebApplication app)
         {
             app.MapGet("products/{id}",
-                async (int id, ISender sender) =>
+                async (int id, IRequestDispatcher dispatcher) =>
                 {
                     var query = new GetProductByIdQuery(id);
 
-                    var result = await sender.Send(query);
+                    var result = await dispatcher.DispatchAsync(query);
 
                     return new GetProductByIdResponse(result.Product);
                 })

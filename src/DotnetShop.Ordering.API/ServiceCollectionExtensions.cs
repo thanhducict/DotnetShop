@@ -1,4 +1,4 @@
-using DotnetShop.Common.Exceptions.Handlers;
+using DotnetShop.Common;
 
 namespace DotnetShop.Ordering.API
 {
@@ -6,7 +6,6 @@ namespace DotnetShop.Ordering.API
     {
         public static IServiceCollection AddApiServices(this IServiceCollection services)
         {
-            services.AddExceptionHandler<CustomExceptionHandler>();
             services.AddHealthChecks();
 
             return services;

@@ -1,3 +1,4 @@
+using DotnetShop.Common;
 using DotnetShop.Common.Behaviors;
 using DotnetShop.Common.Exceptions.Handlers;
 using DotnetShop.Common.Messaging;
@@ -12,12 +13,7 @@ using Microsoft.Extensions.Caching.Distributed;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-builder.Services.AddMediatR(config =>
-{
-    config.RegisterServicesFromAssembly(typeof(Program).Assembly);
-    config.AddOpenBehavior(typeof(ValidationBehavior<,>));
-    config.AddOpenBehavior(typeof(LoggingBehavior<,>));
-});
+builder.Services.AddCommon();
 
 builder.Services.AddMarten(options =>
 {
@@ -57,7 +53,6 @@ builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(
 builder.Services.AddMessageBrooker(builder.Configuration);
 builder.Services.AddSingleton<CartCheckoutProducer>();
 
-builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 builder.Services.AddHealthChecks()
     .AddNpgSql(builder.Configuration.GetConnectionString("CartDB")!)
     .AddRedis(builder.Configuration.GetConnectionString("Redis")!);

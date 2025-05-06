@@ -1,10 +1,10 @@
 @hostname=localhost
 
 # Local
-# @port=5052
+@port=5052
 
 # Docker
-@port=6062
+# @port=6062
 
 @host={{hostname}}:{{port}}
 

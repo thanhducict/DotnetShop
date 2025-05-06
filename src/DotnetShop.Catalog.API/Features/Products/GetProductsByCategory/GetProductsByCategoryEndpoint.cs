@@ -7,11 +7,11 @@ namespace DotnetShop.Catalog.API.Features.Products.GetProductsByCategory
         public static void AddGetProductsByCategoryEndpoint(this WebApplication app)
         {
             app.MapGet("products/category/{category}",
-                async (string category, ISender sender) =>
+                async (string category, IRequestDispatcher dispatcher) =>
                 {
                     var query = new GetProductsByCategoryQuery(category);
 
-                    var result = await sender.Send(query);
+                    var result = await dispatcher.DispatchAsync(query);
 
                     return new GetProductsByCategoryResponse(result.Products);
                 })

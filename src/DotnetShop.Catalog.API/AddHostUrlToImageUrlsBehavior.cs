@@ -1,13 +1,13 @@
-
 using DotnetShop.Catalog.API.Features.Products.GetProductById;
 using DotnetShop.Catalog.API.Features.Products.GetProducts;
 using DotnetShop.Catalog.API.Features.Products.GetProductsByCategory;
+using DotnetShop.Common.Behaviors;
 
 namespace DotnetShop.Catalog.API
 {
     public class AddHostUrlToImageUrlsBehavior<TRequest, TResponse>(IConfiguration configuration) : IPipelineBehavior<TRequest, TResponse>
     {
-        public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+        public async Task<TResponse> Handle(TRequest request, Func<Task<TResponse>> next, CancellationToken cancellationToken)
         {
             var response = await next();
 

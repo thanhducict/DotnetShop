@@ -1,7 +1,7 @@
+using DotnetShop.Common.CQRS;
 using DotnetShop.Common.Pagination;
 using DotnetShop.Ordering.Application.Dtos;
 using DotnetShop.Ordering.Application.Orders.Queries.GetOrders;
-using MediatR;
 
 namespace DotnetShop.Ordering.API.Endpoints
 {
@@ -11,11 +11,11 @@ namespace DotnetShop.Ordering.API.Endpoints
     {
         public static void AddGetOrdersEndpoint(this WebApplication app)
         {
-            app.MapGet("orders", async ([AsParameters] PaginationRequest request, ISender sender) =>
+            app.MapGet("orders", async ([AsParameters] PaginationRequest request, IRequestDispatcher dispatcher) =>
                 {
                     var command = new GetOrdersQuery(request);
 
-                    var result = await sender.Send(command);
+                    var result = await dispatcher.DispatchAsync(command);
 
                     var response = new GetOrdersResponse(result.Orders);
 

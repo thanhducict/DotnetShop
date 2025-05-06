@@ -8,27 +8,20 @@ using DotnetShop.Catalog.API.Features.Products.GetProducts;
 using DotnetShop.Catalog.API.Features.Products.GetProductsByCategory;
 using DotnetShop.Catalog.API.Features.Products.UpdateProduct;
 using DotnetShop.Catalog.API.Repositories;
+using DotnetShop.Common;
 using DotnetShop.Common.Behaviors;
-using DotnetShop.Common.Exceptions.Handlers;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddMediatR(config =>
-{
-    config.RegisterServicesFromAssembly(typeof(Program).Assembly);
-    config.AddOpenBehavior(typeof(ValidationBehavior<,>));
-    config.AddOpenBehavior(typeof(LoggingBehavior<,>));
-    config.AddOpenBehavior(typeof(AddHostUrlToImageUrlsBehavior<,>));
-});
+builder.Services.AddCommon();
+builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(AddHostUrlToImageUrlsBehavior<,>));
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
 builder.Services.AddSingleton<ICategoryRepository, CategoryRepository>();
 builder.Services.AddSingleton<IProductRepository, ProductRepository>();
-
-builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
 builder.Services.AddHealthChecks();
 
