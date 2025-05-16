@@ -4,13 +4,14 @@ import ContextMenu from "../../shared/context-menu/context-menu";
 import MaximizeIcon from "../../../icons/maximize.svg";
 import DownloadIcon from "../../../icons/download.svg";
 import { ChartModel } from "../chart-model";
+import { CustomChartType } from "../../shared/utils";
 
 export interface ChartProps {
     chart: ChartModel;
     options?: any;
+    isLoading: boolean;
     isFullScreen: boolean;
-    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    setFulscreenChart: React.Dispatch<React.SetStateAction<ChartModel | null>>;
+    setFullScreenChartType: React.Dispatch<React.SetStateAction<CustomChartType | undefined>>;
 }
 
 const withChartHeader = <P extends ChartProps>(WrappedComponent: React.ComponentType<P>) => {
@@ -29,8 +30,7 @@ const withChartHeader = <P extends ChartProps>(WrappedComponent: React.Component
                                         iconUrl: MaximizeIcon,
                                         label: "View full screen",
                                         action: () => {
-                                            props.setIsOpen(true);
-                                            props.setFulscreenChart(props.chart);
+                                            props.setFullScreenChartType(props.chart.charType);
                                         },
                                     },
                                     {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -11,79 +11,144 @@ import {
     Filler,
     BarElement,
 } from "chart.js";
-import "./App.scss";
-import LineChart from "./components/charts/line-chart";
-import BarChart from "./components/charts/bar-chart";
+import "./app.scss";
 import DashboardModal from "./components/shared/dashboard-modal/dashboard-modal";
-import { ChartModel, ChartType } from "./components/charts/chart-model";
+import { ChartModel } from "./components/charts/chart-model";
+import CartAbandontmentRateChart from "./components/charts/cart-abandontment-rate-chart/cart-abandontment-rate-chart";
+import { CustomChartType } from "./components/shared/utils";
+import { CartAbandonmentRateOptions } from "./components/charts/cart-abandontment-rate-chart/cart-abandonment-rate-options";
+import dayjs from "dayjs";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend, Filler);
 
 const App: React.FC = () => {
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [isOpen, setIsOpen] = useState<boolean>(false);
-    const [charts, setCharts] = useState<ChartModel[]>([
-        {
-            charType: ChartType.LINE,
-            title: "Sessions",
-            generalValue: "120",
-            comparisonValue: "+90 (200%)",
-            label: ["12:00 AM", "4:00 AM", "8:00 AM", "12:00 PM", "4:00 PM", "8:00 PM"],
+    const [customChartType, setCustomChartType] = useState<CustomChartType | undefined>(undefined);
+    const [cartAbandonmentRate, setCartAbandonmentRate] = useState<ChartModel>({} as ChartModel);
+    const [isCartAbandonmentRateLoading, setIsCartAbandonmentRateLoading] = useState<boolean>(true);
+
+    useEffect(() => {
+        const cartAbandonmentRateData = {
+            avgRate: 0.5,
+            avgComparedRate: 0.3,
+            ratesByTime: [
+                {
+                    time: dayjs("May 16, 2025 12:00 AM").format("YYYY-MM-DD HH:mm:ss"),
+                    rate: Math.random(),
+                },
+                {
+                    time: dayjs("May 16, 2025 01:00 AM").format("YYYY-MM-DD HH:mm:ss"),
+                    rate: Math.random(),
+                },
+                {
+                    time: dayjs("May 16, 2025 02:00 AM").format("YYYY-MM-DD HH:mm:ss"),
+                    rate: Math.random(),
+                },
+                {
+                    time: dayjs("May 16, 2025 03:00 AM").format("YYYY-MM-DD HH:mm:ss"),
+                    rate: Math.random(),
+                },
+                {
+                    time: dayjs("May 16, 2025 04:00 AM").format("YYYY-MM-DD HH:mm:ss"),
+                    rate: Math.random(),
+                },
+                {
+                    time: dayjs("May 16, 2025 05:00 AM").format("YYYY-MM-DD HH:mm:ss"),
+                    rate: Math.random(),
+                },
+                {
+                    time: dayjs("May 16, 2025 06:00 AM").format("YYYY-MM-DD HH:mm:ss"),
+                    rate: Math.random(),
+                },
+                {
+                    time: dayjs("May 16, 2025 07:00 AM").format("YYYY-MM-DD HH:mm:ss"),
+                    rate: Math.random(),
+                },
+                {
+                    time: dayjs("May 16, 2025 08:00 AM").format("YYYY-MM-DD HH:mm:ss"),
+                    rate: Math.random(),
+                },
+                {
+                    time: dayjs("May 16, 2025 09:00 AM").format("YYYY-MM-DD HH:mm:ss"),
+                    rate: Math.random(),
+                },
+                {
+                    time: dayjs("May 16, 2025 10:00 AM").format("YYYY-MM-DD HH:mm:ss"),
+                    rate: Math.random(),
+                },
+                {
+                    time: dayjs("May 16, 2025 11:00 AM").format("YYYY-MM-DD HH:mm:ss"),
+                    rate: Math.random(),
+                },
+                {
+                    time: dayjs("May 16, 2025 12:00 PM").format("YYYY-MM-DD HH:mm:ss"),
+                    rate: Math.random(),
+                },
+                {
+                    time: dayjs("May 16, 2025 01:00 PM").format("YYYY-MM-DD HH:mm:ss"),
+                    rate: Math.random(),
+                },
+                {
+                    time: dayjs("May 16, 2025 02:00 PM").format("YYYY-MM-DD HH:mm:ss"),
+                    rate: Math.random(),
+                },
+                {
+                    time: dayjs("May 16, 2025 03:00 PM").format("YYYY-MM-DD HH:mm:ss"),
+                    rate: Math.random(),
+                },
+                {
+                    time: dayjs("May 16, 2025 04:00 PM").format("YYYY-MM-DD HH:mm:ss"),
+                    rate: Math.random(),
+                },
+                {
+                    time: dayjs("May 16, 2025 05:00 PM").format("YYYY-MM-DD HH:mm:ss"),
+                    rate: Math.random(),
+                },
+                {
+                    time: dayjs("May 16, 2025 06:00 PM").format("YYYY-MM-DD HH:mm:ss"),
+                    rate: Math.random(),
+                },
+                {
+                    time: dayjs("May 16, 2025 07:00 PM").format("YYYY-MM-DD HH:mm:ss"),
+                    rate: Math.random(),
+                },
+                {
+                    time: dayjs("May 16, 2025 08:00 PM").format("YYYY-MM-DD HH:mm:ss"),
+                    rate: Math.random(),
+                },
+                {
+                    time: dayjs("May 16, 2025 09:00 PM").format("YYYY-MM-DD HH:mm:ss"),
+                    rate: Math.random(),
+                },
+                {
+                    time: dayjs("May 16, 2025 10:00 PM").format("YYYY-MM-DD HH:mm:ss"),
+                    rate: Math.random(),
+                },
+                {
+                    time: dayjs("May 17, 2025 12:00 AM").format("YYYY-MM-DD HH:mm:ss"),
+                    rate: Math.random(),
+                },
+            ],
+        };
+
+        const cartAbandonmentRateModel: ChartModel = {
+            charType: CustomChartType.CartAbandonmentRateChart,
+            title: "Cart Abandonment Rate",
+            generalValue: `${cartAbandonmentRateData.avgRate * 100}`,
+            labels: cartAbandonmentRateData.ratesByTime.map((item) => item.time),
             datasets: [
                 {
-                    data: [0, 25, 30, 50, 40, 150],
+                    data: cartAbandonmentRateData.ratesByTime.map((item) => item.rate),
                     borderWidth: 2,
                     borderColor: ["#B3C3FF"],
                     tension: 0.1,
                     pointRadius: 0,
                 },
             ],
-        },
-        {
-            charType: ChartType.BAR,
-            title: "Sessions",
-            generalValue: "120",
-            comparisonValue: "+90 (200%)",
-            label: ["2024", "May 2025"],
-            datasets: [
-                {
-                    data: [30, 120],
-                    backgroundColor: ["#B3C3FF", "#0037FF"],
-                    borderColor: ["#B3C3FF", "#0037FF"],
-                    borderWidth: 1,
-                    maxBarThickness: 70,
-                },
-            ],
-        },
-    ]);
-    const [fullscreenChart, setFullscreenChart] = useState<ChartModel | null>(null);
+        };
 
-    const generateChart = (chartModel: ChartModel | null, isFullScreen: boolean) => {
-        switch (chartModel?.charType) {
-            case ChartType.LINE:
-                return (
-                    <LineChart
-                        chart={chartModel}
-                        isFullScreen={isFullScreen}
-                        isLoading={isLoading}
-                        setIsOpen={setIsOpen}
-                        setFulscreenChart={setFullscreenChart}
-                    />
-                );
-            case ChartType.BAR:
-                return (
-                    <BarChart
-                        chart={chartModel}
-                        isFullScreen={isFullScreen}
-                        isLoading={isLoading}
-                        setIsOpen={setIsOpen}
-                        setFulscreenChart={setFullscreenChart}
-                    />
-                );
-            default:
-                return <></>;
-        }
-    };
+        setCartAbandonmentRate(cartAbandonmentRateModel);
+        setIsCartAbandonmentRateLoading(false);
+    }, []);
 
     return (
         <div className="dashboard-app">
@@ -92,23 +157,41 @@ const App: React.FC = () => {
             <div className="dashboard-app__summary"></div>
             <div className="dashboard-app__chart-area">
                 <div className="dashboard-app__row">
-                    {charts.map((chartModel, index) => (
-                        <div key={index} className="dashboard-app__column">
-                            {generateChart(chartModel, false)}
-                        </div>
-                    ))}
+                    <div className="dashboard-app__column">
+                        <CartAbandontmentRateChart
+                            chart={cartAbandonmentRate}
+                            isLoading={isCartAbandonmentRateLoading}
+                            isFullScreen={false}
+                            setFullScreenChartType={setCustomChartType}
+                            options={CartAbandonmentRateOptions}
+                        />
+                    </div>
                 </div>
             </div>
             <div className="dashboard-app__modal">
                 <DashboardModal
-                    isOpen={isOpen}
+                    customChartType={customChartType}
                     onClose={() => {
-                        setIsOpen(false);
-                        setFullscreenChart(null);
+                        setCustomChartType(undefined);
                     }}
                     title="Modal Title"
                 >
-                    {generateChart(fullscreenChart, true)}
+                    {(() => {
+                        switch (customChartType) {
+                            case CustomChartType.CartAbandonmentRateChart:
+                                return (
+                                    <CartAbandontmentRateChart
+                                        chart={cartAbandonmentRate}
+                                        isLoading={isCartAbandonmentRateLoading}
+                                        isFullScreen={true}
+                                        setFullScreenChartType={setCustomChartType}
+                                        options={CartAbandonmentRateOptions}
+                                    />
+                                );
+                            default:
+                                return <p>No data</p>;
+                        }
+                    })()}
                 </DashboardModal>
             </div>
         </div>

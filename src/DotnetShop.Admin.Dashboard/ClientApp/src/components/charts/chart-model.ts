@@ -1,9 +1,11 @@
+import { CustomChartType } from "../shared/utils";
+
 export interface ChartModel {
-    charType: ChartType;
+    charType: CustomChartType;
     title: string;
     generalValue: string;
     comparisonValue?: string;
-    label: string[];
+    labels: string[];
     datasets: {
         lable?: string;
         data: number[];
@@ -15,16 +17,4 @@ export interface ChartModel {
         tension?: number;
         pointRadius?: number;
     }[];
-}
-
-export enum ChartType {
-    LINE = "line",
-    BAR = "bar",
-    AREA = "area",
-    PIE = "pie",
-    DOUGHNUT = "doughnut",
-    RADAR = "radar",
-    POLAR_AREA = "polarArea",
-    BUBBLE = "bubble",
-    SCATTER = "scatter",
 }
