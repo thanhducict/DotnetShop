@@ -8,7 +8,6 @@ import { CustomChartType } from "../../shared/utils";
 
 export interface ChartProps {
     chart: ChartModel;
-    options?: any;
     isLoading: boolean;
     isFullScreen: boolean;
     setFullScreenChartType: React.Dispatch<React.SetStateAction<CustomChartType | undefined>>;

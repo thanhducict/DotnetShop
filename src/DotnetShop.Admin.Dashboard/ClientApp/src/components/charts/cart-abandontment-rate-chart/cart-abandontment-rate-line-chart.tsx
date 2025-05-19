@@ -1,0 +1,62 @@
+import React from "react";
+import withChartHeader, { ChartProps } from "../chart-layout/chart-layout";
+import { Line } from "react-chartjs-2";
+import { ChartOptions } from "chart.js";
+import dayjs from "dayjs";
+
+const GraphicArea: React.FC<ChartProps> = (props) => {
+    const drawOnChartAreaX = props.isFullScreen ? true : false;
+    const maxTicksLimit = props.isFullScreen ? 24 : 5;
+
+    const CartAbandonmentRateLineOptions: ChartOptions<"line"> = {
+        responsive: true,
+        maintainAspectRatio: false,
+        aspectRatio: 2,
+        plugins: {
+            legend: {
+                display: false,
+            },
+        },
+        scales: {
+            x: {
+                grid: {
+                    drawOnChartArea: drawOnChartAreaX,
+                },
+                ticks: {
+                    align: "center",
+                    maxRotation: 0,
+                    maxTicksLimit: maxTicksLimit,
+                    callback(value: any) {
+                        return typeof value === "number" ? dayjs(this.getLabelForValue(value)).format("hh:mm A") : "";
+                    },
+                },
+            },
+            y: {
+                grid: {
+                    drawOnChartArea: true,
+                },
+                min: 0,
+            },
+        },
+    };
+
+    return (
+        <div className="cart-abandontment-rate-chart">
+            {props.isLoading ? (
+                <div className="cart-abandontment-rate-chart__loading-spinner">Loading...</div>
+            ) : (
+                <Line
+                    data={{
+                        labels: props.chart.labels,
+                        datasets: props.chart.datasets,
+                    }}
+                    height={350}
+                    options={CartAbandonmentRateLineOptions}
+                />
+            )}
+        </div>
+    );
+};
+
+const CartAbandontmentRateLineChart = withChartHeader(GraphicArea);
+export default CartAbandontmentRateLineChart;
