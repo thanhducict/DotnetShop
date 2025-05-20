@@ -17,6 +17,9 @@ import { ChartModel } from "./components/charts/chart-model";
 import CartAbandontmentRateLineChart from "./components/charts/cart-abandontment-rate-chart/cart-abandontment-rate-line-chart";
 import { CustomChartType } from "./components/shared/utils";
 import CartAbandontmentRateBarChart from "./components/charts/cart-abandontment-rate-chart/cart-abandontment-rate-bar-chart";
+import { CartAbandonmentRateModel } from "./components/charts/cart-abandontment-rate-chart/cart-abandonment-rate-model";
+import SessionsLineChart from "./components/charts/cart-session-chart/sessions-line-chart";
+import { Session } from "./components/charts/cart-session-chart/sessions-model";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend, Filler);
 
@@ -25,9 +28,11 @@ const App: React.FC = () => {
     const [customChartType, setCustomChartType] = useState<CustomChartType | undefined>(undefined);
     const [cartAbandonmentRate, setCartAbandonmentRate] = useState<ChartModel>({} as ChartModel);
     const [isCartAbandonmentRateLoading, setIsCartAbandonmentRateLoading] = useState<boolean>(true);
+    const [sessions, setSessions] = useState<ChartModel>({} as ChartModel);
+    const [isSessionsLoading, setSessionsLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        const cartAbandonmentRateData = {
+        const cartAbandonmentRateData: CartAbandonmentRateModel = {
             avgRate: 0.5,
             avgComparedRate: 0.3,
             ratesByTime: [
@@ -66,16 +71,7 @@ const App: React.FC = () => {
                 title: "Cart Abandonment Rate",
                 generalValue: `${cartAbandonmentRateData.avgRate * 100}`,
                 labels: ["Last Year", "June 15, 2025 - July 15, 2025"],
-                datasets: [
-                    {
-                        data: [3, 0.5],
-                        borderWidth: 0,
-                        backgroundColor: ["#B3C3FF", "#0037FF"],
-                        tension: 0.1,
-                        pointRadius: 0,
-                        maxBarThickness: 70,
-                    },
-                ],
+                data: [3, 0.5],
             };
         } else {
             cartAbandonmentRateModel = {
@@ -83,20 +79,67 @@ const App: React.FC = () => {
                 title: "Cart Abandonment Rate",
                 generalValue: `${cartAbandonmentRateData.avgRate * 100}`,
                 labels: cartAbandonmentRateData.ratesByTime.map((item) => item.time),
-                datasets: [
-                    {
-                        data: cartAbandonmentRateData.ratesByTime.map((item) => item.rate),
-                        borderWidth: 2,
-                        borderColor: ["#B3C3FF"],
-                        tension: 0.1,
-                        pointRadius: 0,
-                    },
-                ],
+                data: cartAbandonmentRateData.ratesByTime.map((item) => item.rate),
+            };
+        }
+
+        const sessionsData: Session = {
+            totalSessions: 1000,
+            totalComparedSessions: 300,
+            sessionsByTime: [
+                { time: "May 16, 2025 12:00 AM", sessionCount: Math.floor(Math.random() * 100) + 50 },
+                { time: "May 16, 2025 01:00 AM", sessionCount: Math.floor(Math.random() * 100) + 50 },
+                { time: "May 16, 2025 02:00 AM", sessionCount: Math.floor(Math.random() * 100) + 50 },
+                { time: "May 16, 2025 03:00 AM", sessionCount: Math.floor(Math.random() * 100) + 50 },
+                { time: "May 16, 2025 04:00 AM", sessionCount: Math.floor(Math.random() * 100) + 50 },
+                { time: "May 16, 2025 05:00 AM", sessionCount: Math.floor(Math.random() * 100) + 50 },
+                { time: "May 16, 2025 06:00 AM", sessionCount: Math.floor(Math.random() * 100) + 50 },
+                { time: "May 16, 2025 07:00 AM", sessionCount: Math.floor(Math.random() * 100) + 50 },
+                { time: "May 16, 2025 08:00 AM", sessionCount: Math.floor(Math.random() * 100) + 50 },
+                { time: "May 16, 2025 09:00 AM", sessionCount: Math.floor(Math.random() * 100) + 50 },
+                { time: "May 16, 2025 10:00 AM", sessionCount: Math.floor(Math.random() * 100) + 50 },
+                { time: "May 16, 2025 11:00 AM", sessionCount: Math.floor(Math.random() * 100) + 50 },
+                { time: "May 16, 2025 12:00 PM", sessionCount: Math.floor(Math.random() * 100) + 50 },
+                { time: "May 16, 2025 01:00 PM", sessionCount: Math.floor(Math.random() * 100) + 50 },
+                { time: "May 16, 2025 02:00 PM", sessionCount: Math.floor(Math.random() * 100) + 50 },
+                { time: "May 16, 2025 03:00 PM", sessionCount: Math.floor(Math.random() * 100) + 50 },
+                { time: "May 16, 2025 04:00 PM", sessionCount: Math.floor(Math.random() * 100) + 50 },
+                { time: "May 16, 2025 05:00 PM", sessionCount: Math.floor(Math.random() * 100) + 50 },
+                { time: "May 16, 2025 06:00 PM", sessionCount: Math.floor(Math.random() * 100) + 50 },
+                { time: "May 16, 2025 07:00 PM", sessionCount: Math.floor(Math.random() * 100) + 50 },
+                { time: "May 16, 2025 08:00 PM", sessionCount: Math.floor(Math.random() * 100) + 50 },
+                { time: "May 16, 2025 09:00 PM", sessionCount: Math.floor(Math.random() * 100) + 50 },
+                { time: "May 16, 2025 10:00 PM", sessionCount: Math.floor(Math.random() * 100) + 50 },
+                { time: "May 16, 2025 11:00 PM", sessionCount: Math.floor(Math.random() * 100) + 50 },
+            ],
+        };
+
+        let sessionsModel: ChartModel;
+
+        if (isComparisonMode) {
+            sessionsModel = {
+                charType: CustomChartType.Sessions,
+                title: "Sessions",
+                generalValue: `${sessionsData.totalSessions}`,
+                comparisonValue: `${sessionsData.totalComparedSessions}`,
+                labels: ["Last Year", "June 15, 2025 - July 15, 2025"],
+                data: [3, 0.5],
+            };
+        } else {
+            sessionsModel = {
+                charType: CustomChartType.Sessions,
+                title: "Sessions",
+                generalValue: `${sessionsData.totalSessions}`,
+                labels: sessionsData.sessionsByTime.map((item) => item.time),
+                data: sessionsData.sessionsByTime.map((item) => item.sessionCount),
             };
         }
 
         setCartAbandonmentRate(cartAbandonmentRateModel);
         setIsCartAbandonmentRateLoading(false);
+
+        setSessions(sessionsModel);
+        setSessionsLoading(false);
     }, [isComparisonMode]);
 
     return (
@@ -122,6 +165,18 @@ const App: React.FC = () => {
                             <CartAbandontmentRateLineChart
                                 chart={cartAbandonmentRate}
                                 isLoading={isCartAbandonmentRateLoading}
+                                isFullScreen={false}
+                                setFullScreenChartType={setCustomChartType}
+                            />
+                        )}
+                    </div>
+                    <div className="dashboard-app__column">
+                        {isComparisonMode ? (
+                            <></>
+                        ) : (
+                            <SessionsLineChart
+                                chart={sessions}
+                                isLoading={isSessionsLoading}
                                 isFullScreen={false}
                                 setFullScreenChartType={setCustomChartType}
                             />
@@ -153,6 +208,21 @@ const App: React.FC = () => {
                                             <CartAbandontmentRateLineChart
                                                 chart={cartAbandonmentRate}
                                                 isLoading={isCartAbandonmentRateLoading}
+                                                isFullScreen={true}
+                                                setFullScreenChartType={setCustomChartType}
+                                            />
+                                        )}
+                                    </>
+                                );
+                            case CustomChartType.Sessions:
+                                return (
+                                    <>
+                                        {isComparisonMode ? (
+                                            <></>
+                                        ) : (
+                                            <SessionsLineChart
+                                                chart={cartAbandonmentRate}
+                                                isLoading={isSessionsLoading}
                                                 isFullScreen={true}
                                                 setFullScreenChartType={setCustomChartType}
                                             />

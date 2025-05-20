@@ -6,15 +6,5 @@ export interface ChartModel {
     generalValue: string;
     comparisonValue?: string;
     labels: string[];
-    datasets: {
-        lable?: string;
-        data: number[];
-        backgroundColor?: string[];
-        borderColor?: string[];
-        borderWidth?: number;
-        fill?: boolean;
-        maxBarThickness?: number;
-        tension?: number;
-        pointRadius?: number;
-    }[];
+    data: number[];
 }

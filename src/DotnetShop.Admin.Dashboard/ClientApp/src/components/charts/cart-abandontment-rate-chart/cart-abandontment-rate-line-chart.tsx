@@ -48,7 +48,15 @@ const GraphicArea: React.FC<ChartProps> = (props) => {
                 <Line
                     data={{
                         labels: props.chart.labels,
-                        datasets: props.chart.datasets,
+                        datasets: [
+                            {
+                                data: props.chart.data,
+                                borderWidth: 2,
+                                borderColor: ["#B3C3FF"],
+                                tension: 0.1,
+                                pointRadius: 0,
+                            },
+                        ],
                     }}
                     height={350}
                     options={CartAbandonmentRateLineOptions}

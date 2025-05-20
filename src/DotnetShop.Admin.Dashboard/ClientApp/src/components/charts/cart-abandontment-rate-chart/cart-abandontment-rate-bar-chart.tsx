@@ -43,7 +43,14 @@ const GraphicArea: React.FC<ChartProps> = (props) => {
                 <Bar
                     data={{
                         labels: props.chart.labels,
-                        datasets: props.chart.datasets,
+                        datasets: [
+                            {
+                                data: props.chart.data,
+                                borderWidth: 0,
+                                backgroundColor: ["#B3C3FF", "#0037FF"],
+                                maxBarThickness: 70,
+                            },
+                        ],
                     }}
                     height={350}
                     options={CartAbandonmentRateBarOptions}
