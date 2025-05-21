@@ -1,4 +1,4 @@
-export interface Session {
+export interface SessionModel {
     totalSessions: number;
     totalComparedSessions: number;
     sessionsByTime: SessionByTime[];

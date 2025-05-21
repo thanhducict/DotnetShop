@@ -24,7 +24,6 @@ export interface ContextMenuCommand {
 
 const ContextMenu: React.FC<ContextMenuProps> = (props) => {
     const [isVisible, setIsVisible] = useState<boolean>(false);
-    const boundary = document.querySelector(".image-gallery__panel");
 
     const { refs, floatingStyles, context } = useFloating({
         open: isVisible,

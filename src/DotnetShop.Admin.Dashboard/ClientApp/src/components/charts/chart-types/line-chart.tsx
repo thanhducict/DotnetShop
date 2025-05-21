@@ -1,10 +1,14 @@
 import React from "react";
 import withChartHeader, { ChartProps } from "../chart-layout/chart-layout";
-import { Bar } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 import { ChartOptions } from "chart.js";
+import dayjs from "dayjs";
 
 const GraphicArea: React.FC<ChartProps> = (props) => {
-    const CartAbandonmentRateBarOptions: ChartOptions<"bar"> = {
+    const maxTicksLimit = props.isFullScreen ? 24 : 5;
+    const pointRadius = props.isFullScreen ? 3 : 0;
+
+    const LineOptions: ChartOptions<"line"> = {
         responsive: true,
         maintainAspectRatio: false,
         aspectRatio: 2,
@@ -21,8 +25,9 @@ const GraphicArea: React.FC<ChartProps> = (props) => {
                 ticks: {
                     align: "center",
                     maxRotation: 0,
+                    maxTicksLimit: maxTicksLimit,
                     callback(value: any) {
-                        return typeof value === "number" ? this.getLabelForValue(value) : "";
+                        return typeof value === "number" ? dayjs(this.getLabelForValue(value)).format("hh:mm A") : "";
                     },
                 },
             },
@@ -36,23 +41,24 @@ const GraphicArea: React.FC<ChartProps> = (props) => {
     };
 
     return (
-        <Bar
+        <Line
             data={{
                 labels: props.chart.labels,
                 datasets: [
                     {
                         data: props.chart.data,
-                        borderWidth: 0,
-                        backgroundColor: ["#B3C3FF", "#0037FF"],
-                        maxBarThickness: 70,
+                        borderWidth: 2,
+                        borderColor: ["#B3C3FF"],
+                        tension: 0.1,
+                        pointRadius: pointRadius,
                     },
                 ],
             }}
             height={350}
-            options={CartAbandonmentRateBarOptions}
+            options={LineOptions}
         />
     );
 };
 
-const CartAbandontmentRateBarChart = withChartHeader(GraphicArea);
-export default CartAbandontmentRateBarChart;
+const LineChart = withChartHeader(GraphicArea);
+export default LineChart;

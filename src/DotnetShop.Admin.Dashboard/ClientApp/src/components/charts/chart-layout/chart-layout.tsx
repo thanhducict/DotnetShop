@@ -3,8 +3,8 @@ import "./chart-layout.scss";
 import ContextMenu from "../../shared/context-menu/context-menu";
 import MaximizeIcon from "../../../icons/maximize.svg";
 import DownloadIcon from "../../../icons/download.svg";
-import { ChartModel } from "../chart-model";
 import { CustomChartType } from "../../shared/utils";
+import { ChartModel } from "../models/chart-model";
 
 export interface ChartProps {
     chart: ChartModel;
@@ -22,9 +22,7 @@ const withChartHeader = <P extends ChartProps>(WrappedComponent: React.Component
                         <div className="chart-container__header">
                             <div className="chart-header-title">{props.chart.title}</div>
                             <div className="chart-header-ellipsis">
-                                {props.isFullScreen ? (
-                                    <></>
-                                ) : (
+                                {!props.isFullScreen && (
                                     <ContextMenu
                                         commands={[
                                             {
@@ -49,9 +47,11 @@ const withChartHeader = <P extends ChartProps>(WrappedComponent: React.Component
                             {props.chart.comparisonValue && (
                                 <p
                                     style={
-                                        props.chart.comparisonValue.includes("-")
-                                            ? { color: "red" }
-                                            : { color: "green" }
+                                        props.chart.comparisonValue.includes("+")
+                                            ? { color: "green" }
+                                            : props.chart.comparisonValue.includes("-")
+                                              ? { color: "red" }
+                                              : {}
                                     }
                                 >
                                     {props.chart.comparisonValue}

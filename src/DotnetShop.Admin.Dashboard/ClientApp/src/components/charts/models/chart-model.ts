@@ -1,4 +1,4 @@
-import { CustomChartType } from "../shared/utils";
+import { CustomChartType } from "../../shared/utils";
 
 export interface ChartModel {
     charType: CustomChartType;
