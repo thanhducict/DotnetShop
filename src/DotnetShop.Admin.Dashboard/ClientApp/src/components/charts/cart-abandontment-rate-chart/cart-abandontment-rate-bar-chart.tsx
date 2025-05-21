@@ -36,27 +36,21 @@ const GraphicArea: React.FC<ChartProps> = (props) => {
     };
 
     return (
-        <div className="cart-abandontment-rate-chart">
-            {props.isLoading ? (
-                <div className="cart-abandontment-rate-chart__loading-spinner">Loading...</div>
-            ) : (
-                <Bar
-                    data={{
-                        labels: props.chart.labels,
-                        datasets: [
-                            {
-                                data: props.chart.data,
-                                borderWidth: 0,
-                                backgroundColor: ["#B3C3FF", "#0037FF"],
-                                maxBarThickness: 70,
-                            },
-                        ],
-                    }}
-                    height={350}
-                    options={CartAbandonmentRateBarOptions}
-                />
-            )}
-        </div>
+        <Bar
+            data={{
+                labels: props.chart.labels,
+                datasets: [
+                    {
+                        data: props.chart.data,
+                        borderWidth: 0,
+                        backgroundColor: ["#B3C3FF", "#0037FF"],
+                        maxBarThickness: 70,
+                    },
+                ],
+            }}
+            height={350}
+            options={CartAbandonmentRateBarOptions}
+        />
     );
 };
 

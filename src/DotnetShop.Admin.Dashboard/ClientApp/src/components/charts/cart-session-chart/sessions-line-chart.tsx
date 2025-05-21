@@ -41,28 +41,22 @@ const GraphicArea: React.FC<ChartProps> = (props) => {
     };
 
     return (
-        <div className="sessions-chart">
-            {props.isLoading ? (
-                <div className="sessions-chart__loading-spinner">Loading...</div>
-            ) : (
-                <Line
-                    data={{
-                        labels: props.chart.labels,
-                        datasets: [
-                            {
-                                data: props.chart.data,
-                                borderWidth: 2,
-                                borderColor: ["#B3C3FF"],
-                                tension: 0.1,
-                                pointRadius: 0,
-                            },
-                        ],
-                    }}
-                    height={350}
-                    options={SessionsLineOptions}
-                />
-            )}
-        </div>
+        <Line
+            data={{
+                labels: props.chart.labels,
+                datasets: [
+                    {
+                        data: props.chart.data,
+                        borderWidth: 2,
+                        borderColor: ["#B3C3FF"],
+                        tension: 0.1,
+                        pointRadius: 0,
+                    },
+                ],
+            }}
+            height={350}
+            options={SessionsLineOptions}
+        />
     );
 };
 
