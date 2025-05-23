@@ -22,6 +22,17 @@ import { ChartModel } from "./components/charts/models/chart-model";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend, Filler);
 
+export const formatComparisonValue = (sourceValue: number, comparisonValue?: number) => {
+    if (comparisonValue) {
+        const comparisonData = sourceValue - comparisonValue;
+        const comparisonDataInPercent = ((sourceValue - comparisonValue) / Math.abs(comparisonValue)) * 100;
+
+        return `${comparisonData > 0 ? "+" : ""}${comparisonData} (${comparisonDataInPercent.toFixed(2)}%)`;
+    }
+
+    return "0 (0%)";
+};
+
 const App: React.FC = () => {
     const [isComparisonModel, setIsComparisonModel] = useState<boolean>(false);
     const [customChartType, setCustomChartType] = useState<CustomChartType | undefined>(undefined);

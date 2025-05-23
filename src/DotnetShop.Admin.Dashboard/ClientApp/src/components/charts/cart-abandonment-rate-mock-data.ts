@@ -1,11 +1,12 @@
+import { formatComparisonValue } from "../../app";
 import { CustomChartType } from "../shared/utils";
 import { CartAbandonmentRateModel } from "./models/cart-abandonment-rate-model";
 import { ChartModel } from "./models/chart-model";
 
 export const getCartAbandonmentRateMockData = (isComparisonMode: boolean) => {
     const cartAbandonmentRateData: CartAbandonmentRateModel = {
-        avgRate: 3.52,
-        avgComparedRate: 4.5,
+        avgRate: 0.5,
+        avgComparedRate: 3.0,
         ratesByTime: [
             { time: "May 16, 2025 12:00 AM", rate: 0.42 },
             { time: "May 16, 2025 01:00 AM", rate: 0.38 },
@@ -41,7 +42,10 @@ export const getCartAbandonmentRateMockData = (isComparisonMode: boolean) => {
             charType: CustomChartType.CartAbandonmentRateChart,
             title: "Cart Abandonment Rate",
             generalValue: `${cartAbandonmentRateData.avgRate}%`,
-            comparisonValue: `${cartAbandonmentRateData.avgComparedRate > 0 ? "+" : ""}${cartAbandonmentRateData.avgComparedRate}%`,
+            comparisonValue: formatComparisonValue(
+                cartAbandonmentRateData.avgRate,
+                cartAbandonmentRateData.avgComparedRate
+            ),
             labels: ["Last Year", "June 15, 2025 - July 15, 2025"],
             data: [0.5, 3],
         };

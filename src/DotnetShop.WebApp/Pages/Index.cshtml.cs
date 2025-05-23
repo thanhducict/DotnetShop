@@ -11,9 +11,8 @@ namespace DotnetShop.WebApp.Pages
 
         public IEnumerable<ProductModel> ProductsOfTheWeek { get; set; } = [];
 
-        public async Task OnGetAsync(CancellationToken cancellationToken, int pageNumber = 1, int pageSize = 10)
+        public async Task OnGetAsync(CancellationToken cancellationToken, int pageNumber = 1, int pageSize = 100)
         {
-            return;
             var result = await catalogService.GetProducts(pageNumber, pageSize, cancellationToken);
 
             ProductsOfTheWeek = result.Products.TakeRandom(4);

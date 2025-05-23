@@ -18,7 +18,7 @@
    <Content Remove="ClientApp\*" />  
  </ItemGroup>  
 
- <ItemGroup>  
+ <ItemGroup Condition="'$(Configuration)' == 'Release'">  
    <None Include="ClientApp\*" />  
    <None Include="ClientApp\dist\dotnetshop.admin.dashboard.js" Pack="true" PackagePath="contentFiles\any\any\modules\DotnetShop.Admin.Dashboard\" CopyToOutputDirectory="Always" />  
    <None Include="ClientApp\dist\dotnetshop.admin.dashboard.css" Pack="true" PackagePath="contentFiles\any\any\modules\DotnetShop.Admin.Dashboard\" CopyToOutputDirectory="Always" />  

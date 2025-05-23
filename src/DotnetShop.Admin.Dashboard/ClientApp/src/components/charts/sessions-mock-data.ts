@@ -1,11 +1,12 @@
+import { formatComparisonValue } from "../../app";
 import { CustomChartType } from "../shared/utils";
 import { ChartModel } from "./models/chart-model";
 import { SessionModel } from "./models/sessions-model";
 
 export const getSessionsMockData = (isComparisonMode: boolean) => {
     const sessionsData: SessionModel = {
-        totalSessions: 1000,
-        totalComparedSessions: -65,
+        totalSessions: 100,
+        totalComparedSessions: 35,
         sessionsByTime: [
             { time: "May 16, 2025 12:00 AM", sessionCount: Math.floor(Math.random() * 100) + 50 },
             { time: "May 16, 2025 01:00 AM", sessionCount: Math.floor(Math.random() * 100) + 50 },
@@ -41,7 +42,7 @@ export const getSessionsMockData = (isComparisonMode: boolean) => {
             charType: CustomChartType.Sessions,
             title: "Sessions",
             generalValue: `${sessionsData.totalSessions}`,
-            comparisonValue: `${sessionsData.totalComparedSessions}`,
+            comparisonValue: formatComparisonValue(sessionsData.totalSessions, sessionsData.totalComparedSessions),
             labels: ["Last Year", "June 15, 2025 - July 15, 2025"],
             data: [100, 35],
         };

@@ -2,22 +2,24 @@ using DotnetShop.WebApp.Models.Catalog;
 
 namespace DotnetShop.WebApp.Services
 {
-    public class CatalogService : ICatalogService
+    public class CatalogService(HttpClient httpClient, IConfiguration configuration) : ICatalogService
     {
-
         public async Task<GetProductsResponse> GetProducts(int pageNumber, int pageSize, CancellationToken cancellationToken)
         {
-            throw new Exception("Not implemented");
+            return await httpClient.GetFromJsonAsync<GetProductsResponse>($"products?pageNumber={pageNumber}&pageSize={pageSize}", cancellationToken)
+                ?? new GetProductsResponse([]);
         }
 
         public async Task<GetProductByIdResponse> GetProductById(int productId, CancellationToken cancellationToken)
         {
-            throw new Exception("Not implemented");
+            return await httpClient.GetFromJsonAsync<GetProductByIdResponse>($"products/{productId}", cancellationToken)
+                ?? new GetProductByIdResponse(new ProductModel());
         }
 
         public async Task<GetProductsByCategoryResponse> GetProductsByCategory(string categoryName, CancellationToken cancellationToken)
         {
-            throw new Exception("Not implemented");
+            return await httpClient.GetFromJsonAsync<GetProductsByCategoryResponse>($"products/category/{categoryName}", cancellationToken)
+                ?? new GetProductsByCategoryResponse([]);
         }
 
         public async Task<int> CreateProduct(ProductModel product, CancellationToken cancellationToken)
@@ -37,7 +39,8 @@ namespace DotnetShop.WebApp.Services
 
         public async Task<GetCategoriesResponse> GetCategories(CancellationToken cancellationToken)
         {
-            throw new Exception("Not implemented");
+            return await httpClient.GetFromJsonAsync<GetCategoriesResponse>("categories", cancellationToken)
+                ?? new GetCategoriesResponse([]);
         }
 
         public async Task<Guid> CreateCategory(CategoryModel category, CancellationToken cancellationToken)
