@@ -1,8 +1,9 @@
 import React from "react";
 import withChartHeader, { ChartProps } from "../chart-layout/chart-layout";
 import { Line } from "react-chartjs-2";
-import { ChartOptions } from "chart.js";
+import { ChartOptions, LineOptions } from "chart.js";
 import dayjs from "dayjs";
+import * as _ from "lodash";
 
 const GraphicArea: React.FC<ChartProps> = (props) => {
     const maxTicksLimit = props.isFullScreen ? 24 : 5;
@@ -40,6 +41,8 @@ const GraphicArea: React.FC<ChartProps> = (props) => {
         },
     };
 
+    const options = props.extraOptions ? _.merge(LineOptions, props.extraOptions) : LineOptions;
+
     return (
         <Line
             data={{
@@ -55,7 +58,7 @@ const GraphicArea: React.FC<ChartProps> = (props) => {
                 ],
             }}
             height={350}
-            options={LineOptions}
+            options={options}
         />
     );
 };

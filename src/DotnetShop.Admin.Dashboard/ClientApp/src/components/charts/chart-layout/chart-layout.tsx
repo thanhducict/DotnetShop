@@ -5,9 +5,11 @@ import MaximizeIcon from "../../../icons/maximize.svg";
 import DownloadIcon from "../../../icons/download.svg";
 import { CustomChartType } from "../../shared/utils";
 import { ChartModel } from "../models/chart-model";
+import { ChartOptions, ChartTypeRegistry } from "chart.js";
 
 export interface ChartProps {
     chart: ChartModel;
+    extraOptions?: ChartOptions<keyof ChartTypeRegistry>;
     isLoading: boolean;
     isFullScreen: boolean;
     setFullScreenChartType: React.Dispatch<React.SetStateAction<CustomChartType | undefined>>;

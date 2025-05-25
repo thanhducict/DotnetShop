@@ -10,6 +10,7 @@ import {
     Legend,
     Filler,
     BarElement,
+    ChartOptions,
 } from "chart.js";
 import "./app.scss";
 import DashboardModal from "./components/shared/dashboard-modal/dashboard-modal";
@@ -74,6 +75,17 @@ const App: React.FC = () => {
                         ) : (
                             <LineChart
                                 chart={sessions}
+                                extraOptions={
+                                    {
+                                        scales: {
+                                            y: {
+                                                ticks: {
+                                                    precision: 0,
+                                                },
+                                            },
+                                        },
+                                    } as ChartOptions<"line">
+                                }
                                 isLoading={isSessionsLoading}
                                 isFullScreen={false}
                                 setFullScreenChartType={setCustomChartType}

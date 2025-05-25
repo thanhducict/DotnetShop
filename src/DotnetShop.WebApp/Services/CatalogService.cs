@@ -2,7 +2,7 @@ using DotnetShop.WebApp.Models.Catalog;
 
 namespace DotnetShop.WebApp.Services
 {
-    public class CatalogService(HttpClient httpClient, IConfiguration configuration) : ICatalogService
+    public class CatalogService(HttpClient httpClient) : ICatalogService
     {
         public async Task<GetProductsResponse> GetProducts(int pageNumber, int pageSize, CancellationToken cancellationToken)
         {
