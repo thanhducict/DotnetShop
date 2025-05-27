@@ -83,7 +83,7 @@ GET https://{{host}}/shoppingcart-service/health
 GET https://{{host}}/shoppingcart-service/carts
 ###
 
-GET https://{{host}}/shoppingcart-service/carts/GetCartByUsername/ronaldo
+GET https://{{host}}/shoppingcart-service/carts/GetCartByUsername/rooney
 ###
 
 POST https://{{host}}/shoppingcart-service/carts

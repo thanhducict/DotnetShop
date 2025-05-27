@@ -1,8 +1,7 @@
 using DotnetShop.Common;
-using DotnetShop.Common.Behaviors;
-using DotnetShop.Common.Exceptions.Handlers;
 using DotnetShop.Common.Messaging;
 using DotnetShop.Discount.Grpc;
+using DotnetShop.ShoppingCart.API;
 using DotnetShop.ShoppingCart.API.Producers;
 using DotnetShop.ShoppingCart.API.Repositories;
 using HealthChecks.UI.Client;
@@ -66,5 +65,7 @@ app.UseHealthChecks("/health",
     {
         ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
     });
+
+await SeedData.SeedDataAsync(app.Services);
 
 app.Run();

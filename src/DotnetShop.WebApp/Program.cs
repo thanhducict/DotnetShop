@@ -12,6 +12,10 @@ builder.Services.AddHttpClient<IIdentityService, IdentityService>(httpClient =>
 {
     httpClient.BaseAddress = new Uri(builder.Configuration["ServiceUri:Identity"]!);
 });
+builder.Services.AddHttpClient<ICartService, CartService>(httpClient =>
+{
+    httpClient.BaseAddress = new Uri(builder.Configuration["ServiceUri:ShoppingCart"]!);
+});
 
 builder.Services.AddAuthentication(Constants.MyBearerScheme).AddCookie(Constants.MyBearerScheme, options =>
 {

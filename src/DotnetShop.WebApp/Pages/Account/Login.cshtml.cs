@@ -43,10 +43,8 @@ namespace DotnetShop.WebApp.Pages.Account
             ReturnUrl = string.IsNullOrEmpty(returnUrl) ? Url.Content("~/") : returnUrl;
         }
 
-        public async Task OnPostAsync(string? returnUrl = default)
+        public async Task<IActionResult> OnPostAsync(string? returnUrl = default)
         {
-            returnUrl = returnUrl ?? Url.Content("~/");
-
             if (ModelState.IsValid)
             {
                 var response = await identityService.LoginAsync(Input.Username, Input.Password);
@@ -67,12 +65,14 @@ namespace DotnetShop.WebApp.Pages.Account
 
                     if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                     {
-                        Redirect(returnUrl);
+                        return Redirect(returnUrl);
                     }
 
-                    RedirectToPage("/Index");
+                    return RedirectToPage("/Index");
                 }
             }
+
+            return Page();
         }
     }
 }

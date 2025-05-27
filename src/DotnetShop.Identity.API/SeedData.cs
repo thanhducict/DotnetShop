@@ -65,6 +65,11 @@ namespace DotnetShop.Identity.API
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(user, Roles.Customer);
+                    await userManager.AddClaimsAsync(user, new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Name, user.UserName),
+                        new Claim(ClaimTypes.Email, user.Email)
+                    });
                 }
             }
 
@@ -83,6 +88,11 @@ namespace DotnetShop.Identity.API
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(user, Roles.Customer);
+                    await userManager.AddClaimsAsync(user, new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Name, user.UserName),
+                        new Claim(ClaimTypes.Email, user.Email)
+                    });
                 }
             }
         }

@@ -1,18 +1,20 @@
+using DotnetShop.WebApp.Models.Cart;
+using DotnetShop.WebApp.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace DotnetShop.WebApp.Pages
 {
     [Authorize(Roles = "Customer")]
-    public class CartModel : PageModel
+    public class CartModel(ICartService cartService) : PageModel
     {
-        //private readonly ICartService _cartService;
+        public Cart CartViewModel { get; set; }
 
-        //public CartViewModel CartViewModel { get; set; }
-
-        public void OnGet()
+        public async Task OnGet(CancellationToken cancellationToken)
         {
-            //CartViewModel = GetCartViewModel();
+            var result = await cartService.GetCartByUsername(HttpContext.User.Identity.Name, cancellationToken);
+
+            CartViewModel = result.Cart ?? new Cart();
         }
 
         //public IActionResult OnGetAddToCart(int productId)

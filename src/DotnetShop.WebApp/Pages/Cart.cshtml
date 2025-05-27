@@ -5,13 +5,13 @@
 }
 
 <h2>Your shopping cart</h2>
-@* @if(Model.CartViewModel.CartLineItemViewModels.Count == 0)
+@if(Model.CartViewModel.Items.Count == 0)
 {
     <h4>Your cart is empty.</h4>
 }
 else
 {
-    <h4>Here are the items in your shopping cart.</h4>
+    <h5>Here are the items in your shopping cart.</h5>
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
@@ -23,18 +23,18 @@ else
         </tr>
     </thead>
     <tbody>
-        @foreach (var line in Model.CartViewModel.CartLineItemViewModels)
+        @foreach (var line in Model.CartViewModel.Items)
         {
             <tr>
-                <td class="text-center">@line.CartLineItemQuantity</td>
                 <td class="text-left">@line.ProductName</td>
-                <td class="text-right">@line.ProductPrice.ToString("c")</td>
-                <td class="text-right">@line.CartLineItemTotal.ToString("c")</td>
+                <td class="text-right">@line.Price.ToString("c")</td>
+                <td class="text-center">@line.Quantity</td>
+                <td class="text-right">@(line.Price * line.Quantity).ToString("c")</td>
                 <td class="text-right">
                     <a
                         class="btn btn-danger"
                         asp-page-handler="RemoveFromCart"
-                        asp-route-productId="@line.ProductId">Remove
+                        asp-route-productId="@line.ProductGuid">Remove
                     </a>
                 </td>
             </tr>
@@ -44,7 +44,7 @@ else
         <tr>
             <td colspan="3" class="text-right">Total:</td>
             <td class="text-right">
-                @Model.CartViewModel.CartTotal.ToString("c")
+                @Model.CartViewModel.TotalPrice.ToString("c")
             </td>
             <td></td>
         </tr>
@@ -56,4 +56,4 @@ else
         <button class="btn btn-primary" type="submit">Check out now!</button>
     </form>
 </div>
-} *@
+}
