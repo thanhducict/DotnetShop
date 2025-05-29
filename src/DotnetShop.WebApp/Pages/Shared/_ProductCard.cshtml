@@ -11,10 +11,15 @@
                 </a>
             </h3>
             <p class="card-text">@Model.ShortDescription</p>
-            <a class="btn btn-primary"
-               asp-page="/Cart"
-               asp-page-handler="AddToCart"
-               asp-route-productId="@Model.ProductGuid">Add to cart</a>
+            <form method="post" asp-page="/Cart" asp-page-handler="AddToCart">
+                <div class="row">
+                    <div class="col-8">
+                        <input type="hidden" name="productId" value="@Model.ProductId" />
+                        <button type="submit" class="btn btn-primary">Add to cart</button>
+                    </div>
+                    <div class="col-4"><input type="text" class="form-control" name="quantity" value="1"></div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

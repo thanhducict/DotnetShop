@@ -8,4 +8,5 @@ namespace DotnetShop.WebApp.Models.Cart
     }
 
     public record GetCartByUsernameResponse(Cart Cart);
+    public record StoreCartRequest(Cart Cart);
 }

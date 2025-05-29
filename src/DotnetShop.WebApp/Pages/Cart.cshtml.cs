@@ -1,12 +1,14 @@
 using DotnetShop.WebApp.Models.Cart;
 using DotnetShop.WebApp.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Text.Json;
 
 namespace DotnetShop.WebApp.Pages
 {
     [Authorize(Roles = "Customer")]
-    public class CartModel(ICartService cartService) : PageModel
+    public class CartModel(ICatalogService catalogService, ICartService cartService) : PageModel
     {
         public Cart CartViewModel { get; set; }
 
@@ -17,12 +19,46 @@ namespace DotnetShop.WebApp.Pages
             CartViewModel = result.Cart ?? new Cart();
         }
 
-        //public IActionResult OnGetAddToCart(int productId)
-        //{
-        //    _cartService.AddToCart(productId, 1);
+        public async Task<IActionResult> OnPostAddToCart(int productId, int quantity, CancellationToken cancellationToken)
+        {
+            var getProductResponse = await catalogService.GetProductById(productId, cancellationToken);
+            var selectedProduct = getProductResponse.Product;
 
-        //    return RedirectToPage();
-        //}
+            var cartResponse = await cartService.GetCartByUsername(HttpContext.User.Identity.Name, cancellationToken);
+            var cart = cartResponse.Cart;
+
+            if (cart == null)
+            {
+                cart = new Cart
+                {
+                    Username = HttpContext.User.Identity.Name,
+                    Items = []
+                };
+            }
+            else
+            {
+                var cartItem = cart.Items.SingleOrDefault(c => c.ProductGuid == selectedProduct.ProductGuid);
+                if (cartItem == null)
+                {
+                    cartItem = new CartItem
+                    {
+                        ProductGuid = selectedProduct.ProductGuid,
+                        ProductName = selectedProduct.ProductName,
+                        Price = selectedProduct.Price,
+                        Quantity = quantity
+                    };
+                    cart.Items.Add(cartItem);
+                }
+                else
+                {
+                    cartItem.Quantity += quantity;
+                }
+
+                await cartService.StoreCart(cart, cancellationToken);
+            }
+
+            return RedirectToPage();
+        }
 
         //public IActionResult OnGetRemoveFromCart(int productId)
         //{

@@ -29,7 +29,7 @@ else
                 <td class="text-left">@line.ProductName</td>
                 <td class="text-right">@line.Price.ToString("c")</td>
                 <td class="text-center">@line.Quantity</td>
-                <td class="text-right">@(line.Price * line.Quantity).ToString("c")</td>
+                    <td class="text-right">@((line.Price * line.Quantity).ToString("c"))</td>
                 <td class="text-right">
                     <a
                         class="btn btn-danger"
