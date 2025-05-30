@@ -43,11 +43,11 @@ namespace DotnetShop.WebApp.Pages.Account
             ReturnUrl = string.IsNullOrEmpty(returnUrl) ? Url.Content("~/") : returnUrl;
         }
 
-        public async Task<IActionResult> OnPostAsync(string? returnUrl = default)
+        public async Task<IActionResult> OnPostAsync(CancellationToken cancellationToken, string? returnUrl = default)
         {
             if (ModelState.IsValid)
             {
-                var response = await identityService.LoginAsync(Input.Username, Input.Password);
+                var response = await identityService.LoginAsync(Input.Username, Input.Password, cancellationToken);
 
                 if (response.User != null && !string.IsNullOrEmpty(response.Token))
                 {

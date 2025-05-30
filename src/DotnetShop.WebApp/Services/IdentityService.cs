@@ -10,7 +10,7 @@ namespace DotnetShop.WebApp.Services
             PropertyNameCaseInsensitive = true
         };
 
-        public async Task<LoginResponseDto> LoginAsync(string userName, string password)
+        public async Task<LoginResponseDto> LoginAsync(string userName, string password, CancellationToken cancellationToken)
         {
             var request = new LoginRequestDto
             {
@@ -30,6 +30,20 @@ namespace DotnetShop.WebApp.Services
             else
             {
                 return new LoginResponseDto();
+            }
+        }
+
+        public async Task<UserDto> GetProfileAsync(string userName, CancellationToken cancellationToken)
+        {
+            var response = await httpClient.GetFromJsonAsync<UserDto>($"profile/getprofile?username={userName}", cancellationToken);
+
+            if (response != null)
+            {
+                return response;
+            }
+            else
+            {
+                return new UserDto();
             }
         }
     }

@@ -23,5 +23,23 @@ namespace DotnetShop.WebApp
 
             return selectedItems;
         }
+
+        public static string GetReturnUrl(HttpContext httpContext)
+        {
+            var path = httpContext.Request.Path.Value;
+
+            if (path == null)
+            {
+                return "/";
+            }
+            else if (path.StartsWith("/Account"))
+            {
+                return "/";
+            }
+            else
+            {
+                return path + httpContext.Request.QueryString;
+            }
+        }
     }
 }

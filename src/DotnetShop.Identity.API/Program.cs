@@ -24,6 +24,7 @@ builder.Services.AddIdentityCore<ApplicationUser>(options =>
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("ApiSettings:JwtOptions"));
 builder.Services.AddScoped<IAppAuthenticationService, AppAuthenticationService>();
 builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+builder.Services.AddScoped<IProfileService, ProfileService>();
 
 var app = builder.Build();
 

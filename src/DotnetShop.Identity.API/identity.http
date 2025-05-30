@@ -11,6 +11,9 @@
 GET https://{{host}}/health
 ###
 
+GET https://{{host}}/profile/getprofile?username=rooney
+###
+
 POST https://{{host}}/appauthentication/login
 Content-Type: application/json
 {

@@ -13,9 +13,8 @@ namespace DotnetShop.Identity.API.Models
 
         public bool Gender { get; set; }
 
-        public string AddressLine { get; set; } = string.Empty;
-        public string Country { get; set; } = string.Empty;
-        public string State { get; set; } = string.Empty;
-        public string ZipCode { get; set; } = string.Empty;
+        public Address? ShippingAddress { get; set; } = default!;
+        public Address? BillingAddress { get; set; } = default!;
+        public Payment? Payment { get; set; } = default!;
     }
 }

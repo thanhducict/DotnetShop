@@ -9,4 +9,6 @@ namespace DotnetShop.WebApp.Models.Cart
 
     public record GetCartByUsernameResponse(Cart Cart);
     public record StoreCartRequest(Cart Cart);
+    public record DeleteCartRequest(string username);
+    public record CheckoutCartRequest(CartCheckoutDto CartCheckoutDto);
 }

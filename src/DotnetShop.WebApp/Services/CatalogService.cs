@@ -22,30 +22,10 @@ namespace DotnetShop.WebApp.Services
                 ?? new GetProductsByCategoryResponse([]);
         }
 
-        public async Task<int> CreateProduct(ProductModel product, CancellationToken cancellationToken)
-        {
-            throw new Exception("Not implemented");
-        }
-
-        public async Task<bool> UpdateProduct(ProductModel product, CancellationToken cancellationToken)
-        {
-            throw new Exception("Not implemented");
-        }
-
-        public async Task<bool> DeleteProduct(int productId, CancellationToken cancellationToken)
-        {
-            throw new Exception("Not implemented");
-        }
-
         public async Task<GetCategoriesResponse> GetCategories(CancellationToken cancellationToken)
         {
             return await httpClient.GetFromJsonAsync<GetCategoriesResponse>("categories", cancellationToken)
                 ?? new GetCategoriesResponse([]);
-        }
-
-        public async Task<Guid> CreateCategory(CategoryModel category, CancellationToken cancellationToken)
-        {
-            throw new Exception("Not implemented");
         }
     }
 }

@@ -31,10 +31,7 @@ namespace DotnetShop.Identity.API
                     FirstName = "Thanh Duc",
                     LastName = "Nguyen",
                     Gender = true,
-                    AddressLine = "8/3 Street, Hai Ba Trung",
-                    Country = "Vietnam",
-                    State = "Hanoi",
-                    ZipCode = "00084"
+                    PhoneNumber = "0987333333"
                 };
 
                 var result = await userManager.CreateAsync(user, "Cvbnm123@");
@@ -57,7 +54,37 @@ namespace DotnetShop.Identity.API
                     UserName = "rooney",
                     FirstName = "Wayne",
                     LastName = "Rooney",
-                    Email = "wayne.rooney@manutd.com"
+                    Email = "wayne.rooney@manutd.com",
+                    Gender = true,
+                    PhoneNumber = "0987555555",
+                    ShippingAddress = new Address
+                    {
+                        FirstName = "Wayne",
+                        LastName = "Rooney",
+                        AddressLine = "Old Trafford",
+                        Country = "England",
+                        EmailAddress = "wayne.rooney@manutd.com",
+                        State = "England",
+                        ZipCode = "M16 0RA"
+                    },
+                    BillingAddress = new Address
+                    {
+                        FirstName = "Wayne",
+                        LastName = "Rooney",
+                        AddressLine = "Old Trafford",
+                        Country = "England",
+                        EmailAddress = "wayne.rooney@manutd.com",
+                        State = "England",
+                        ZipCode = "M16 0RA"
+                    },
+                    Payment = new Payment
+                    {
+                        CardName = "Wayne Rooney",
+                        CardNumber = "1234567890123456",
+                        Expiration = "12/25",
+                        CVV = "123",
+                        PaymentMethod = 1
+                    }
                 };
 
                 var result = await userManager.CreateAsync(user, "Cvbnm123@");
@@ -80,7 +107,37 @@ namespace DotnetShop.Identity.API
                     UserName = "scholes",
                     FirstName = "paul",
                     LastName = "scholes",
-                    Email = "paul.scholes@manutd.com"
+                    Email = "paul.scholes@manutd.com",
+                    Gender = true,
+                    PhoneNumber = "0987666666",
+                    ShippingAddress = new Address
+                    {
+                        FirstName = "Paul",
+                        LastName = "Scholes",
+                        AddressLine = "Old Trafford",
+                        Country = "England",
+                        EmailAddress = "paul.scholes@manutd.com",
+                        State = "England",
+                        ZipCode = "M16 0RA"
+                    },
+                    BillingAddress = new Address
+                    {
+                        FirstName = "Paul",
+                        LastName = "Scholes",
+                        AddressLine = "Old Trafford",
+                        Country = "England",
+                        EmailAddress = "paul.scholes@manutd.com",
+                        State = "England",
+                        ZipCode = "M16 0RA"
+                    },
+                    Payment = new Payment
+                    {
+                        CardName = "Paul Scholes",
+                        CardNumber = "1234567890123456",
+                        Expiration = "12/25",
+                        CVV = "123",
+                        PaymentMethod = 1
+                    },
                 };
 
                 var result = await userManager.CreateAsync(user, "Cvbnm123@");

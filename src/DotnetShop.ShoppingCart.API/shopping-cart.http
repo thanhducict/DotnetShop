@@ -14,7 +14,7 @@ GET https://{{host}}/health
 GET https://{{host}}/carts
 ###
 
-GET https://{{host}}/carts/GetCartByUsername/ronaldo
+GET https://{{host}}/carts/GetCartByUsername/rooney
 ###
 
 POST https://{{host}}/carts

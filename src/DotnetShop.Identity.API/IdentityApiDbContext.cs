@@ -10,5 +10,14 @@ namespace DotnetShop.Identity.API
                 : base(options)
         {
         }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.Entity<ApplicationUser>().OwnsOne(u => u.ShippingAddress);
+            builder.Entity<ApplicationUser>().OwnsOne(u => u.BillingAddress);
+            builder.Entity<ApplicationUser>().OwnsOne(u => u.Payment);
+        }
     }
 }

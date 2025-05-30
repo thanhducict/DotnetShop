@@ -79,6 +79,7 @@ namespace DotnetShop.Identity.API.Services
                 Id = user.Id,
                 Email = user.Email,
                 UserName = user.UserName,
+                Gender = user.Gender,
                 PhoneNumber = user.PhoneNumber
             };
 
