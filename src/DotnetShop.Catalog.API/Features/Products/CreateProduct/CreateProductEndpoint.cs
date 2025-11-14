@@ -12,7 +12,7 @@ namespace DotnetShop.Catalog.API.Features.Products.CreateProduct
         public static void AddCreateProductEndpoint(this WebApplication app)
         {
             app.MapPost("products",
-                async ([FromBody] CreateProductRequest request, ISender sender) =>
+                async ([FromBody] CreateProductRequest request, IRequestDispatcher dispatcher) =>
                 {
                     var command = new CreateProductCommand(
                         request.ProductGuid,
@@ -25,7 +25,7 @@ namespace DotnetShop.Catalog.API.Features.Products.CreateProduct
                         request.CategoryId
                     );
 
-                    var result = await sender.Send(command);
+                    var result = await dispatcher.DispatchAsync(command);
 
                     var response = new CreateProductResponse(result.ProductId);
 

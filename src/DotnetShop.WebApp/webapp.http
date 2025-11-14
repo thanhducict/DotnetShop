@@ -1,10 +1,10 @@
 @hostname=localhost
 
 # Local
-# @port=5054
+# @port=5000
 
 # Docker
-@port=6064
+@port=6060
 
 @host={{hostname}}:{{port}}
 
@@ -83,7 +83,7 @@ GET https://{{host}}/shoppingcart-service/health
 GET https://{{host}}/shoppingcart-service/carts
 ###
 
-GET https://{{host}}/shoppingcart-service/carts/GetCartByUsername/ronaldo
+GET https://{{host}}/shoppingcart-service/carts/GetCartByUsername/rooney
 ###
 
 POST https://{{host}}/shoppingcart-service/carts
@@ -172,7 +172,7 @@ Content-Type: application/json
 GET https://{{host}}/ordering-service/health
 ###
 
-GET https://{{host}}/ordering-service/orders?PageIndex=0&PageSize=2
+GET https://{{host}}/ordering-service/orders?PageIndex=0&PageSize=10
 ###
 
 GET https://{{host}}/ordering-service/orders/customer/0912b826-7fd9-46c1-b08f-986c28f22558

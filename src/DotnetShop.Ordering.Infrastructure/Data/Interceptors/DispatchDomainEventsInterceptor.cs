@@ -1,11 +1,10 @@
 using DotnetShop.Ordering.Domain.Abstractions;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace DotnetShop.Ordering.Infrastructure.Data.Interceptors
 {
-    public class DispatchDomainEventsInterceptor(IMediator mediator) : SaveChangesInterceptor
+    public class DispatchDomainEventsInterceptor(IPublisher<IDomainEvent> publisher) : SaveChangesInterceptor
     {
         public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
         {
@@ -15,11 +14,11 @@ namespace DotnetShop.Ordering.Infrastructure.Data.Interceptors
 
         public override async ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result, CancellationToken cancellationToken = default)
         {
-            await DispatchDomainEvents(eventData.Context);
+            await DispatchDomainEvents(eventData.Context, cancellationToken);
             return await base.SavingChangesAsync(eventData, result, cancellationToken);
         }
 
-        public async Task DispatchDomainEvents(DbContext? context)
+        public async Task DispatchDomainEvents(DbContext? context, CancellationToken cancellationToken = default)
         {
             if (context == null) return;
 
@@ -36,7 +35,7 @@ namespace DotnetShop.Ordering.Infrastructure.Data.Interceptors
 
             foreach (var domainEvent in domainEvents)
             {
-                await mediator.Publish(domainEvent);
+                await publisher.PublishAsync(domainEvent, cancellationToken);
             }
         }
     }

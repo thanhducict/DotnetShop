@@ -2,14 +2,14 @@ namespace DotnetShop.Catalog.API.Features.Products.GetProducts
 {
     public record GetProductsRequest(int PageNumber = 1, int PageSize = 10);
 
-    public record GetProductsResponse(IEnumerable<Product> Products);
+    public record GetProductsResponse(IEnumerable<Product> Products, PagingInfo PagingInfo);
 
     public static class GetProductsEndpoint
     {
         public static void AddGetProductsEndpoint(this WebApplication app)
         {
             app.MapGet("products",
-                async ([AsParameters] GetProductsRequest request, ISender sender) =>
+                async ([AsParameters] GetProductsRequest request, IRequestDispatcher dispatcher) =>
                 {
                     var query = new GetProductsQuery
                     {
@@ -17,9 +17,9 @@ namespace DotnetShop.Catalog.API.Features.Products.GetProducts
                         PageSize = request.PageSize,
                     };
 
-                    var result = await sender.Send(query);
+                    var result = await dispatcher.DispatchAsync(query);
 
-                    var response = new GetProductsResponse(result.Products);
+                    var response = new GetProductsResponse(result.Products, result.PagingInfo);
 
                     return Results.Ok(response);
                 })

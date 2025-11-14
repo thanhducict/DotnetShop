@@ -8,7 +8,7 @@ namespace DotnetShop.Admin.UI
         {
             return new List<AdminMenuItem>
             {
-                new AdminMenuItem { AspArea = "Admin", AspController = "Catalog", AspAction = "Index", MenuItemText = "Catalog", Order = 1 },
+                new AdminMenuItem { AspPage = "/Catalog/List", AspPageHandler = string.Empty, MenuItemText = "Catalog", Order = 1 },
             };
         }
     }

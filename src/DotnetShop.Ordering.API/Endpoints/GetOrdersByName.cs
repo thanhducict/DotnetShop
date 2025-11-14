@@ -1,6 +1,6 @@
+using DotnetShop.Common.CQRS;
 using DotnetShop.Ordering.Application.Dtos;
 using DotnetShop.Ordering.Application.Orders.Queries.GetOrdersByName;
-using MediatR;
 
 namespace DotnetShop.Ordering.API.Endpoints
 {
@@ -10,11 +10,11 @@ namespace DotnetShop.Ordering.API.Endpoints
     {
         public static void AddGetOrdersByNameEndpoint(this WebApplication app)
         {
-            app.MapGet("/orders/{orderName}", async (string orderName, ISender sender) =>
+            app.MapGet("/orders/{orderName}", async (string orderName, IRequestDispatcher dispatcher) =>
                 {
                     var command = new GetOrdersByNameQuery(orderName);
 
-                    var result = await sender.Send(command);
+                    var result = await dispatcher.DispatchAsync(command);
 
                     var response = new GetOrdersByNameResponse(result.Orders);
 

@@ -9,7 +9,8 @@ This is a pet project to learn technologies. The microservices architecture is u
 * CQRS implementation using MediatR library
 * Use ADO.NET to access SQL Server
 * Use Repository Pattern and Procedure on SQL Server
-* TODO: image gallery for images (dndkit), click upload button to open a dialog to drag and drop (HTML5 API)
+* Local port: http 5001, https 5051
+* Docker port: http 6001, https 6061
 
 #### Shopping Cart service: 
 * ASP.NET Core REST APIs
@@ -20,6 +21,8 @@ This is a pet project to learn technologies. The microservices architecture is u
 * Use Marten library for .NET Transactional Document DB on PostgreSQL
 * Consume Discount Grpc Service for inter-service sync communication to calculate product final price
 * Publish BasketCheckout Queue with using MassTransit and RabbitMQ
+* Local port: http 5002, https 5052
+* Docker port: http 6002, https 6062
 
 ### Discount service:
 * ASP.NET Grpc Server application
@@ -27,6 +30,8 @@ This is a pet project to learn technologies. The microservices architecture is u
 * Exposing Grpc Services with creating Protobuf messages
 * Using Entity Framework Core ORM for data access
 * SQLite database connection and containerization
+* Local port: http 5003, https 5053
+* Docker port: http 6003, https 6063
 
 ### Ordering service
 * Implementing DDD, CQRS, and Clean Architecture with using Best Practices
@@ -34,6 +39,11 @@ This is a pet project to learn technologies. The microservices architecture is u
 * Consuming RabbitMQ BasketCheckout event queue with using MassTransit-RabbitMQ Configuration
 * SqlServer database connection and containerization
 * Using Entity Framework Core ORM and auto migrate to SqlServer when application startup
+
+### Identity service
+* Using JWT Bearer Authentication
+* Using Identity Framework Core
+* SqlServer database connection and containerization
 
 #### Common (Cross-cutting concerns)
 * Logging

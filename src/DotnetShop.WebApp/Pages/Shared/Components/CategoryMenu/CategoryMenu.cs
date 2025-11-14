@@ -4,19 +4,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DotnetShop.WebApp.Pages.Shared.Components.CategoryMenu
 {
-    public class CategoryMenu : ViewComponent
+    public class CategoryMenu(ICatalogService catalogService) : ViewComponent
     {
-        private readonly ICatalogService _catalogService;
-
-        public CategoryMenu(ICatalogService catalogService)
+        public async Task<IViewComponentResult> InvokeAsync(CancellationToken cancellationToken)
         {
-            _catalogService = catalogService;
-        }
+            var result = await catalogService.GetCategories(cancellationToken);
 
-        public IViewComponentResult Invoke()
-        {
-            var categories = new List<CategoryModel>();
-            return View(categories);
+            return View(result.Categories);
         }
     }
 }

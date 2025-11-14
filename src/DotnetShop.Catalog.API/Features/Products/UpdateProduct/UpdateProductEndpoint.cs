@@ -10,7 +10,7 @@ namespace DotnetShop.Catalog.API.Features.Products.UpdateProduct
         public static void AddUpdateProductEndpoint(this WebApplication app)
         {
             app.MapPut("products",
-                async (UpdateProductRequest request, ISender sender) =>
+                async (UpdateProductRequest request, IRequestDispatcher dispatcher) =>
                 {
                     var command = new UpdateProductCommand(
                         request.ProductId,
@@ -24,7 +24,7 @@ namespace DotnetShop.Catalog.API.Features.Products.UpdateProduct
                         request.CategoryId
                     );
 
-                    var result = await sender.Send(command);
+                    var result = await dispatcher.DispatchAsync(command);
 
                     var response = new UpdateProductResponse(true);
 

@@ -1,6 +1,27 @@
 version: '3.4'
 
 services:
+  yarpapigateway:
+    image: ${DOCKER_REGISTRY-}yarpapigateway
+    container_name: yarpapigateway
+    build:
+      context: .
+      dockerfile: src\DotnetShop.YarpApiGateway\Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:8081;http://+:8080
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=mycertificate
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    depends_on:
+      - catalog.api
+      - shoppingcart.api
+      - ordering.api
+    ports:
+      - "6000:8080"
+      - "6060:8081"
+    volumes:
+      - ~/.aspnet/https:/https:ro
+
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi
     container_name: catalog.api
@@ -13,29 +34,12 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:8081;http://+:8080
       - ConnectionStrings__CatalogDB=Server=catalogdb;Database=CatalogDb;User Id=sa;Password=Secret12;TrustServerCertificate=True
+      - HostUrl=https://localhost:6061
       - ASPNETCORE_Kestrel__Certificates__Default__Password=mycertificate
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
     ports:
-      - "6000:8080"
-      - "6060:8081"
-    volumes:
-      - ~/.aspnet/https:/https:ro
-   
-  discount.grpc:
-    image: ${DOCKER_REGISTRY-}discount
-    container_name: discount.grpc
-    build:
-      context: .
-      dockerfile: src\DotnetShop.Discount.Grpc\Dockerfile
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:8081;http://+:8080
-      - ConnectionStrings__DiscountDb=Data Source=App_Data\\discount.db
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=mycertificate
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
-    ports:
-      - "6002:8080"
-      - "6062:8081"
+      - "6001:8080"
+      - "6061:8081"
     volumes:
       - ~/.aspnet/https:/https:ro
 
@@ -62,8 +66,26 @@ services:
         - discount.grpc
         - messagebroker
     ports:
-      - "6001:8080"
-      - "6061:8081"
+      - "6002:8080"
+      - "6062:8081"
+    volumes:
+      - ~/.aspnet/https:/https:ro
+     
+  discount.grpc:
+    image: ${DOCKER_REGISTRY-}discount
+    container_name: discount.grpc
+    build:
+      context: .
+      dockerfile: src\DotnetShop.Discount.Grpc\Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:8081;http://+:8080
+      - ConnectionStrings__DiscountDb=Data Source=App_Data\\discount.db
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=mycertificate
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    ports:
+      - "6003:8080"
+      - "6063:8081"
     volumes:
       - ~/.aspnet/https:/https:ro
 
@@ -89,10 +111,25 @@ services:
       messagebroker:
         condition: service_started
     ports:
-      - "6003:8080"
-      - "6063:8081"
+      - "6004:8080"
+      - "6064:8081"
     volumes:
       - ~/.aspnet/https:/https:ro
 
-volumes:
-  postgres_cart:
+  identity.api:
+    image: ${DOCKER_REGISTRY-}identityapi
+    container_name: identity.api
+    build:
+      context: .
+      dockerfile: src\DotnetShop.Identity.API\Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:8081;http://+:8080
+      - ConnectionStrings__IdentityDb=Data Source=App_Data\\identity.db
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=mycertificate
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    ports:
+      - "6005:8080"
+      - "6065:8081"
+    volumes:
+      - ~/.aspnet/https:/https:ro

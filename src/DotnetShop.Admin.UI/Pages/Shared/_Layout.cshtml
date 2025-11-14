@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dotnet Shop Admin</title>
+    <link rel="stylesheet" href="~/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/style.css" />
+</head>
+<body>
+    @await Component.InvokeAsync("AdminNavigation")
+    <main class="container">
+        @RenderBody()
+    </main>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; @DateTime.Now.Year - Dotnet Shop - <a href="#">Website</a>
+        </div>
+    </footer>
+
+    <script src="~/bootstrap.min.js"></script>
+</body>
+</html>

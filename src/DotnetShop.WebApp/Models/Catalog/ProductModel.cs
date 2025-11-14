@@ -12,4 +12,8 @@ namespace DotnetShop.WebApp.Models.Catalog
         public decimal Price { get; set; }
         public int CategoryId { get; set; }
     }
+
+    public record GetProductsResponse(IEnumerable<ProductModel> Products);
+    public record GetProductByIdResponse(ProductModel Product);
+    public record GetProductsByCategoryResponse(IEnumerable<ProductModel> Products);
 }

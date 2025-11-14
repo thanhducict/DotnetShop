@@ -20,12 +20,12 @@ namespace DotnetShop.Ordering.Application.Orders.EventHandlers.Integration
 
                 logger.LogInformation("Integration Event handled: {IntegrationEvent}", message);
                 using var scope = container.CreateScope();
-                var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+                var dispatcher = scope.ServiceProvider.GetRequiredService<IRequestDispatcher>();
 
                 var command = MapToCreateOrderCommand(message);
                 if (command != null)
                 {
-                    await mediator.Send(command);
+                    await dispatcher.DispatchAsync(command);
                 }
             });
 

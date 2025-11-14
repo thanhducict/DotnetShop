@@ -1,0 +1,38 @@
+.chart-container {
+    border: solid 1px #dadfeb;
+    padding: 12px 20px 20px 20px;
+    border-radius: 6px;
+    min-height: 425px;
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .chart-header-title {
+            text-align: left;
+            color: #66708c;
+        }
+
+        .chart-header-ellipsis {
+            text-align: right;
+        }
+    }
+
+    &__general-value {
+        p:first-child {
+            margin: 8px 0 0px 0;
+        }
+
+        p:last-child {
+            margin: 8px 0 10px 0;
+        }
+    }
+
+    &__loader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+}

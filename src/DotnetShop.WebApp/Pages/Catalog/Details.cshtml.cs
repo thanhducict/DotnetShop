@@ -1,32 +1,24 @@
 using DotnetShop.WebApp.Models.Catalog;
 using DotnetShop.WebApp.Services;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace DotnetShop.WebApp.Pages.Catalog
 {
-    public class DetailsModel : PageModel
+    public class DetailsModel(ICatalogService catalogService) : PageModel
     {
-        private readonly ICatalogService _catalogService;
-
         public ProductModel Product { get; set; }
 
-        public DetailsModel(ICatalogService catalogService)
+        public async Task OnGet(int id, CancellationToken cancellationToken)
         {
-            _catalogService = catalogService;
-        }
-
-        public void OnGet(int id)
-        {
-            //var result = _catalogService.GetProductByGuid(id);
-            //if (result == null)
-            //{
-            //    return NotFound();
-            //}
-            //else
-            //{
-            //    Product = result;
-            //}
+            var result = await catalogService.GetProductById(id, cancellationToken);
+            if (result == null)
+            {
+                Product = new ProductModel();
+            }
+            else
+            {
+                Product = result.Product;
+            }
         }
     }
 }

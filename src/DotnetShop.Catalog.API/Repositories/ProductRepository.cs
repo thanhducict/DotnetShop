@@ -60,6 +60,27 @@ namespace DotnetShop.Catalog.API.Repositories
             return products;
         }
 
+        public async Task<int> GetTotalProducts(CancellationToken cancellationToken)
+        {
+            int totalProducts = 0;
+
+            try
+            {
+                using SqlConnection connection = new SqlConnection(_connectionString);
+                using SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM dbo.Product", connection);
+                cmd.CommandType = CommandType.Text;
+
+                await connection.OpenAsync(cancellationToken);
+                totalProducts = (int)await cmd.ExecuteScalarAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation("Exception: {exception}", ex.Message);
+            }
+
+            return totalProducts;
+        }
+
         public async Task<Product> GetProductById(int productId, CancellationToken cancellationToken)
         {
             Product? product = null;

@@ -1,16 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-  <Import Project="..\..\build\versions.props" />
+  <Import Project="..\..\build\common.props" />
   <Import Project="..\..\build\nuspec.props" />
 
   <PropertyGroup>
-    <NuspecProperties>Configuration=$(Configuration);AdminOrderingVersion=$(AdminOrderingVersion);AdminCoreVersion=$(AdminCoreVersion)</NuspecProperties>
+    <NuspecProperties>Configuration=$(Configuration);TargetFramework=$(TargetFramework);AdminOrderingVersion=$(AdminOrderingVersion);AdminCoreVersion=$(AdminCoreVersion)</NuspecProperties>
     <NuspecFile>DotnetShop.Admin.Ordering.nuspec</NuspecFile>
     <OutputType>Library</OutputType>
     <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="DotnetShop.Admin.Core" Version="1.0.1" />
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+    <ProjectReference Include="..\DotnetShop.Admin.Core\DotnetShop.Admin.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)' == 'Release'">
+    <PackageReference Include="DotnetShop.Admin.Core" Version="$(AdminCoreVersion)" />
   </ItemGroup>
 
 </Project>

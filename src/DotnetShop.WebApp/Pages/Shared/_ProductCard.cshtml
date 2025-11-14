@@ -6,15 +6,20 @@
         <div class="card-body">
             <h5 class="card-title">@Model.Price.ToString("c")</h5>
             <h3>
-                <a asp-page="/Products/Details" asp-route-id="@Model.ProductId" style="font-size: 20px;">
+                <a asp-page="/Catalog/Details" asp-route-id="@Model.ProductId" style="font-size: 20px;">
                     @Model.ProductName
                 </a>
             </h3>
             <p class="card-text">@Model.ShortDescription</p>
-            <a class="btn btn-primary"
-               asp-page="/Cart"
-               asp-page-handler="AddToCart"
-               asp-route-productId="@Model.ProductGuid">Add to cart</a>
+            <form method="post" asp-page="/ShoppingCart/Cart" asp-page-handler="AddToCart">
+                <div class="row">
+                    <div class="col-8">
+                        <input type="hidden" name="productId" value="@Model.ProductId" />
+                        <button type="submit" class="btn btn-primary">Add to cart</button>
+                    </div>
+                    <div class="col-4"><input type="text" class="form-control" name="quantity" value="1"></div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

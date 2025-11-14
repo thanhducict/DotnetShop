@@ -1,6 +1,6 @@
+using DotnetShop.Common.CQRS;
 using DotnetShop.Ordering.Application.Dtos;
 using DotnetShop.Ordering.Application.Orders.Commands.UpdateOrder;
-using MediatR;
 
 namespace DotnetShop.Ordering.API.Endpoints
 {
@@ -11,11 +11,11 @@ namespace DotnetShop.Ordering.API.Endpoints
     {
         public static void AddUpdateOrderEndpoint(this WebApplication app)
         {
-            app.MapPut("orders", async (UpdateOrderRequest request, ISender sender) =>
+            app.MapPut("orders", async (UpdateOrderRequest request, IRequestDispatcher dispatcher) =>
             {
                 var command = new UpdateOrderCommand(request.Order);
 
-                var result = await sender.Send(command);
+                var result = await dispatcher.DispatchAsync(command);
 
                 var response = new UpdateOrderResponse(result.IsSuccess);
 
