@@ -1,5 +1,5 @@
 # Dotnet Shop
-This is a pet project to learn technologies. The microservices architecture is used so a lot of technologies can be experimented.
+This is a pet project for learning new technologies, using a microservices architecture to enable experimentation with various tools and frameworks.
 
 ## Project anatomy
 
@@ -50,6 +50,3 @@ This is a pet project to learn technologies. The microservices architecture is u
 * Global Exception Handling
 * Health Checks
 * FluentValidation
-
-## License
-This repository is licensed under the MIT license.
